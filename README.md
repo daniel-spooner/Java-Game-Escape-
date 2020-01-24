@@ -1,4 +1,3 @@
-#Group 12
 Nicholas Tan
 nta37@sfu.ca
 "Hi!"
