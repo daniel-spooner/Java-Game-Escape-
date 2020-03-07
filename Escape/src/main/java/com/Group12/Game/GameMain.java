@@ -6,18 +6,19 @@ public class GameMain {
 	
 	private static GameMain gameMain = new GameMain();
 	
-	private Enemy[] enemies = new Enemy[];
-	private Collectible[] collectibles = new Collectible[];
-	private MainCharacter[] mainChar = new MainCharacter;
-	private Board board = new Board;
+	//private Enemy[] enemies = new Enemy[];
+	//private Collectible[] collectibles = new Collectible[];
+	//private MainCharacter[] mainChar = new MainCharacter;
+	//private Board board = new Board;
 	
-	private int objectivesRemaining;
-	private StateType gameState;
-	private int score;
-	private TickTimer tick = new TickTimer;
+	//private int objectivesRemaining;
+	//private StateType gameState;
+	//private int score;
+	//private TickTimer tick = new TickTimer;
 	
 	// Methods
 	
+	/*
 	private GameMain() {
 		
 	}
@@ -49,6 +50,6 @@ public class GameMain {
 	private void makeBoard(String x) {
 		
 	}
-
+	*/
 
 }

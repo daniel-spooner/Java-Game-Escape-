@@ -5,26 +5,26 @@ enum cellType { Open, Wall }
 public class Cell {
 	
 	// Attributes
-	cellType type;
+	private cellType type;
 	
 	
 	// Constructors
 	public Cell() {
-		type = cellType.Open;
+		this.type = cellType.Open;
 	}
 	
-	public Cell(cellType ct) {
-		type = ct;
+	public Cell(cellType type) {
+		this.type = type;
 	}
 	
 	
 	// Public Methods
 	public cellType getType() {
-		return type;
+		return this.type;
 	}
 	
-	public void setType (cellType ct) {
-		type = ct;
+	public void setType (cellType type) {
+		this.type = type;
 	}
 	
 }
