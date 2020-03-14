@@ -3,10 +3,10 @@ package com.Group12.Game;
 public class Board {
 	
 	// Attributes
-	int level;
-	int xSize;
-	int ySize;
-	Cell[][] boardMatrix;
+	private int level;
+	private int xSize;
+	private int ySize;
+	private Cell[][] boardMatrix;
 	
 	// Constructors
 	public Board() {
@@ -33,8 +33,8 @@ public class Board {
 		return boardMatrix[x][y].getType();
 	}
 	
-	public void setCellType(int x, int y, cellType ct) {
-		boardMatrix[x][y].setType(ct);
+	public void setCellType(int x, int y, cellType type) {
+		boardMatrix[x][y].setType(type);
 	}
 	
 	public int getXSize() {return xSize;}

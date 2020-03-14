@@ -25,6 +25,7 @@ public class GameMain {
 	
 	// Methods
 	
+	/*
 	private GameMain() {
 		enemies = new Enemy[];
 		collectibles = new Collectible[];
@@ -137,6 +138,6 @@ public class GameMain {
 		
 		sc.close();
 	}
-
+	*/
 
 }
