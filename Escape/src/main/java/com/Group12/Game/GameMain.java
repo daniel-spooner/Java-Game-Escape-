@@ -1,4 +1,6 @@
 package com.Group12.Game;
+import java.io.*;
+import java.util.Scanner; 
 
 /**
  * Handles the game's logic.
@@ -48,7 +50,7 @@ public class GameMain {
 	}
 	
 	public void startGame() {
-		
+		makeBoard("map1");		//TODO: don't hardcode + decide on proper file location
 	}
 	
 	public void update() {
@@ -67,8 +69,37 @@ public class GameMain {
 		
 	}
 	
+	/**
+	 * This method reads from a file and uses it to initialize
+	 * board, enemies, collectibles, and mainChar.
+	 * @param x This is the name of the file that makeBoard reads from.
+	 */
 	private void makeBoard(String x) {
+		// file format: xDim yDim
+		// remaining yDim lines of xDim characters: board layout & entity placement
+		File file = new File(x);
+		Scanner sc = new Scanner(file);
+		int xSize, ySize;
+		xSize = sc.nextInt();
+		ySize = sc.nextInt();
+		board.setXSize(xSize);		//TODO: tell Daniel board either must be dynamic or accept dims in constructor
+		board.setYSize(ySize);
 		
+		/* characters in file:
+		 * 	. = Open
+		 * 	# = Barrier	TODO: tell Daniel celltype is Barrier in the UML Diagram
+		 * all other characters also on Open tiles
+		 * 	@ = MainCharacter
+		 * 	G = Goal
+		 * 	E = Enemy
+		 * 	P = Punishment
+		 * 	O = ObjectiveReward
+		 * 	W = WeaponCollectible
+		 */
+		
+		
+		
+		sc.close();
 	}
 
 
