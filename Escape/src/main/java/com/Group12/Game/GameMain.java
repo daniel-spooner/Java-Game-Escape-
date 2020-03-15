@@ -4,7 +4,7 @@ public class GameMain {
 	
 	// Attributes
 	
-	private static GameMain gameMain = new GameMain();
+	//private static GameMain gameMain = new GameMain();
 	
 	//private Enemy[] enemies = new Enemy[];
 	//private Collectible[] collectibles = new Collectible[];
