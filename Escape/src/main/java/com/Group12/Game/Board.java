@@ -67,4 +67,15 @@ public class Board extends JPanel{
 	public void setXSize(int size) {xSize = size;}
 	public void setYSize(int size) {ySize = size;}
 	
+	public boolean isValidMove(int x, int y) {
+		if (x<0 || x >= xSize) {
+		return false;
+		}
+
+		if (y < 0 || y >= ySize) {
+		return false;
+		}
+
+		return boardMatrix[x][y].getType() != cellType.Wall;
+		}
 }

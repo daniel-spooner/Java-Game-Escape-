@@ -1,5 +1,6 @@
 package com.Group12.Game;
 import java.io.*;
+import java.util.Random;
 import java.util.Scanner; 
 
 /**
@@ -67,6 +68,61 @@ public class GameMain {
 	
 	private void updateDisplay() {
 		
+	}
+	private void moveEnemy(Enemy e) {
+		Random rand = new Random();
+		
+		 while(true) {
+			 int dirc;
+			 if(mainChar.getYPos - e.getY > 0 && Math.abs(mainChar.getYPos - e.getY) >= Math.abs(mainChar.getXPos - e.getX) && board.isValidMove(int x, int y+1)) {
+				 dirc=0
+			 }
+			 if(mainChar.getYPos - e.getY < 0 && Math.abs(mainChar.getYPos - e.getY) >= Math.abs(mainChar.getXPos - e.getX) && board.isValidMove(int x, int y-1)) {
+				 dirc=1
+			 }
+			 if(mainChar.getXPos - e.getX < 0 && Math.abs(mainChar.getXPos - e.getX) >= Math.abs(mainChar.getYPos - e.getY) && board.isValidMove(int x-1, int y)) {
+				 dirc=2
+			 }
+			 if(mainChar.getXPos - e.getX > 0 && Math.abs(mainChar.getXPos - e.getX) >= Math.abs(mainChar.getYPos - e.getY) && board.isValidMove(int x+1, int y)) {
+				 dirc=3
+			 }
+			 int newX, newY;
+			 System.out.println(dirc);
+			 switch (dirc) {
+				 case 0:
+				 // up
+				 newX = x;
+				 newY = y+1;
+				 break;
+			 case 1:
+				 // down
+				 newX = x;
+				 newY = y-1;
+				 break;
+			 case 2:
+				 // left
+				 newX = x-1;
+				 newY = y;
+				 break;
+			 case 3:
+				 // right
+				 newX = x+1;
+				 newY = y;
+				 break;
+			 default:
+				 newX = -1;
+				 newY = -1;
+			}
+		 
+		 
+		 if (board.isValidMove(newX, newY)) {
+			x = newX;
+			y = newY;
+		
+		return;
+		 		}
+		 	}
+
 	}
 	
 	/**
