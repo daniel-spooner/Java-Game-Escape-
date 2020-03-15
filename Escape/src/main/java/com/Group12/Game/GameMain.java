@@ -25,7 +25,6 @@ public class GameMain {
 	
 	// Methods
 	
-	/*
 	private GameMain() {
 		enemies = new Enemy[];
 		collectibles = new Collectible[];
@@ -83,8 +82,8 @@ public class GameMain {
 		int xSize, ySize;
 		xSize = sc.nextInt();
 		ySize = sc.nextInt();
-		board.setXSize(xSize);		//TODO: tell Daniel board either must be dynamic or accept dims in constructor
-		board.setYSize(ySize);
+		this.board.setXSize(xSize);		//TODO: tell Daniel board either must be dynamic or accept dims in constructor
+		this.board.setYSize(ySize);
 		sc.nextLine();
 		
 		/* characters in file:
@@ -113,7 +112,7 @@ public class GameMain {
 					break;
 				case 'G':	//TODO: turns out knowing where the goal is is important for game logic; will add somehow - return value or private attr?
 					break;
-				case 'E':	//TODO: array length is fixed on creation, so enemies/collectibles need drastic rework (i recommend java.util.ArrayList)
+				case 'E':	//TODO: array length is fixed on creation, so enemies/collectibles need drastic rework (i recommend java.util.ArrayList, or Vector for multithread safety)
 					Enemy temp = new Enemy(j,i);
 					this.enemies.add(temp);
 					break;
