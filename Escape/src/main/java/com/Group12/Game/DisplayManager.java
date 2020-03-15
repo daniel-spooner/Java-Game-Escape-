@@ -1,22 +1,31 @@
 package com.Group12.Game;
 
-import java.awt.*;
-import javax.swing.JFrame;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 
-public class DisplayManager {
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+enum entityType { Open, Wall, Player, Enemy, Punishment, Reward, Weapon, Start, End}
+
+@SuppressWarnings("serial")
+public class DisplayManager extends JPanel{
 	
 	JFrame gameWindow;
-	Board gameBoard;
+	entityType[][] displayMatrix;
 	
 	DisplayManager(){
-		gameWindow = new JFrame("Display Test");
+		displayMatrix = new entityType[20][25];
+		gameWindow = new JFrame("Escape");
 		gameWindow.setSize(500, 500);
 		gameWindow.setVisible(true);
+		gameWindow.setResizable(false);
 		gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 	DisplayManager(int x, int y) {
-		gameWindow = new JFrame("Display Test");
+		gameWindow = new JFrame("Escape");
 		gameWindow.setSize(x, y);
 		gameWindow.setVisible(true);
 		gameWindow.setResizable(false);
@@ -24,7 +33,7 @@ public class DisplayManager {
 	}
 	
 	public void setBoard(Board b) {
-		gameBoard = b;
+		//displayMatrix = b;
 	}
 	
 	public void drawBoardTest() {

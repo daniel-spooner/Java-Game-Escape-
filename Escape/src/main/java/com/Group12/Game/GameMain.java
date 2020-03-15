@@ -1,6 +1,14 @@
 package com.Group12.Game;
 
-public class GameMain {
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+@SuppressWarnings("serial")
+public class GameMain extends JPanel {
 	
 	// Attributes
 	
@@ -18,11 +26,16 @@ public class GameMain {
 	
 	// Methods
 	
-	/*
-	private GameMain() {
+	
+	public GameMain() {
 		
 	}
 	
+	public static void main(String[] args) {
+		
+	}
+	
+	/*
 	public static GameMain getInstance() {
 		
 	}
