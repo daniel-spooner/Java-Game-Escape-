@@ -18,6 +18,7 @@ public class App
     	b.setCellType(1, 1, cellType.Wall);
     	System.out.println(b.getCellType(1, 1));
         System.out.println( "Hello World!" );
+        b.printAsciiBoard();
     }
 }
 

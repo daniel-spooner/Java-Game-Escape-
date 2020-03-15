@@ -1,6 +1,8 @@
 package com.Group12.Game;
 
-public class Board {
+import javax.swing.JPanel;
+
+public class Board extends JPanel{
 	
 	// Attributes
 	private int cellSize;
@@ -28,6 +30,20 @@ public class Board {
 	
 	public void drawBoard() {
 		// draw the board on the window
+	}
+	
+	public void printAsciiBoard() {
+		System.out.print("\n");
+		for(int y = 0; y < ySize; y ++) {
+			for(int x = 0; x < xSize; x ++) {
+				if(boardMatrix[x][y].getType() == cellType.Wall) {
+					System.out.print("W ");
+				}else {
+					System.out.print("O ");
+				}
+			}
+			System.out.print("\n");
+		}
 	}
 	
 	public Cell getCell(int x, int y) {
