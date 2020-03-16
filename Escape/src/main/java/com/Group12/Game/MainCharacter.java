@@ -8,8 +8,15 @@ public class MainCharacter {
 	
 	private int x;
 	private int y;
+	Board board;
 	private int health = 100;
 	//private Weapon currentWeapon;
+	 public MainCharacter(int x, int y, Board board) {
+		 this.health = 100;
+		 this.x = x;
+		 this.y = y;
+		 this.board = board;
+	 }
 	
 	public int getHealth() {
 		return health;

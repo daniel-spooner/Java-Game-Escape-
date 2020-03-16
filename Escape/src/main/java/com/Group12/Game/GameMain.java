@@ -69,11 +69,16 @@ public class GameMain {
 	private void updateDisplay() {
 		
 	}
+	
+	
+	//In moveenemy, I ask enemy to search MC's position 
+	//and judege whether it is allowed to move, This function isValidMove(x,y) I write in Board class (avoid wall or boundary)
+	//and then move towards MC
+	//The problem here is I have to get position of MC so I think we should public mainCharacter.
+	
 	private void moveEnemy(Enemy e) {
-		Random rand = new Random();
-		
 		 while(true) {
-			 int dirc;
+			 int dirc; //dirc = 0 is up, 1 is down,  2 is left, 3 is right
 			 if(mainChar.getYPos - e.getY > 0 && Math.abs(mainChar.getYPos - e.getY) >= Math.abs(mainChar.getXPos - e.getX) && board.isValidMove(int x, int y+1)) {
 				 dirc=0
 			 }
@@ -110,6 +115,7 @@ public class GameMain {
 				 newY = y;
 				 break;
 			 default:
+				 //Should set enemy is a reasonable location.
 				 newX = -1;
 				 newY = -1;
 			}
@@ -124,6 +130,15 @@ public class GameMain {
 		 	}
 
 	}
+	
+	//when Enemy e collision with MC.
+	private void collision(Enemy e)
+	{
+		if(e.x == mainChar.x && e.y == mainChar.y) {
+			mainChar.setHealth(100);
+		}
+	}
+	
 	
 	/**
 	 * This method reads from a file and uses it to initialize

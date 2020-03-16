@@ -2,13 +2,11 @@ package com.Group12.Game;
 public class Weapon {
 	int ammo;
 	int damage;
-	public Weapon Pistol{
+	public Weapon(){
 		this.ammo = 4;
-		this.damage = 25;
+		this.damage = 50;
 	}
-	public Weapon Rifle{
-		this.ammo = 2;
-		this.damage = 100;
+	
 	}
 	public int getAmmo{
 		return ammo;
@@ -16,7 +14,6 @@ public class Weapon {
 	public int getDamage{
 		return damage;
 	}
-	
 	public void shot{
 		ammo--;
 	}

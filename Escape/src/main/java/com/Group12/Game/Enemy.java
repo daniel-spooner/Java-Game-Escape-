@@ -24,10 +24,13 @@ public class Enemy {
 		 return y;
 	 }
 	 
-	 public void takeDemage(int demage) {
-		 HP -= demage;
+	 public void takeDamage(int damage) {
+		 HP -= damage;
 	 }
-	 public boolean enemyAlive(int demage) {
+	 public int getHP() {
+		 return HP;
+	 }
+	 public boolean enemyAlive(int damage) {
 	 if (HP <= 0) {
 	 // enemy die
 		 return false;
