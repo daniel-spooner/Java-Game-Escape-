@@ -30,27 +30,6 @@ public class Board{
 	}
 	
 	// Public Methods
-	public void loadBoard(String filename) {
-		// Read and load a board from a json file
-	}
-	
-	public void drawBoard() {
-		// draw the board on the window
-	}
-	
-	public void printAsciiBoard() {
-		System.out.print("\n");
-		for(int y = 0; y < ySize; y ++) {
-			for(int x = 0; x < xSize; x ++) {
-				if(boardMatrix[x][y].getType() == cellType.Wall) {
-					System.out.print("W ");
-				}else {
-					System.out.print("O ");
-				}
-			}
-			System.out.print("\n");
-		}
-	}
 	
 	public Cell getCell(int x, int y) {
 		return boardMatrix[x][y];
