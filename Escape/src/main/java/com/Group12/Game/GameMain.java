@@ -216,6 +216,5 @@ public class GameMain {
 		
 		sc.close();
 	}
-	*/
 
 }
