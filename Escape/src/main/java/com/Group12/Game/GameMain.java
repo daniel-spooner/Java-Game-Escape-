@@ -1,4 +1,5 @@
 package com.Group12.Game;
+
 import java.util.ArrayList;
 import java.io.*;
 import java.util.Random;
@@ -15,8 +16,8 @@ public class GameMain {
 	
 	private static GameMain gameMain;
 	
-	private Enemy[] enemies;
-	private Collectible[] collectibles;
+	private ArrayList<Enemy> enemies;
+	private ArrayList<Collectible> collectibles;
 	private MainCharacter mainChar;
 	private Board board;
 	
@@ -25,18 +26,21 @@ public class GameMain {
 	private int score;
 	private TickTimer tick;
 	
+	private int goalX;
+	private int goalY;
+	
 	// Methods
 	
 	private GameMain() {
-		enemies = new Enemy[];
-		collectibles = new Collectible[];
-		mainChar = new MainCharacter;
-		board = new Board;
+		this.enemies = new ArrayList<Enemy>;
+		this.collectibles = new ArrayList<Collectible>;
+		this.mainChar = new MainCharacter;
+		//this.board = new Board;	//init in startGame
 		
-		objectivesRemaining = 4;
-		//gameState = Menu;		//TODO: once the enumeration is finalized
-		score = 0;
-		tick = new TickTimer;
+		this.objectivesRemaining = 4;
+		//this.gameState = Menu;		//TODO: once the enumeration is finalized
+		this.score = 0;
+		this.tick = new TickTimer;
 	}
 	
 	/**
@@ -149,18 +153,17 @@ public class GameMain {
 	/**
 	 * This method reads from a file and uses it to initialize
 	 * board, enemies, collectibles, and mainChar.
-	 * @param x This is the name of the file that makeBoard reads from.
+	 * @param filename This is the name of the file that makeBoard reads from.
 	 */
-	private void makeBoard(String x) {
+	private void makeBoard(String filename) {
 		// file format: xDim yDim
 		// remaining yDim lines of xDim characters: board layout & entity placement
-		File file = new File(x);
+		File file = new File(filename);
 		Scanner sc = new Scanner(file);
 		int xSize, ySize;
 		xSize = sc.nextInt();
 		ySize = sc.nextInt();
-		this.board.setXSize(xSize);		//TODO: tell Daniel board either must be dynamic or accept dims in constructor
-		this.board.setYSize(ySize);
+		this.board = new Board(xSize, ySize);
 		sc.nextLine();
 		
 		/* characters in file:
@@ -187,23 +190,21 @@ public class GameMain {
 					this.mainChar.setX(j);	//TODO: wasn't this supposed to be setPos() from the diagram?
 					this.mainChar.setY(i);
 					break;
-				case 'G':	//TODO: turns out knowing where the goal is is important for game logic; will add somehow - return value or private attr?
+				case 'G':
+					this.goalX = j;
+					this.goalY = i;
 					break;
-				case 'E':	//TODO: array length is fixed on creation, so enemies/collectibles need drastic rework (i recommend java.util.ArrayList, or Vector for multithread safety)
-					Enemy temp = new Enemy(j,i);
-					this.enemies.add(temp);
+				case 'E':
+					this.enemies.add(new Enemy(j,i));
 					break;
 				case 'P':
-					Punishment temp = new Punishment(j,i);
-					this.collectibles.add(temp);
+					this.collectibles.add(new Punishment(j,i));
 					break;
 				case 'O':
-					ObjectiveReward temp = new ObjectiveReward(j,i);
-					this.collectibles.add(temp);
+					this.collectibles.add(new ObjectiveReward(j,i));
 					break;
 				case 'W':
-					WeaponCollectible temp = new WeaponCollectible(j,i);
-					this.collectibles.add(temp);
+					this.collectibles.add(new WeaponCollectible(j,i));
 					break;
 				case '.':	default:
 					//board.setCellType(j, i, cellType.OPEN);	// at time of writing, cells initialized as OPEN
