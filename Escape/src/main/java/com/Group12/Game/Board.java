@@ -14,7 +14,7 @@ public class Board extends JPanel{
 	public Board() {
 		xSize = 25;
 		ySize = 20;
-		cellSize = 25;
+		cellSize = 30;
 		boardMatrix = new Cell[xSize][ySize];
     	for(int x = 0; x < xSize; x ++) {
     		for(int y = 0; y < ySize; y ++) {

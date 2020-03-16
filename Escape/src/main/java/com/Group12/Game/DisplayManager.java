@@ -26,9 +26,13 @@ public class DisplayManager extends JPanel{
 	
 	DisplayManager(int sizeX, int sizeY) {
 		gameWindow = new JFrame("Escape");
-		gameWindow.setSize(new Dimension(sizeX, sizeY));
-		gameWindow.setVisible(true);
+		
 		gameWindow.setResizable(false);
+		this.setPreferredSize(new Dimension(sizeX, sizeY));
+		gameWindow.add(this);
+		gameWindow.pack();
+		
+		gameWindow.setVisible(true);
 	    gameWindow.setLocationRelativeTo(null);
 		gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
@@ -71,12 +75,9 @@ public class DisplayManager extends JPanel{
 			//b.setCellType(i, i, cellType.Wall);
 		}
 		
-		DisplayManager d = new DisplayManager(b.getXSize() * b.getCellSize() + 16, b.getYSize() * b.getCellSize() + 39);
-		//DisplayManager d = new DisplayManager(1, 1);
+		DisplayManager d = new DisplayManager(b.getXSize() * b.getCellSize(), b.getYSize() * b.getCellSize());
 		
     	d.display(b);
     	
 	}
-	
-	
 }
