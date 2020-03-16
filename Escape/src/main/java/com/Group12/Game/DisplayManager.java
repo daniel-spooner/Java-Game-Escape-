@@ -1,6 +1,7 @@
 package com.Group12.Game;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
@@ -25,9 +26,10 @@ public class DisplayManager extends JPanel{
 	
 	DisplayManager(int sizeX, int sizeY) {
 		gameWindow = new JFrame("Escape");
-		gameWindow.setSize(sizeX, sizeY);
+		gameWindow.setSize(new Dimension(sizeX, sizeY));
 		gameWindow.setVisible(true);
 		gameWindow.setResizable(false);
+	    gameWindow.setLocationRelativeTo(null);
 		gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
@@ -58,8 +60,7 @@ public class DisplayManager extends JPanel{
 	public void paint(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 		dispBoard(g2d);
-		
-		
+		// call more disp funcs here
 	}
 	
 	public static void main(String[] args) {
@@ -67,10 +68,12 @@ public class DisplayManager extends JPanel{
 		Board b = new Board();
 		for(int i = 0; i < b.getXSize(); i++) {
 			b.setCellType(i, i%2, cellType.Wall);
+			//b.setCellType(i, i, cellType.Wall);
 		}
 		
-		DisplayManager d = new DisplayManager(b.getXSize() * b.getCellSize(), b.getYSize() * b.getCellSize());
-    	
+		DisplayManager d = new DisplayManager(b.getXSize() * b.getCellSize() + 16, b.getYSize() * b.getCellSize() + 39);
+		//DisplayManager d = new DisplayManager(1, 1);
+		
     	d.display(b);
     	
 	}
