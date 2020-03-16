@@ -1,4 +1,5 @@
 package com.Group12.Game;
+import java.util.ArrayList;
 import java.io.*;
 import java.util.Random;
 import java.util.Scanner; 
@@ -82,14 +83,19 @@ public class GameMain {
 			 if(mainChar.getYPos - e.getY > 0 && Math.abs(mainChar.getYPos - e.getY) >= Math.abs(mainChar.getXPos - e.getX) && board.isValidMove(int x, int y+1)) {
 				 dirc=0
 			 }
-			 if(mainChar.getYPos - e.getY < 0 && Math.abs(mainChar.getYPos - e.getY) >= Math.abs(mainChar.getXPos - e.getX) && board.isValidMove(int x, int y-1)) {
+			 else if(mainChar.getYPos - e.getY < 0 && Math.abs(mainChar.getYPos - e.getY) >= Math.abs(mainChar.getXPos - e.getX) && board.isValidMove(int x, int y-1)) {
 				 dirc=1
 			 }
-			 if(mainChar.getXPos - e.getX < 0 && Math.abs(mainChar.getXPos - e.getX) >= Math.abs(mainChar.getYPos - e.getY) && board.isValidMove(int x-1, int y)) {
+			 else if(mainChar.getXPos - e.getX < 0 && Math.abs(mainChar.getXPos - e.getX) >= Math.abs(mainChar.getYPos - e.getY) && board.isValidMove(int x-1, int y)) {
 				 dirc=2
 			 }
-			 if(mainChar.getXPos - e.getX > 0 && Math.abs(mainChar.getXPos - e.getX) >= Math.abs(mainChar.getYPos - e.getY) && board.isValidMove(int x+1, int y)) {
+			 else if(mainChar.getXPos - e.getX > 0 && Math.abs(mainChar.getXPos - e.getX) >= Math.abs(mainChar.getYPos - e.getY) && board.isValidMove(int x+1, int y)) {
 				 dirc=3
+			 }
+			 else
+			 {
+				 Random rand = new Random();
+				 dirc = rand.nextInt(4);
 			 }
 			 int newX, newY;
 			 System.out.println(dirc);
