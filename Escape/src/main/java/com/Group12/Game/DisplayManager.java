@@ -8,7 +8,7 @@ import java.awt.Graphics2D;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-// enum entityType { Open, Wall, Player, Enemy, Punishment, Reward, Weapon, Start, End}
+// enum entityType { Open, Wall, Player, Enemy, Punishment, Reward, Weapon, Start, End }
 
 @SuppressWarnings("serial")
 public class DisplayManager extends JPanel{

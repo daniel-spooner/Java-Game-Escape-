@@ -1,8 +1,6 @@
 package com.Group12.Game;
 
-import javax.swing.JPanel;
-
-public class Board extends JPanel{
+public class Board{
 	
 	// Attributes
 	private int cellSize;
