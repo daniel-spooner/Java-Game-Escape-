@@ -84,6 +84,7 @@ public class GameMain {
 	private void moveEnemy(Enemy e) {
 		 while(true) {
 			 int dirc; //dirc = 0 is up, 1 is down,  2 is left, 3 is right
+			 // IS VALID MOVE HAS BEEN DELETED FROM BOARD, ADD IT IN GAMEMAIN
 			 if(mainChar.getYPos - e.getY > 0 && Math.abs(mainChar.getYPos - e.getY) >= Math.abs(mainChar.getXPos - e.getX) && board.isValidMove(int x, int y+1)) {
 				 dirc=0
 			 }

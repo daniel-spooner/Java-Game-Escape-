@@ -1,8 +1,6 @@
 package com.Group12.Game;
 
-import javax.swing.JPanel;
-
-public class Board extends JPanel{
+public class Board{
 	
 	// Attributes
 	private int cellSize;
@@ -12,9 +10,17 @@ public class Board extends JPanel{
 	
 	// Constructors
 	public Board() {
-		xSize = 25;
-		ySize = 20;
-		cellSize = 25;
+		this(25, 20, 30);
+	}
+	
+	public Board(int xSize, int ySize) {
+		this(xSize, ySize, 30);
+	}
+	
+	public Board(int xSize, int ySize, int cellSize) {
+		this.xSize = xSize;
+		this.ySize = ySize;
+		this.cellSize = cellSize;
 		boardMatrix = new Cell[xSize][ySize];
     	for(int x = 0; x < xSize; x ++) {
     		for(int y = 0; y < ySize; y ++) {
@@ -24,27 +30,6 @@ public class Board extends JPanel{
 	}
 	
 	// Public Methods
-	public void loadBoard(String filename) {
-		// Read and load a board from a json file
-	}
-	
-	public void drawBoard() {
-		// draw the board on the window
-	}
-	
-	public void printAsciiBoard() {
-		System.out.print("\n");
-		for(int y = 0; y < ySize; y ++) {
-			for(int x = 0; x < xSize; x ++) {
-				if(boardMatrix[x][y].getType() == cellType.Wall) {
-					System.out.print("W ");
-				}else {
-					System.out.print("O ");
-				}
-			}
-			System.out.print("\n");
-		}
-	}
 	
 	public Cell getCell(int x, int y) {
 		return boardMatrix[x][y];
@@ -67,17 +52,4 @@ public class Board extends JPanel{
 	public void setXSize(int size) {xSize = size;}
 	public void setYSize(int size) {ySize = size;}
 	
-	
-	//judge the location is can be move
-	public boolean isValidMove(int x, int y) {
-		if (x<0 || x >= xSize) {
-		return false;
-		}
-
-		if (y < 0 || y >= ySize) {
-		return false;
-		}
-
-		return boardMatrix[x][y].getType() != cellType.Wall;
-		}
 }
