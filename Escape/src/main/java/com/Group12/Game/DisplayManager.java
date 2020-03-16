@@ -71,8 +71,7 @@ public class DisplayManager extends JPanel{
 		
 		Board b = new Board();
 		for(int i = 0; i < b.getXSize(); i++) {
-			b.setCellType(i, i%2, cellType.Wall);
-			//b.setCellType(i, i, cellType.Wall);
+			b.setCellType(i, i%5, cellType.Wall);
 		}
 		
 		DisplayManager d = new DisplayManager(b.getXSize() * b.getCellSize(), b.getYSize() * b.getCellSize());

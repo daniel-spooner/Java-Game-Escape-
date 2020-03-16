@@ -23,6 +23,30 @@ public class Board extends JPanel{
     	}
 	}
 	
+	public Board(int xSize, int ySize) {
+		this.xSize = xSize;
+		this.ySize = ySize;
+		cellSize = 30;
+		boardMatrix = new Cell[xSize][ySize];
+    	for(int x = 0; x < xSize; x ++) {
+    		for(int y = 0; y < ySize; y ++) {
+    			boardMatrix[x][y] = new Cell();
+    		}
+    	}
+	}
+	
+	public Board(int xSize, int ySize, int cellSize) {
+		this.xSize = xSize;
+		this.ySize = ySize;
+		this.cellSize = cellSize;
+		boardMatrix = new Cell[xSize][ySize];
+    	for(int x = 0; x < xSize; x ++) {
+    		for(int y = 0; y < ySize; y ++) {
+    			boardMatrix[x][y] = new Cell();
+    		}
+    	}
+	}
+	
 	// Public Methods
 	public void loadBoard(String filename) {
 		// Read and load a board from a json file
