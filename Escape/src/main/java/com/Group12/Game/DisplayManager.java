@@ -7,16 +7,15 @@ import java.awt.Graphics2D;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-enum entityType { Open, Wall, Player, Enemy, Punishment, Reward, Weapon, Start, End}
+// enum entityType { Open, Wall, Player, Enemy, Punishment, Reward, Weapon, Start, End}
 
 @SuppressWarnings("serial")
 public class DisplayManager extends JPanel{
 	
 	JFrame gameWindow;
-	entityType[][] displayMatrix;
+	Board board;
 	
 	DisplayManager(){
-		displayMatrix = new entityType[20][25];
 		gameWindow = new JFrame("Escape");
 		gameWindow.setSize(500, 500);
 		gameWindow.setVisible(true);
@@ -24,75 +23,57 @@ public class DisplayManager extends JPanel{
 		gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
-	DisplayManager(int x, int y) {
+	DisplayManager(int sizeX, int sizeY) {
 		gameWindow = new JFrame("Escape");
-		gameWindow.setSize(x, y);
+		gameWindow.setSize(sizeX, sizeY);
 		gameWindow.setVisible(true);
 		gameWindow.setResizable(false);
 		gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
-	public void setBoard(Board b) {
-		//displayMatrix = b;
-	}
-	
-	public void drawBoardTest() {
-
-		/*
-		Color openColor = new Color(0.7f, 1.0f, 0.7f);
-		Color wallColor = new Color(0.4f, 0.2f, 0.2f);
+	private void dispBoard(Graphics2D g2d) {
+		int boardX = this.board.getXSize();
+		int boardY = this.board.getYSize();
+		int cellSize = this.board.getCellSize();
 		
-		int boardX = gameBoard.getXSize();
-		int boardY = gameBoard.getYSize();
-		int cellSize = gameBoard.getCellSize();
-		
-		for (int i = 0; i < boardX; i ++) {
-		
-			for (int j = 0; j < boardY; j++) {
-				BoxDraw sqr = new BoxDraw();
-				if(gameBoard.getCellType(i, j) == cellType.Open) {
-					sqr.setBoxColor(openColor);
+		for(int y = 0; y < boardY; y++) {
+			for(int x = 0; x < boardX; x++) {
+				if(this.board.getCellType(x, y) == cellType.Open) {
+					g2d.setColor(new Color(1.0f, 1.0f, 1.0f, 1.0f));
 				}else {
-					sqr.setBoxColor(wallColor);
+					g2d.setColor(new Color(0.0f, 0.0f, 0.0f, 1.0f));
 				}
-				sqr.setBoxVals(i * cellSize, j * cellSize, cellSize);
-				gameWindow.add(sqr);
+				g2d.fillRect(x*cellSize, y*cellSize, cellSize, cellSize);
 			}
 		}
-		*/
-			BoxDraw sqr = new BoxDraw();
-			sqr.setBoxColor(new Color(1.0f, 0.0f, 1.0f));
-			sqr.setBoxVals(0, 0, 300);
-			gameWindow.add(sqr);
-			BoxDraw sqr2 = new BoxDraw();
-			sqr2.setBoxColor(new Color(0.0f, 1.0f, 1.0f));
-			sqr2.setBoxVals(300, 0, 500);
-			gameWindow.add(sqr2);
-		// Look into layouts
-		// Or make this class the painting class
+	}
+	
+	public void display(Board board) { // This should take arguments for all types of game objects
+		this.board = board;
+		gameWindow.add(this);
+	}
+	
+	//add more methods for displaying other objects
+	
+	public void paint(Graphics g) {
+		Graphics2D g2d = (Graphics2D) g;
+		dispBoard(g2d);
+		
+		
 	}
 	
 	public static void main(String[] args) {
-    	Board b = new Board();
-    	DisplayManager d = new DisplayManager(b.getXSize() * b.getCellSize(), b.getYSize() * b.getCellSize());
-    	d.setBoard(b);
-    	d.drawBoardTest();
+		
+		Board b = new Board();
+		for(int i = 0; i < b.getXSize(); i++) {
+			b.setCellType(i, i%2, cellType.Wall);
+		}
+		
+		DisplayManager d = new DisplayManager(b.getXSize() * b.getCellSize(), b.getYSize() * b.getCellSize());
+    	
+    	d.display(b);
     	
 	}
 	
 	
 }
-
-/*
-Frame f= new Frame("Board Test"); 
-f.setSize(40*xSize,40*ySize);    
-f.setLayout(null);    
-f.setVisible(true);
-//f.dispose();
-
-
-JFrame frame = new JFrame("Board Display Test");
-frame.setSize(300, 300);
-frame.setVisible(true);
-frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-*/
