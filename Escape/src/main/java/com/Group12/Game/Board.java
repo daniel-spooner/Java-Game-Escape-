@@ -12,27 +12,11 @@ public class Board extends JPanel{
 	
 	// Constructors
 	public Board() {
-		xSize = 25;
-		ySize = 20;
-		cellSize = 30;
-		boardMatrix = new Cell[xSize][ySize];
-    	for(int x = 0; x < xSize; x ++) {
-    		for(int y = 0; y < ySize; y ++) {
-    			boardMatrix[x][y] = new Cell();
-    		}
-    	}
+		this(25, 20, 30);
 	}
 	
 	public Board(int xSize, int ySize) {
-		this.xSize = xSize;
-		this.ySize = ySize;
-		cellSize = 30;
-		boardMatrix = new Cell[xSize][ySize];
-    	for(int x = 0; x < xSize; x ++) {
-    		for(int y = 0; y < ySize; y ++) {
-    			boardMatrix[x][y] = new Cell();
-    		}
-    	}
+		this(xSize, ySize, 30);
 	}
 	
 	public Board(int xSize, int ySize, int cellSize) {
