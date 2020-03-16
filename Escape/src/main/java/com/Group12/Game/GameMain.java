@@ -24,7 +24,7 @@ public class GameMain {
 	private int objectivesRemaining;
 	private StateType gameState;
 	private int score;
-	private TickTimer tick;
+	//private TickTimer tick;
 	
 	private int goalX;
 	private int goalY;
@@ -32,15 +32,15 @@ public class GameMain {
 	// Methods
 	
 	private GameMain() {
-		this.enemies = new ArrayList<Enemy>;
-		this.collectibles = new ArrayList<Collectible>;
-		this.mainChar = new MainCharacter;
-		//this.board = new Board;	//init in startGame
+		this.enemies = new ArrayList<Enemy>();
+		this.collectibles = new ArrayList<Collectible>();
+		this.mainChar = new MainCharacter();
+		//this.board = new Board();	//init in startGame
 		
 		this.objectivesRemaining = 4;
 		//this.gameState = Menu;		//TODO: once the enumeration is finalized
 		this.score = 0;
-		this.tick = new TickTimer;
+		//this.tick = new TickTimer();
 	}
 	
 	/**
@@ -56,11 +56,44 @@ public class GameMain {
 	}
 	
 	public void startGame() {
+		/* how this is going to work:
+		* -makeBoard(), which will make Board (and other attributes)
+		* -run update(), i guess? which will:
+		*/
 		makeBoard("map1");		//TODO: don't hardcode + decide on proper file location
+		
+		update();
 	}
 	
 	public void update() {
-		
+		/*-while true,
+		* -start a thread (thread of what function? a new helper one?)
+		* -run thread for t ticks, constantly collecting keyboard inputs
+		* -when t ticks pass, return what most recent input was
+		* -take that input, pass to updatePlayer()
+		* -when updatePlayer finishes, run updateEnemies()
+		* -when updateEnemies finishes, check for if the game has ended (win/lose)
+		* -if so, break out of loop and do final scoring and cleanup
+		*/
+		boolean running = true;
+		while (running){
+			TickTimer tick = new TickTimer();	//TODO: consider looking at javax.swing.Timer @ https://docs.oracle.com/en/java/javase/13/docs/api/java.desktop/javax/swing/Timer.html
+			// after thread completes
+			// keyInput = returned value from somewhere???
+			updatePlayer(keyInput);
+			updateEnemies();
+			
+			// Win Condition
+			if (this.mainChar.getXPos() == this.goalX && this.mainChar.getYPos() == this.goalY) {
+				running = false;
+			}
+			// Lose Condition
+			else if (this.score == 0) {
+				running = false;
+			}
+		}
+		System.out.print("Score:\t");
+		System.out.println(score);
 	}
 	
 	private void updatePlayer() {
