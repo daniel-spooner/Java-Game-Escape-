@@ -1,15 +1,32 @@
 package com.Group12.Game;
-public class Collectible {
-	private String name;
-	public Collectible(String item) {
-		this.name = item;
+public class Collectible implements BoardEntity{
+	private int x;
+	private int y;
+	public Collectible(int x, int y) {
+		this.x = x;
+		this.y = y;
 	}
+	
+	public int getXPos() {
+		return x;
+	}
+	
+	public int getYPos() {
+		return y;
+	}
+	public void setX(int x) {
+		 this.x=x;
+	 }
+	 public void setY(int y) {
+		 this.y=y;
+	 }
+	
 	
 	public class BonusReward extends Collectible{
 		private int lifespan;
-		public BonusReward(String item, int lifespan) {
-		this.lifespan=lifespan;
-		super(item);
+		public BonusReward(int x, int y, int lifespan) {
+			super(x, y);
+			this.lifespan=lifespan;
 		}
 		public int getlifespan() {
 			return lifespan;
@@ -17,9 +34,10 @@ public class Collectible {
 	}
 	public class Punishment extends Collectible{
 		private int damage;
-		public Punishment(String item,int damage) {
-		this.damage = damage;
-		super(item);
+		public Punishment(int x, int y,int damage) {
+			super(x, y);
+			this.damage = damage;
+		
 		}
 		public int getdamage() {
 			return damage;
@@ -27,9 +45,9 @@ public class Collectible {
 	}
 	public class ObjectiveReward extends Collectible{
 		private int rewards;
-		public ObjectiveReward(String item,int rewards) {
-		this.rewards = rewards;
-		super(item);
+		public ObjectiveReward(int x, int y, int rewards) {
+			super(x, y);
+			this.rewards = rewards;
 		}
 		public int getrewards() {
 			return rewards;

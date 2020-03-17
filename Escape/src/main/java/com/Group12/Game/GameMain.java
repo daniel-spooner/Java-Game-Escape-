@@ -16,9 +16,9 @@ public class GameMain {
 	
 	private static GameMain gameMain;
 	
-	private ArrayList<Enemy> enemies;
-	private ArrayList<Collectible> collectibles;
-	private MainCharacter mainChar;
+	private ArrayList<BoardEntity> enemies;
+	private ArrayList<BoardEntity> collectibles;
+	private BoardEntity mainChar;
 	private Board board;
 	
 	private int objectivesRemaining;
@@ -31,12 +31,12 @@ public class GameMain {
 	
 	// Methods
 	
-	private GameMain() {
-		this.enemies = new ArrayList<Enemy>;
-		this.collectibles = new ArrayList<Collectible>;
-		this.mainChar = new MainCharacter;
+	public GameMain() {
+		this.enemies = new ArrayList<BoardEntity>();
+		this.collectibles = new ArrayList<BoardEntity>();
+		this.mainChar = new MainCharacter();
 		//this.board = new Board;	//init in startGame
-		
+				
 		this.objectivesRemaining = 4;
 		//this.gameState = Menu;		//TODO: once the enumeration is finalized
 		this.score = 0;
@@ -75,27 +75,31 @@ public class GameMain {
 		
 	}
 	
+	private void moveAllEnemy() {
+		for (BoardEntity ee : this.enemies) {
+			moveEnemy((Enemy)ee);
+		}
+	}
 	
 	//In moveenemy, I ask enemy to search MC's position 
 	//and judege whether it is allowed to move, This function isValidMove(x,y) I write in Board class (avoid wall or boundary)
 	//and then move towards MC
 	//The problem here is I have to get position of MC so I think we should public mainCharacter.
-	
 	private void moveEnemy(Enemy e) {
 		 while(true) {
 			 int dirc; //dirc = 0 is up, 1 is down,  2 is left, 3 is right
 			 // IS VALID MOVE HAS BEEN DELETED FROM BOARD, ADD IT IN GAMEMAIN
-			 if(mainChar.getYPos - e.getY > 0 && Math.abs(mainChar.getYPos - e.getY) >= Math.abs(mainChar.getXPos - e.getX) && board.isValidMove(int x, int y+1)) {
-				 dirc=0
+			 if(mainChar.getYPos() - e.getYPos() > 0 && Math.abs(mainChar.getYPos() - e.getYPos()) >= Math.abs(mainChar.getXPos() - e.getXPos()) && board.isValidMove(int x, int y+1)) {
+				 dirc = 0;
 			 }
-			 else if(mainChar.getYPos - e.getY < 0 && Math.abs(mainChar.getYPos - e.getY) >= Math.abs(mainChar.getXPos - e.getX) && board.isValidMove(int x, int y-1)) {
-				 dirc=1
+			 else if(mainChar.getYPos() - e.getYPos() < 0 && Math.abs(mainChar.getYPos() - e.getYPos()) >= Math.abs(mainChar.getXPos() - e.getXPos()) && board.isValidMove(int x, int y-1)) {
+				 dirc = 1;
 			 }
-			 else if(mainChar.getXPos - e.getX < 0 && Math.abs(mainChar.getXPos - e.getX) >= Math.abs(mainChar.getYPos - e.getY) && board.isValidMove(int x-1, int y)) {
-				 dirc=2
+			 else if(mainChar.getXPos() - e.getXPos() < 0 && Math.abs(mainChar.getXPos() - e.getXPos()) >= Math.abs(mainChar.getYPos() - e.getYPos()) && board.isValidMove(int x-1, int y)) {
+				 dirc = 2;
 			 }
-			 else if(mainChar.getXPos - e.getX > 0 && Math.abs(mainChar.getXPos - e.getX) >= Math.abs(mainChar.getYPos - e.getY) && board.isValidMove(int x+1, int y)) {
-				 dirc=3
+			 else if(mainChar.getXPos() - e.getXPos() > 0 && Math.abs(mainChar.getXPos() - e.getXPos()) >= Math.abs(mainChar.getYPos() - e.getYPos()) && board.isValidMove(int x+1, int y)) {
+				 dirc = 3;
 			 }
 			 else
 			 {
@@ -107,23 +111,23 @@ public class GameMain {
 			 switch (dirc) {
 				 case 0:
 				 // up
-				 newX = x;
-				 newY = y+1;
+				 newX = e.getXPos();
+				 newY = e.getYPos()+1;
 				 break;
 			 case 1:
 				 // down
-				 newX = x;
-				 newY = y-1;
+				 newX = e.getXPos();
+				 newY = e.getYPos()-1;
 				 break;
 			 case 2:
 				 // left
-				 newX = x-1;
-				 newY = y;
+				 newX = e.getXPos()-1;
+				 newY = e.getYPos();
 				 break;
 			 case 3:
 				 // right
-				 newX = x+1;
-				 newY = y;
+				 newX = e.getXPos()+1;
+				 newY = e.getYPos();
 				 break;
 			 default:
 				 //Should set enemy is a reasonable location.
@@ -133,22 +137,22 @@ public class GameMain {
 		 
 		 
 		 if (board.isValidMove(newX, newY)) {
-			x = newX;
-			y = newY;
-		
-		return;
-		 		}
-		 	}
+			e.setX(newX);
+			e.setY(newY);
+			return;
+		 }
+		 }
 
 	}
 	
 	//when Enemy e collision with MC.
 	private void collision(Enemy e)
 	{
-		if(e.x == mainChar.x && e.y == mainChar.y) {
-			mainChar.setHealth(100);
+		if(e.x == mainChar.getXPos() && e.y == mainChar.getYPos()) {
+			((MainCharacter)mainChar).setHealth(100);
 		}
 	}
+	
 	
 	
 	/**

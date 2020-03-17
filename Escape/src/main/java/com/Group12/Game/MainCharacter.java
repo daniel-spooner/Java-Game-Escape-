@@ -3,19 +3,17 @@ package com.Group12.Game;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyAdapter;
-public class MainCharacter {
-	
-	
+public class MainCharacter implements BoardEntity {
 	private int x;
 	private int y;
-	Board board;
 	private int health = 100;
-	//private Weapon currentWeapon;
-	 public MainCharacter(int x, int y, Board board) {
+	private Collectible col;
+	private Weapon gun;
+	 public MainCharacter(int x, int y) {
 		 this.health = 100;
 		 this.x = x;
 		 this.y = y;
-		 this.board = board;
+		 this.gun = new Weapon();
 	 }
 	
 	public int getHealth() {

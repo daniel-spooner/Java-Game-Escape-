@@ -1,26 +1,29 @@
 package com.Group12.Game;
-import java.util.Random; 
-import java.util.ArrayList;
 
 
-public class Enemy {
+
+public class Enemy implements BoardEntity {
 	 int HP;
 	 int x, y;
-	 Board board;
 	 
-	 public Enemy(int x, int y, Board board) {
+	 
+	 public Enemy(int x, int y) {
 		 this.HP = 100;
 		 this.x = x;
 		 this.y = y;
-		 this.board = board;
 	 }
 	 
-	 
-	 public int getX() {
+	 public void setX(int x) {
+		 this.x=x;
+	 }
+	 public void setY(int y) {
+		 this.y=y;
+	 }
+	 public int getXPos() {
 		 return x;
 	 }
 	 
-	 public int getY() {
+	 public int getYPos() {
 		 return y;
 	 }
 	 

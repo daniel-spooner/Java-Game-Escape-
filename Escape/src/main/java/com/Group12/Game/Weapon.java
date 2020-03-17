@@ -7,14 +7,13 @@ public class Weapon {
 		this.damage = 50;
 	}
 	
-	}
-	public int getAmmo{
+	public int getAmmo(){
 		return ammo;
 	}
-	public int getDamage{
+	public int getDamage(){
 		return damage;
 	}
-	public void shot{
+	public void shot(){
 		ammo--;
 	}
 }
