@@ -2,11 +2,14 @@ package com.Group12.Game;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import java.lang.*;
 
 // enum entityType { Open, Wall, Player, Enemy, Punishment, Reward, Weapon, Start, End }
 
