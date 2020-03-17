@@ -23,6 +23,8 @@ public class DisplayManager extends JPanel{
 	
 	JFrame gameWindow;
 	Board board;
+	GameMain ob = new GameMain();
+	private enum STATE{Menu,Game};
 	
 	DisplayManager(){
 		gameWindow = new JFrame("Escape");
@@ -57,8 +59,6 @@ public class DisplayManager extends JPanel{
 			int y = character.getXPos();
 
 			public void keyPressed(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
 				int key = e.getKeyCode();
 				int newPos;
 			
@@ -112,7 +112,7 @@ public class DisplayManager extends JPanel{
 			}
 		});
 	}
-	
+
 	private void dispBoard(Graphics2D g2d) {
 		int boardX = this.board.getXSize();
 		int boardY = this.board.getYSize();
@@ -130,6 +130,13 @@ public class DisplayManager extends JPanel{
 		}
 	}
 	
+	private void dispMenu(Graphics menu) {
+		Font fnt0 = new Font("arial", Font.BOLD, 50);
+		menu.setFont(fnt0);
+		menu.setColor(Color.red);
+		menu.drawString("ESCAPE",200,100);
+	}
+	
 	public void display(Board board) { // This should take arguments for all types of game objects
 		this.board = board;
 		gameWindow.add(this);
@@ -139,7 +146,15 @@ public class DisplayManager extends JPanel{
 	
 	public void paint(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
-		dispBoard(g2d);
+		Graphics menu = (Graphics2D) g;
+		if(ob.getState() == 1) {
+			dispMenu(menu);
+		}
+		else {
+			dispBoard(g2d);
+		}
+
+
 		// call more disp funcs here
 	}
 	
