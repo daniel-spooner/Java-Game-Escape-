@@ -22,7 +22,7 @@ public class GameMain {
 	private Board board;
 	
 	private int objectivesRemaining;
-	private StateType gameState;
+//	private StateType gameState;
 	private int score;
 	private TickTimer tick;
 	
@@ -34,13 +34,15 @@ public class GameMain {
 	public GameMain() {
 		this.enemies = new ArrayList<BoardEntity>();
 		this.collectibles = new ArrayList<BoardEntity>();
-		this.mainChar = new MainCharacter();
+		
+		// TODO: give it a random pos to make compiler happy..pls change it
+		this.mainChar = new MainCharacter(0, 0);
 		//this.board = new Board;	//init in startGame
 				
 		this.objectivesRemaining = 4;
 		//this.gameState = Menu;		//TODO: once the enumeration is finalized
 		this.score = 0;
-		this.tick = new TickTimer;
+		this.tick = new TickTimer();
 	}
 	
 	/**
@@ -89,16 +91,16 @@ public class GameMain {
 		 while(true) {
 			 int dirc; //dirc = 0 is up, 1 is down,  2 is left, 3 is right
 			 // IS VALID MOVE HAS BEEN DELETED FROM BOARD, ADD IT IN GAMEMAIN
-			 if(mainChar.getYPos() - e.getYPos() > 0 && Math.abs(mainChar.getYPos() - e.getYPos()) >= Math.abs(mainChar.getXPos() - e.getXPos()) && board.isValidMove(int x, int y+1)) {
+			 if(mainChar.getYPos() - e.getYPos() > 0 && Math.abs(mainChar.getYPos() - e.getYPos()) >= Math.abs(mainChar.getXPos() - e.getXPos()) && isValidMove(e.getXPos(),  e.getYPos()+1)) {
 				 dirc = 0;
 			 }
-			 else if(mainChar.getYPos() - e.getYPos() < 0 && Math.abs(mainChar.getYPos() - e.getYPos()) >= Math.abs(mainChar.getXPos() - e.getXPos()) && board.isValidMove(int x, int y-1)) {
+			 else if(mainChar.getYPos() - e.getYPos() < 0 && Math.abs(mainChar.getYPos() - e.getYPos()) >= Math.abs(mainChar.getXPos() - e.getXPos()) && isValidMove( e.getXPos(),  e.getYPos()-1)) {
 				 dirc = 1;
 			 }
-			 else if(mainChar.getXPos() - e.getXPos() < 0 && Math.abs(mainChar.getXPos() - e.getXPos()) >= Math.abs(mainChar.getYPos() - e.getYPos()) && board.isValidMove(int x-1, int y)) {
+			 else if(mainChar.getXPos() - e.getXPos() < 0 && Math.abs(mainChar.getXPos() - e.getXPos()) >= Math.abs(mainChar.getYPos() - e.getYPos()) && isValidMove( e.getXPos()-1,  e.getYPos())) {
 				 dirc = 2;
 			 }
-			 else if(mainChar.getXPos() - e.getXPos() > 0 && Math.abs(mainChar.getXPos() - e.getXPos()) >= Math.abs(mainChar.getYPos() - e.getYPos()) && board.isValidMove(int x+1, int y)) {
+			 else if(mainChar.getXPos() - e.getXPos() > 0 && Math.abs(mainChar.getXPos() - e.getXPos()) >= Math.abs(mainChar.getYPos() - e.getYPos()) && isValidMove( e.getXPos()+1,  e.getYPos())) {
 				 dirc = 3;
 			 }
 			 else
@@ -136,7 +138,7 @@ public class GameMain {
 			}
 		 
 		 
-		 if (board.isValidMove(newX, newY)) {
+		 if (isValidMove(newX, newY)) {
 			e.setX(newX);
 			e.setY(newY);
 			return;
@@ -154,6 +156,10 @@ public class GameMain {
 	}
 	
 	
+	private boolean isValidMove(int x, int y) {
+		return board.inBounds(x, y) && board.getCellType(x, y) != cellType.Wall;
+	}
+	
 	
 	/**
 	 * This method reads from a file and uses it to initialize
@@ -161,6 +167,7 @@ public class GameMain {
 	 * @param filename This is the name of the file that makeBoard reads from.
 	 */
 	private void makeBoard(String filename) {
+		try {
 		// file format: xDim yDim
 		// remaining yDim lines of xDim characters: board layout & entity placement
 		File file = new File(filename);
@@ -189,7 +196,7 @@ public class GameMain {
 				char c = line.charAt(j);
 				switch (c) {
 				case '#':
-					this.board.setCellType(j, i, cellType.BARRIER);
+					this.board.setCellType(j, i, cellType.Wall);
 					break;
 				case '@':
 					this.mainChar.setX(j);	//TODO: wasn't this supposed to be setPos() from the diagram?
@@ -203,13 +210,14 @@ public class GameMain {
 					this.enemies.add(new Enemy(j,i));
 					break;
 				case 'P':
-					this.collectibles.add(new Punishment(j,i));
+					this.collectibles.add(new Punishment(j, i, 50));
 					break;
 				case 'O':
-					this.collectibles.add(new ObjectiveReward(j,i));
+					this.collectibles.add(new ObjectiveReward(j,i, 50));
 					break;
 				case 'W':
-					this.collectibles.add(new WeaponCollectible(j,i));
+					// weapon is not a collectible
+//					this.collectibles.add(new Weapon(j,i));
 					break;
 				case '.':	default:
 					//board.setCellType(j, i, cellType.OPEN);	// at time of writing, cells initialized as OPEN
@@ -219,6 +227,10 @@ public class GameMain {
 		}
 		
 		sc.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }

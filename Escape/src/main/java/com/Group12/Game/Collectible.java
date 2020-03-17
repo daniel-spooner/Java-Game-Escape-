@@ -20,37 +20,37 @@ public class Collectible implements BoardEntity{
 	 public void setY(int y) {
 		 this.y=y;
 	 }
-	
-	
-	public class BonusReward extends Collectible{
-		private int lifespan;
-		public BonusReward(int x, int y, int lifespan) {
-			super(x, y);
-			this.lifespan=lifespan;
-		}
-		public int getlifespan() {
-			return lifespan;
-		}
-	}
-	public class Punishment extends Collectible{
-		private int damage;
-		public Punishment(int x, int y,int damage) {
-			super(x, y);
-			this.damage = damage;
-		
-		}
-		public int getdamage() {
-			return damage;
-		}
-	}
-	public class ObjectiveReward extends Collectible{
-		private int rewards;
-		public ObjectiveReward(int x, int y, int rewards) {
-			super(x, y);
-			this.rewards = rewards;
-		}
-		public int getrewards() {
-			return rewards;
-		}
-	}	
 }
+
+
+class BonusReward extends Collectible{
+	private int lifespan;
+	public BonusReward(int x, int y, int lifespan) {
+		super(x, y);
+		this.lifespan=lifespan;
+	}
+	public int getlifespan() {
+		return lifespan;
+	}
+}
+class Punishment extends Collectible{
+	private int damage;
+	public Punishment(int x, int y,int damage) {
+		super(x, y);
+		this.damage = damage;
+	
+	}
+	public int getdamage() {
+		return damage;
+	}
+}
+class ObjectiveReward extends Collectible{
+	private int rewards;
+	public ObjectiveReward(int x, int y, int rewards) {
+		super(x, y);
+		this.rewards = rewards;
+	}
+	public int getrewards() {
+		return rewards;
+	}
+}	
