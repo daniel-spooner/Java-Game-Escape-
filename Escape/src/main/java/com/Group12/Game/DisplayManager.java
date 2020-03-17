@@ -80,6 +80,7 @@ public class DisplayManager extends JPanel{
 		DisplayManager d = new DisplayManager(b.getXSize() * b.getCellSize(), b.getYSize() * b.getCellSize());
 		
     	d.display(b);
+    	System.out.println(b.inBounds(24, 19));
     	
 	}
 }

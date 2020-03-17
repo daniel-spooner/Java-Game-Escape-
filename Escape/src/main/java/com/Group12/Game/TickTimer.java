@@ -4,15 +4,24 @@ import java.lang.*;
 
 public class TickTimer implements Runnable {
 
-   Thread t;
+   //Thread t;
+   int FPS;
 
+   public TickTimer() {
+	   FPS = 30;
+   }
+   
+   public TickTimer(int FPS) {
+	   this.FPS = FPS;
+   }
+  
+   
    public void run() {
       for (int i = 10; i < 13; i++) {
 
-         System.out.println(Thread.currentThread().getName() + "  " + i);
+         // System.out.println(Thread.currentThread().getName() + "  " + i);
          try {
-            // thread to sleep for 1000 milliseconds
-            Thread.sleep(1000);
+            Thread.sleep(1000 / this.FPS);
          } catch (Exception e) {
             System.out.println(e);
          }
@@ -20,13 +29,10 @@ public class TickTimer implements Runnable {
    }
 
    public static void main(String[] args) throws Exception {
-      Thread t = new Thread(new TickTimer());
-      // this will call run() function
+      
+	  Thread t = new Thread(new TickTimer(1));
       t.start();
-
-      Thread t2 = new Thread(new TickTimer());
-      // this will call run() function
-      t2.start();
+      
    }
 } 
 
