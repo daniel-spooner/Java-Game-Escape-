@@ -10,7 +10,7 @@ public class App
     {
     	
     	Board b = new Board();
-    	//DisplayManager d = new DisplayManager(b.getXSize() * 25, b.getYSize() * 25);
+//    	DisplayManager d = new DisplayManager(b.getXSize() * 25, b.getYSize() * 25);
     	
     	
     	

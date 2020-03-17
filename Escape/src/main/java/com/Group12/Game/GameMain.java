@@ -157,9 +157,19 @@ public class GameMain {
 	
 	
 	private boolean isValidMove(int x, int y) {
-		return board.inBounds(x, y) && board.getCellType(x, y) != cellType.Wall;
+		return board.inBounds(x, y) && board.getCellType(x, y) != cellType.Wall && !hasEnemy(x,y);
 	}
 	
+	
+	private boolean hasEnemy(int x, int y) {
+		for (BoardEntity e : this.enemies) {
+			if (e.getXPos() == x && e.getYPos() == y) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 	
 	/**
 	 * This method reads from a file and uses it to initialize
