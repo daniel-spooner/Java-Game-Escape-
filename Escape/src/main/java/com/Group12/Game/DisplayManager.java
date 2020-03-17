@@ -12,28 +12,25 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.*;
-import java.awt.event.KeyAdapter;
 
-
-
-// enum entityType { Open, Wall, Player, Enemy, Punishment, Reward, Weapon, Start, End }
-
+/**
+ * Handles graphical display and keyboard input.
+ * @author Daniel, Wilson
+ *
+ */
 @SuppressWarnings("serial")
 public class DisplayManager extends JPanel{
 	
+	// Attributes
 	JFrame gameWindow;
 	Board board;
 	GameMain ob = new GameMain();
-	private enum STATE{Menu,Game};
+	private enum State{MENU,GAME};
 	
+	
+	// are these constructors private or public or what?
 	DisplayManager(){
-		gameWindow = new JFrame("Escape");
-		gameWindow.setSize(500, 500);
-		gameWindow.setVisible(true);
-		gameWindow.setResizable(false);
-		gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-
+		this(500, 500);
 	}
 	
 	DisplayManager(int sizeX, int sizeY) {
@@ -48,12 +45,10 @@ public class DisplayManager extends JPanel{
 	    gameWindow.setLocationRelativeTo(null);
 		gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gameWindow.addKeyListener(new KeyListener() {
-
-
 			public void keyTyped(KeyEvent e) {
 				// Don't need this
-				
 			}
+			
 			BoardEntity character = new BoardEntity();
 			int x = character.getXPos();
 			int y = character.getXPos();
@@ -61,9 +56,9 @@ public class DisplayManager extends JPanel{
 			public void keyPressed(KeyEvent e) {
 				int key = e.getKeyCode();
 				int newPos;
-			
-					//up
+				
 				switch(key) {
+					//up
 					case KeyEvent.VK_W:
 						newPos = character.getXPos() + 1;
 						character.setX(newPos);
@@ -100,9 +95,7 @@ public class DisplayManager extends JPanel{
 						//shoot
 					
 					case KeyEvent.VK_DOWN:
-						//shoot             
-					
-				
+						//shoot           
 				}
 			}
 
@@ -137,13 +130,20 @@ public class DisplayManager extends JPanel{
 		menu.drawString("ESCAPE",200,100);
 	}
 	
+	/**
+	 * Displays a Board onto the game window.
+	 * @param board the board to be displayed
+	 */
 	public void display(Board board) { // This should take arguments for all types of game objects
 		this.board = board;
 		gameWindow.add(this);
 	}
 	
-	//add more methods for displaying other objects
+	// TODO: add more methods for displaying other objects
 	
+	/**
+	 * does something idk
+	 */
 	public void paint(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 		Graphics menu = (Graphics2D) g;
@@ -153,13 +153,12 @@ public class DisplayManager extends JPanel{
 		else {
 			dispBoard(g2d);
 		}
-
-
+		
 		// call more disp funcs here
+		
 	}
 	
 	public static void main(String[] args) {
-		
 		Board b = new Board();
 		for(int i = 0; i < b.getXSize(); i++) {
 			b.setCellType(i, i%5, cellType.BARRIER);
@@ -168,6 +167,5 @@ public class DisplayManager extends JPanel{
 		DisplayManager d = new DisplayManager(b.getXSize() * b.getXSize(), b.getYSize() * b.getXSize());
 		
     	d.display(b);
-    	
 	}
 }
