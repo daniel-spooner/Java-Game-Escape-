@@ -44,6 +44,17 @@ public class Board{
 	}
 	
 	// Public Methods
+	
+	/**
+	 * Determine if coordinates are within the 
+	 * @param x the X coordinate to be checked
+	 * @param y the Y coordinate to be checked
+	 * @return A boolean value, true if x and y both in bounds, false otherwise
+	 */
+	public Boolean inBounds(int x, int y) {
+		return (x >= 0 && y >= 0 && x < xSize && y < ySize);
+	}
+	
 	/**
 	 * Getter for a specific cell in the board
 	 * @param x the x coordinate of the cell
