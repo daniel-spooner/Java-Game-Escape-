@@ -14,7 +14,7 @@ public class GameMain {
 	
 	// Attributes
 	
-	private static GameMain gameMain;
+	private static GameMain gameMain = null;
 	
 	private ArrayList<BoardEntity> enemies;
 	private ArrayList<BoardEntity> collectibles;
@@ -44,9 +44,9 @@ public class GameMain {
 	}
 	
 	/**
-	 * This method returns the single instance of GameMain
-	 * if it exists, otherwise it creates a new instance.
-	 * @return GameMain	This returns the instance of GameMain.
+	 * Returns the single instance of GameMain
+	 * if it exists; otherwise, it creates the instance.
+	 * @return GameMain	The instance of GameMain.
 	 */
 	public static GameMain getInstance() {
 		if(gameMain == null) {
