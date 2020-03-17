@@ -1,38 +1,72 @@
 package com.Group12.Game;
 
-import java.lang.*;
 
 public class TickTimer implements Runnable {
 
    //Thread t;
-   int FPS;
-
-   public TickTimer() {
-	   FPS = 30;
-   }
+	int FPS;
+	int delay;
+	long tickCount;
+	// long maxCount;
+	Boolean tickActive;
    
-   public TickTimer(int FPS) {
-	   this.FPS = FPS;
-   }
-  
+	public TickTimer() {
+		this(30);
+	}
+
+	public TickTimer(int FPS) {
+		this.FPS = FPS;
+		this.delay = 1000/FPS;
+	}
+ 
+	private void runTick() {
+		if (tickActive) {
+			try {
+				Thread.sleep(delay);
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+			
+			tickCount += delay;
+			
+			/*
+			System.out.println(tickCount);
+			if (tickCount > 5000) {
+				pauseTick();
+			}
+			*/
+			
+			runTick();
+		}
+	}
+	
+	public void pauseTick() {
+		tickActive = false;
+	}
+	
+	public void unpauseTick() {
+		tickActive = true;
+		runTick();
+	}
+	
+	public void resetTickCount() {
+		tickCount = 0;
+	}
    
-   public void run() {
-      for (int i = 10; i < 13; i++) {
-
-         // System.out.println(Thread.currentThread().getName() + "  " + i);
-         try {
-            Thread.sleep(1000 / this.FPS);
-         } catch (Exception e) {
-            System.out.println(e);
-         }
-      }
-   }
-
-   public static void main(String[] args) throws Exception {
+	
+	public void run() {
+		tickCount = 0;
+		tickActive = true;
+		//System.out.println("Delay: " + delay);
+		runTick();
+	}
+   
+   
+	public static void main(String[] args) throws Exception {
       
-	  Thread t = new Thread(new TickTimer(1));
-      t.start();
+		Thread t = new Thread(new TickTimer());
+		t.start();
       
-   }
+	}
 } 
 
