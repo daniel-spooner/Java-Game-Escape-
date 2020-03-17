@@ -15,7 +15,7 @@ public class App
     	
     	
     	System.out.println(b.getCellType(1, 1));
-    	b.setCellType(1, 1, cellType.Wall);
+    	b.setCellType(1, 1, cellType.BARRIER);
     	System.out.println(b.getCellType(1, 1));
         System.out.println( "Hello World!" );
 

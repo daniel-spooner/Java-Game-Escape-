@@ -1,6 +1,6 @@
 package com.Group12.Game;
 
-enum cellType { Open, Wall }
+enum cellType { OPEN, BARRIER }
 
 /**
  * A class representing a unit in the game board
@@ -19,7 +19,7 @@ public class Cell {
 	 * Creates a new Cell object with default state "Open"
 	 */
 	public Cell() {
-		this.type = cellType.Open;
+		this.type = cellType.OPEN;
 	}
 	
 	/**

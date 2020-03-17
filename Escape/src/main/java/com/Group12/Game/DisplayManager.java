@@ -120,7 +120,7 @@ public class DisplayManager extends JPanel{
 		
 		for(int y = 0; y < boardY; y++) {
 			for(int x = 0; x < boardX; x++) {
-				if(this.board.getCellType(x, y) == cellType.Open) {
+				if(this.board.getCellType(x, y) == cellType.OPEN) {
 					g2d.setColor(new Color(1.0f, 1.0f, 1.0f, 1.0f));
 				}else {
 					g2d.setColor(new Color(0.0f, 0.0f, 0.0f, 1.0f));
@@ -162,7 +162,7 @@ public class DisplayManager extends JPanel{
 		
 		Board b = new Board();
 		for(int i = 0; i < b.getXSize(); i++) {
-			b.setCellType(i, i%5, cellType.Wall);
+			b.setCellType(i, i%5, cellType.BARRIER);
 		}
 		
 		DisplayManager d = new DisplayManager(b.getXSize() * b.getXSize(), b.getYSize() * b.getXSize());

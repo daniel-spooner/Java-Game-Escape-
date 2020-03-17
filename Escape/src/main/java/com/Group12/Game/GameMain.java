@@ -31,13 +31,11 @@ public class GameMain {
 	
 	// Methods
 	
-	public GameMain() {
+	private GameMain() {
 		this.enemies = new ArrayList<BoardEntity>();
 		this.collectibles = new ArrayList<BoardEntity>();
 		
-		// TODO: give it a random pos to make compiler happy..pls change it
-		this.mainChar = new MainCharacter(0, 0);
-		//this.board = new Board;	//init in startGame
+		//mainChar and board initialized in startGame()
 				
 		this.objectivesRemaining = 4;
 		//this.gameState = Menu;		//TODO: once the enumeration is finalized
@@ -157,7 +155,7 @@ public class GameMain {
 	
 	
 	private boolean isValidMove(int x, int y) {
-		return board.inBounds(x, y) && board.getCellType(x, y) != cellType.Wall && !hasEnemy(x,y);
+		return board.inBounds(x, y) && board.getCellType(x, y) != cellType.BARRIER && !hasEnemy(x,y);
 	}
 	
 	
@@ -177,12 +175,27 @@ public class GameMain {
 	 * @param filename This is the name of the file that makeBoard reads from.
 	 */
 	private void makeBoard(String filename) {
-		try {
 		// file format: xDim yDim
 		// remaining yDim lines of xDim characters: board layout & entity placement
-		File file = new File(filename);
-		Scanner sc = new Scanner(file);
-		int xSize, ySize;
+		File file;
+		Scanner sc;
+		try {
+			file = new File(filename);
+		}
+		catch (java.lang.NullPointerException e) {
+			e.printStackTrace();
+			return;
+		}
+		
+		try {
+			sc = new Scanner(file);
+		}
+		catch (java.io.FileNotFoundException e) {
+			e.printStackTrace();
+			return;
+		}
+		int xSize;
+		int ySize;
 		xSize = sc.nextInt();
 		ySize = sc.nextInt();
 		this.board = new Board(xSize, ySize);
@@ -190,7 +203,7 @@ public class GameMain {
 		
 		/* characters in file:
 		 * 	. = Open
-		 * 	# = Barrier				TODO: tell Daniel celltype is Barrier in the UML Diagram
+		 * 	# = Barrier
 		 * all other characters also on Open tiles
 		 * 	@ = MainCharacter
 		 * 	G = Goal
@@ -201,16 +214,21 @@ public class GameMain {
 		 */
 		
 		for (int i = 0; i < ySize; i++) {
-			String line = sc.nextLine();	//TODO: determine if file must end with newline character (currently does not)
+			String line;
+			try {
+				line = sc.nextLine();	//TODO: determine if file must end with newline character (currently does not)
+			}
+			catch (java.util.NoSuchElementException e) {
+				line = sc.next();
+			}
 			for (int j = 0; j < xSize; j++) {
 				char c = line.charAt(j);
 				switch (c) {
 				case '#':
-					this.board.setCellType(j, i, cellType.Wall);
+					this.board.setCellType(j, i, cellType.BARRIER);
 					break;
 				case '@':
-					this.mainChar.setX(j);	//TODO: wasn't this supposed to be setPos() from the diagram?
-					this.mainChar.setY(i);
+					this.mainChar = new MainCharacter(j, i);
 					break;
 				case 'G':
 					this.goalX = j;
@@ -226,8 +244,7 @@ public class GameMain {
 					this.collectibles.add(new ObjectiveReward(j,i, 50));
 					break;
 				case 'W':
-					// weapon is not a collectible
-//					this.collectibles.add(new Weapon(j,i));
+					// WeaponCollectible has not yet been implemented
 					break;
 				case '.':	default:
 					//board.setCellType(j, i, cellType.OPEN);	// at time of writing, cells initialized as OPEN
@@ -237,9 +254,6 @@ public class GameMain {
 		}
 		
 		sc.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		
 	}
 
