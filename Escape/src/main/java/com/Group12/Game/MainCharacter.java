@@ -6,10 +6,14 @@ package com.Group12.Game;
  *
  */
 public class MainCharacter implements BoardEntity {
+	
+	// Attributes
 	private int x;
 	private int y;
 	private int health = 100;
 	private Weapon gun;				// different weapons have not yet been implemented
+	
+	// Methods
 	
 	/**
 	 * Creates a new MainCharacter with initial health 100 at internal position (x, y).
@@ -31,8 +35,8 @@ public class MainCharacter implements BoardEntity {
 	}
 	
 	/**
-	 * Returns the current health of the MainCharacter.
-	 * @return int the current health
+	 * Gets the current health of the MainCharacter.
+	 * @return the current health
 	 */
 	public int getHealth() {
 		return health;
@@ -47,14 +51,14 @@ public class MainCharacter implements BoardEntity {
 	}
 	
 	/**
-	 * Returns true if the MainCharacter's health is greater than 0,
-	 * otherwise returns false.
-	 * @return bool state of player's life
+	 * Checks if the MainCharacter's health is greater than 0.
+	 * @return true if getHealth() is greater than 0, otherwise false
 	 */
 	public boolean checkAlive() {
-		return getHealth() == 0;
+		return getHealth() > 0;
 	}
 	
+	// BoardEntity implementation	
 	public int getXPos() {
 		return x;
 	}

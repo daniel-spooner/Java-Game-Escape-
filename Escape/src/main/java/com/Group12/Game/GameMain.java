@@ -46,7 +46,7 @@ public class GameMain {
 	/**
 	 * Returns the single instance of GameMain
 	 * if it exists; otherwise, it creates the instance.
-	 * @return GameMain	The instance of GameMain.
+	 * @return the instance of GameMain
 	 */
 	public static GameMain getInstance() {
 		if(gameMain == null) {
@@ -172,7 +172,7 @@ public class GameMain {
 	/**
 	 * This method reads from a file and uses it to initialize
 	 * board, enemies, collectibles, and mainChar.
-	 * @param filename This is the name of the file that makeBoard reads from.
+	 * @param filename the name of the file that makeBoard reads from.
 	 */
 	private void makeBoard(String filename) {
 		// file format: xDim yDim
