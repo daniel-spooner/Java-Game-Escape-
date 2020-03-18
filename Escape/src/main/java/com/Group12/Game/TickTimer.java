@@ -50,6 +50,10 @@ public class TickTimer implements Runnable {
 		runTick();
 	}
 	
+	public long getTickCount() {
+		return tickCount;
+	}
+	
 	public void resetTickCount() {
 		tickCount = 0;
 	}
