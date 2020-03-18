@@ -36,10 +36,7 @@ public class GameMain{
 	private TickTimer tick;
 	private GameKeyListener keyListener;
 	private DisplayManager display;
-<<<<<<< HEAD
-=======
-	
->>>>>>> b2da84cb45d7312c4b74e7880a0e8d6403452180
+
 	private int goalX;
 	private int goalY;
 
@@ -47,14 +44,8 @@ public class GameMain{
 	
 	
 	private GameMain() {
-<<<<<<< HEAD
-		this.enemies = new ArrayList<BoardEntity>();
-		//this.collectibles = new ArrayList<BoardEntity>();
-		
-		//mainChar and board initialized in startGame()
-		
-		this.objectivesRemaining = 4;
-=======
+
+
 		this.enemies 			= new ArrayList<>();
 		this.punishments		= new ArrayList<>();
 		this.bonusRewards 		= new ArrayList<>();
@@ -62,18 +53,14 @@ public class GameMain{
 		
 		//mainChar and board initialized in startGame()
 
->>>>>>> b2da84cb45d7312c4b74e7880a0e8d6403452180
+
 		state = GameState.MENU;
 		this.score = 0;
 		
 		this.tick = new TickTimer();
 		this.keyListener = new GameKeyListener();
 		this.display = new DisplayManager();
-<<<<<<< HEAD
 
-=======
->>>>>>> b2da84cb45d7312c4b74e7880a0e8d6403452180
-	}
 	
 
 	/**
@@ -152,18 +139,12 @@ public class GameMain{
 	 * performing player actions, moving enemies, and checking win conditions.
 	 */
 	public void update() {
-<<<<<<< HEAD
+
 		int recentKey;
 		//getLastKey() return type int. Every key has an equivalent number. No need to get lastKey type?
 		recentKey = keyListener.getLastKey();
 		// If the game should be paused. 27 corresponds with key 'esc'.
 		if (recentKey == 27) {
-=======
-		String lastKey = keyListener.getLastKey(); //TODO: import KeyEvent cause these are that type instead
-		
-		// If the game should be paused
-		if (lastKey.equals("Escape")) {
->>>>>>> 8fd722a01f9e371829e9c69800e1a1533e8f04ec
 			tick.pauseTick();
 			setState(GameState.MENU);
 			// But if we pause TickTimer, how do we unpause?
@@ -212,15 +193,7 @@ public class GameMain{
 		
 	}
 	
-<<<<<<< HEAD
-	//public void setState(STATE newState) {
-	//	state = newState;
-		//System.out.println(state);
 
-	//}
-	
-=======
->>>>>>> b2da84cb45d7312c4b74e7880a0e8d6403452180
 	private void moveAllEnemy() {
 		for (BoardEntity ee : this.enemies) {
 			moveEnemy((Enemy)ee);
@@ -384,17 +357,12 @@ public class GameMain{
 					this.enemies.add(new Enemy(j, i));
 					break;
 				case 'P':
-<<<<<<< HEAD
-					//this.collectibles.add(new Punishment(j, i, 50));
-					break;
-				case 'O':
-					//this.collectibles.add(new ObjectiveReward(j,i, 50));
-=======
+
 					this.punishments.add(new Punishment(j, i, 50));
 					break;
 				case 'O':
 					this.objectiveRewards.add(new ObjectiveReward(j, i, 50));
->>>>>>> b2da84cb45d7312c4b74e7880a0e8d6403452180
+
 					break;
 				case 'W':
 					// WeaponCollectible has not yet been implemented
