@@ -194,24 +194,24 @@ public class GameMain{
 		}
 	}
 	
-	//In moveenemy, I ask enemy to search MC's position 
+	//In moveEnemy, I ask enemy to search MC's position 
 	//and judege whether it is allowed to move, This function isValidMove(x,y) I write in Board class (avoid wall or boundary)
 	//and then move towards MC
 	//The problem here is I have to get position of MC so I think we should public mainCharacter.
 	private void moveEnemy(Enemy e) {
 		 while(true) {
 			 int dirc; //dirc = 0 is up, 1 is down,  2 is left, 3 is right
-			 // IS VALID MOVE HAS BEEN DELETED FROM BOARD, ADD IT IN GAMEMAIN
-			 if(mainChar.getYPos() - e.getYPos() > 0 && Math.abs(mainChar.getYPos() - e.getYPos()) >= Math.abs(mainChar.getXPos() - e.getXPos()) && isValidMove(e.getXPos(),  e.getYPos()+1)) {
+			 //check direction and move Enemy to Player,if the direction is invalid,enemy will move to a random direction.
+			 if(mainChar.getYPos() - e.getYPos() > 0 && Math.abs(mainChar.getYPos() - e.getYPos()) >= Math.abs(mainChar.getXPos() - e.getXPos()) && isValidMove(e.getXPos(),  e.getYPos()+1) && !hasEnemy(e.getXPos(),  e.getYPos()+1)) {
 				 dirc = 0;
 			 }
-			 else if(mainChar.getYPos() - e.getYPos() < 0 && Math.abs(mainChar.getYPos() - e.getYPos()) >= Math.abs(mainChar.getXPos() - e.getXPos()) && isValidMove( e.getXPos(),  e.getYPos()-1)) {
+			 else if(mainChar.getYPos() - e.getYPos() < 0 && Math.abs(mainChar.getYPos() - e.getYPos()) >= Math.abs(mainChar.getXPos() - e.getXPos()) && isValidMove( e.getXPos(),  e.getYPos()-1) && !hasEnemy(e.getXPos(),  e.getYPos()-1)) {
 				 dirc = 1;
 			 }
-			 else if(mainChar.getXPos() - e.getXPos() < 0 && Math.abs(mainChar.getXPos() - e.getXPos()) >= Math.abs(mainChar.getYPos() - e.getYPos()) && isValidMove( e.getXPos()-1,  e.getYPos())) {
+			 else if(mainChar.getXPos() - e.getXPos() < 0 && Math.abs(mainChar.getXPos() - e.getXPos()) >= Math.abs(mainChar.getYPos() - e.getYPos()) && isValidMove( e.getXPos()-1,  e.getYPos()) && !hasEnemy(e.getXPos()-1,  e.getYPos())) {
 				 dirc = 2;
 			 }
-			 else if(mainChar.getXPos() - e.getXPos() > 0 && Math.abs(mainChar.getXPos() - e.getXPos()) >= Math.abs(mainChar.getYPos() - e.getYPos()) && isValidMove( e.getXPos()+1,  e.getYPos())) {
+			 else if(mainChar.getXPos() - e.getXPos() > 0 && Math.abs(mainChar.getXPos() - e.getXPos()) >= Math.abs(mainChar.getYPos() - e.getYPos()) && isValidMove( e.getXPos()+1,  e.getYPos()) && !hasEnemy(e.getXPos()+1,  e.getYPos())) {
 				 dirc = 3;
 			 }
 			 else
@@ -261,17 +261,18 @@ public class GameMain{
 	//when Enemy e collision with MC.
 	//private void collision(Enemy e)
 	//{
-	//	if(e.x == mainChar.getXPos() && e.y == mainChar.getYPos()) {
+	//	if(e.getXPos() == mainChar.getXPos() && e.y == mainChar.getYPos()) {
 		//	((MainCharacter)mainChar).setHealth(100);
 		//}
 	//}
 	
-	
+	//For enemyMove, check the location is valid to move.
 	private boolean isValidMove(int x, int y) {
-		return board.inBounds(x, y) && board.getCellType(x, y) != cellType.BARRIER && !hasEnemy(x,y);
+		return board.inBounds(x, y) && board.getCellType(x, y) != cellType.BARRIER;
 	}
 	
 	
+	//check the location does have other enemy.
 	private boolean hasEnemy(int x, int y) {
 		for (BoardEntity e : this.enemies) {
 			if (e.getXPos() == x && e.getYPos() == y) {
