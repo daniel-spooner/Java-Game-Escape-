@@ -1,10 +1,5 @@
 package com.Group12.Game;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -22,9 +17,11 @@ import java.awt.event.KeyAdapter;
 public class DisplayManager extends JPanel{
 	
 	JFrame gameWindow;
+	JFrame Jbutton;
 	Board board;
-	GameMain ob = new GameMain();
-	private enum STATE{Menu,Game};
+	GameMain updateState = new GameMain();
+	GameMain.STATE state = GameMain.STATE.MENU;
+
 	
 	DisplayManager(){
 		gameWindow = new JFrame("Escape");
@@ -32,13 +29,14 @@ public class DisplayManager extends JPanel{
 		gameWindow.setVisible(true);
 		gameWindow.setResizable(false);
 		gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 		
 
 	}
 	
 	DisplayManager(int sizeX, int sizeY) {
 		gameWindow = new JFrame("Escape");
-		
+
 		gameWindow.setResizable(false);
 		this.setPreferredSize(new Dimension(sizeX, sizeY));
 		gameWindow.add(this);
@@ -47,6 +45,8 @@ public class DisplayManager extends JPanel{
 		gameWindow.setVisible(true);
 	    gameWindow.setLocationRelativeTo(null);
 		gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		
 		gameWindow.addKeyListener(new KeyListener() {
 
 
@@ -90,18 +90,30 @@ public class DisplayManager extends JPanel{
 						System.out.println(newPos);
 						break;
 					
-					case KeyEvent.VK_LEFT: 
-						//shoot
+					//Change from Menu State to Game State pressing ENTER KEY
+					//If state is already in menu, do nothing
+					case KeyEvent.VK_ENTER: 
+						if(state == GameMain.STATE.GAME) {
+							break;
+						}
+						else {
+							state = GameMain.STATE.GAME;
+							updateState.setState(state);
+						}
+						break;
 					
-					case KeyEvent.VK_RIGHT:
-						//shoot
-					
-					case KeyEvent.VK_UP:
-						//shoot
-					
-					case KeyEvent.VK_DOWN:
-						//shoot             
-					
+					//Change from Game State to Menu State by pressing ESC KEY
+					//If state is already in Game, do nothing
+					case KeyEvent.VK_ESCAPE:
+						if(state == GameMain.STATE.MENU) {
+							break;
+						}
+						else {
+							state = GameMain.STATE.MENU;
+							updateState.setState(state);
+						}
+						break;
+
 				
 				}
 			}
@@ -131,33 +143,44 @@ public class DisplayManager extends JPanel{
 	}
 	
 	private void dispMenu(Graphics menu) {
-		Font fnt0 = new Font("arial", Font.BOLD, 50);
+		menu.setColor(Color.black);
+		menu.fillRect(0,0,800,750);
+		Font fnt0 = new Font("arial", Font.BOLD, 100);
 		menu.setFont(fnt0);
 		menu.setColor(Color.red);
-		menu.drawString("ESCAPE",200,100);
+		menu.drawString("ESCAPE",100,100);
+		Font fnt1 = new Font("arial", Font.BOLD,45);
+		menu.setFont(fnt1);
+		menu.setColor(Color.blue);
+		menu.drawString("Play",100,200);
+		menu.drawString("Settings",100,300);
+		menu.drawString("Help",100,400);
+		
 	}
-	
+	 
 	public void display(Board board) { // This should take arguments for all types of game objects
 		this.board = board;
 		gameWindow.add(this);
 	}
 	
 	//add more methods for displaying other objects
-	
 	public void paint(Graphics g) {
-		Graphics2D g2d = (Graphics2D) g;
 		Graphics menu = (Graphics2D) g;
-		if(ob.getState() == 1) {
-			dispMenu(menu);
+		Graphics2D g2d = (Graphics2D) g;
+		dispMenu(menu);
+		//dispBoard(g2d);
+	
 		}
-		else {
-			dispBoard(g2d);
-		}
+
 
 
 		// call more disp funcs here
-	}
 	
+	public void paintGame(Graphics g) {
+		Graphics2D g2d = (Graphics2D) g;
+		dispBoard(g2d);
+		
+	}
 	public static void main(String[] args) {
 		
 		Board b = new Board();
@@ -170,4 +193,8 @@ public class DisplayManager extends JPanel{
     	d.display(b);
     	
 	}
+	
 }
+	
+
+
