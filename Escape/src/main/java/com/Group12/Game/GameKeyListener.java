@@ -23,7 +23,6 @@ public class GameKeyListener implements KeyListener {
 	public void keyPressed(KeyEvent e) {
         lastKey = e.getKeyCode();
     }
-	
 
 	public void keyReleased(KeyEvent e) {
 		// Don't need this

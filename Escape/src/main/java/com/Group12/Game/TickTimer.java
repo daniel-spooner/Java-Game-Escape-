@@ -8,7 +8,7 @@ package com.Group12.Game;
  */
 public class TickTimer implements Runnable {
 
-	private Boolean tickActive;
+	private boolean tickActive;
 	private int fps;
 	private int delay;
 	private long tickCount;

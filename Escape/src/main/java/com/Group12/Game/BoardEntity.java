@@ -52,4 +52,5 @@ public class BoardEntity {
 	public void setYPos(int y) {
 		yPos = y;
 	}
+	
 }
