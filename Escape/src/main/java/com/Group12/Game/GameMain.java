@@ -16,19 +16,23 @@ public class GameMain {
 	
 	private static GameMain gameMain = null;
 	
-	private ArrayList<BoardEntity> enemies;
-	private ArrayList<BoardEntity> collectibles;
-	private BoardEntity mainChar;
+	private ArrayList<Enemy> enemies;
+	private ArrayList<Punishment> punishments;
+	private ArrayList<BonusReward> bonusRewards;
+	private ArrayList<ObjectiveReward> objectiveRewards;
+	// WeaponCollectible not currently implemented
+	
+	private MainCharacter mainChar;
 	private Board board;
 	
-	private int objectivesRemaining;
 	private int score;
 	
-	public static enum GameState{MENU,GAME};
+	public enum GameState{MENU,GAME};
 	private GameState state;
 	
 	private TickTimer tick;
 	private GameKeyListener keyListener;
+	private DisplayManager display;
 	
 	private int goalX;
 	private int goalY;
@@ -36,15 +40,19 @@ public class GameMain {
 	// Methods
 	
 	private GameMain() {
-		this.enemies = new ArrayList<BoardEntity>();
-		this.collectibles = new ArrayList<BoardEntity>();
+		this.enemies 			= new ArrayList<>();
+		this.punishments		= new ArrayList<>();
+		this.bonusRewards 		= new ArrayList<>();
+		this.objectiveRewards	= new ArrayList<>();
 		
 		//mainChar and board initialized in startGame()
-				
-		this.objectivesRemaining = 4;
+
 		state = GameState.MENU;
 		this.score = 0;
+		
 		this.tick = new TickTimer();
+		this.keyListener = new GameKeyListener();
+		this.display = new DisplayManager();
 	}
 	
 	/**
@@ -83,7 +91,16 @@ public class GameMain {
 		return keyListener;
 	}
 	
+	/**
+	 * Gets the current score of the game.
+	 * @return the score
+	 */
+	public int getScore() {
+		return score;
+	}
+	
 	public void startGame() {
+		// Initialization
 		makeBoard("map1");		//TODO: don't hardcode + decide on proper file location
 	}
 	
@@ -101,12 +118,6 @@ public class GameMain {
 	
 	private void updateDisplay() {
 		
-	}
-	
-	public void setState(STATE newState) {
-		state = newState;
-		//System.out.println(state);
-
 	}
 	
 	private void moveAllEnemy() {
@@ -269,13 +280,13 @@ public class GameMain {
 					this.goalY = i;
 					break;
 				case 'E':
-					this.enemies.add(new Enemy(j,i));
+					this.enemies.add(new Enemy(j, i));
 					break;
 				case 'P':
-					this.collectibles.add(new Punishment(j, i, 50));
+					this.punishments.add(new Punishment(j, i, 50));
 					break;
 				case 'O':
-					this.collectibles.add(new ObjectiveReward(j,i, 50));
+					this.objectiveRewards.add(new ObjectiveReward(j, i, 50));
 					break;
 				case 'W':
 					// WeaponCollectible has not yet been implemented
