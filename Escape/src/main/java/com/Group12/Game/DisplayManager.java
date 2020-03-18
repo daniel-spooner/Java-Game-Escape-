@@ -23,8 +23,8 @@ public class DisplayManager extends JPanel{
 	// Attributes
 	JFrame gameWindow;
 	Board board;
-	GameMain updateState = new GameMain();
-	GameMain.STATE state = GameMain.STATE.MENU;
+	GameMain updateState = GameMain.getInstance();
+	GameMain.GameState state = GameMain.GameState.MENU;
 
 	
 	
