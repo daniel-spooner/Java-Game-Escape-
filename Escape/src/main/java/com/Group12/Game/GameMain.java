@@ -22,10 +22,13 @@ public class GameMain {
 	private Board board;
 	
 	private int objectivesRemaining;
-	public enum GameState{MENU,GAME};
-	public GameState state;
 	private int score;
+	
+	public static enum GameState{MENU,GAME};
+	private GameState state;
+	
 	private TickTimer tick;
+	private GameKeyListener keyListener;
 	
 	private int goalX;
 	private int goalY;
@@ -54,6 +57,30 @@ public class GameMain {
 			gameMain = new GameMain();
 		}
 		return gameMain;
+	}
+	
+	/**
+	 * Gets the state of the application.
+	 * @return the current state of the game
+	 */
+	public GameState getState() {
+		return state;
+	}
+	
+	/**
+	 * Sets the state of the application.
+	 * @param state the new state of the application
+	 */
+	public void setState(GameMain.GameState state) {
+		this.state = state;
+	}
+	
+	/**
+	 * Gets the KeyListener from the application.
+	 * @return the KeyListener object
+	 */
+	public GameKeyListener getKeyListener() {
+		return keyListener;
 	}
 	
 	public void startGame() {
