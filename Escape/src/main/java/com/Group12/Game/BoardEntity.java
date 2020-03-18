@@ -2,31 +2,43 @@ package com.Group12.Game;
 
 /**
  * A representation of an entity on a coordinate plane.
- * @author Yuxi
+ * @author Yuxi, Daniel
  *
  */
-interface BoardEntity {
+public class BoardEntity {
+	
+	int xPos;
+	int yPos;
+	
 	/**
 	 * Returns the entity's x coordinate.
 	 * @return the x coordinate
 	 */
-	public int getXPos();
+	public int getXPos() {
+		return xPos;
+	}
 	
 	/**
 	 * Returns the entity's y coordinate.
 	 * @return the y coordinate
 	 */
-	public int getYPos();
+	public int getYPos() {
+		return yPos;
+	}
 	
 	/**
 	 * Sets the entity's x coordinate.
 	 * @param x the new x coordinate
 	 */
-	public void setX(int x);
+	public void setXPos(int x) {
+		xPos = x;
+	}
 	
 	/**
 	 * Sets the entity's y coordinate.
 	 * @param y the new y coordinate
 	 */
-	public void setY(int y);
+	public void setYPos(int y) {
+		yPos = y;
+	}
 }
