@@ -19,7 +19,6 @@ import java.awt.event.KeyAdapter;
 public class DisplayManager extends JPanel{
 	
 	JFrame gameWindow;
-	JFrame Jbutton;
 	Board board;
 	GameMain updateState = new GameMain();
 	GameMain.STATE state = GameMain.STATE.MENU;
@@ -54,21 +53,19 @@ public class DisplayManager extends JPanel{
 
 
 			public void keyTyped(KeyEvent e) {
-				// Don't need this
-				
+
 			}
 			BoardEntity character = new BoardEntity();
-			int x = character.getXPos();
-			int y = character.getXPos();
+
 
 			public void keyPressed(KeyEvent e) {
 				int key = e.getKeyCode();
 				int newPos;
 			
-					//up
+				//If in menu state, keys A,S,W,D will not register. Keys will only register in Game state.
 				switch(key) {
 					
-
+					//up
 					case KeyEvent.VK_W:
 						if(state==GameMain.STATE.GAME) {
 							newPos = character.getXPos() + 1;
@@ -101,6 +98,7 @@ public class DisplayManager extends JPanel{
 							System.out.println(newPos);
 							break;
 						}
+						
 						else {
 							break;
 						}
