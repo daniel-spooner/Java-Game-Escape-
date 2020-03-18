@@ -23,13 +23,13 @@ public class DisplayManager extends JPanel{
 	// Attributes
 	JFrame gameWindow;
 	Board board;
-	GameMain updateState = GameMain.getInstance();
-	GameMain.GameState state = GameMain.GameState.MENU;
+
 
 	
 	
 	// are these constructors private or public or what?
 	DisplayManager(){
+	
 		this(500, 500);
 	}
 	
@@ -44,9 +44,12 @@ public class DisplayManager extends JPanel{
 		gameWindow.setVisible(true);
 	    gameWindow.setLocationRelativeTo(null);
 		gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		gameWindow.addKeyListener(new GameKeyListener()); //TODO: make this an object passed by GameMain
+		gameWindow.addKeyListener(new GameKeyListener());
 	}
+	public void add() {
 
+		System.out.println("I am called");
+	}
 
 	private void dispBoard(Graphics2D g2d) {
 		int boardX = this.board.getXSize();
@@ -99,12 +102,12 @@ public class DisplayManager extends JPanel{
 	public void paint(Graphics g) {
 		Graphics menu = (Graphics2D) g;
 		Graphics2D g2d = (Graphics2D) g;
-		if(state ==  GameMain.GameState.GAME) {
+		//if(state ==  GameMain.GameState.GAME) {
 			dispBoard(g2d);
-		}
-		else if(state == GameMain.GameState.MENU) {
-			dispMenu(menu);
-		}
+		//}
+		//else if(state == GameMain.GameState.MENU) {
+		//	dispMenu(menu);
+		//}
         //call more disp funcs here
 	}
 	
