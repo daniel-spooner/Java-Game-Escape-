@@ -14,6 +14,17 @@ public class BoardEntity {
 	 * Returns the entity's x coordinate.
 	 * @return the x coordinate
 	 */
+	
+	public BoardEntity() {
+		xPos = 0;
+		yPos = 0;
+	}
+	
+	public BoardEntity(int x, int y) {
+		xPos = x;
+		yPos = y;
+	}
+	
 	public int getXPos() {
 		return xPos;
 	}
