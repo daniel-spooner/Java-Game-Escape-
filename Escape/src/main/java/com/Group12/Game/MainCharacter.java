@@ -1,45 +1,62 @@
 package com.Group12.Game;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.KeyAdapter;
+/**
+ * Represents the Main Character entity in the game.
+ * @author Wilson, Yuxi, Nicholas
+ *
+ */
 public class MainCharacter implements BoardEntity {
 	private int x;
 	private int y;
 	private int health = 100;
-	private Collectible col;
-	private Weapon gun;
-	 public MainCharacter(int x, int y) {
-		 this.health = 100;
-		 this.x = x;
-		 this.y = y;
-		 this.gun = new Weapon();
-	 }
+	private Weapon gun;				// different weapons have not yet been implemented
 	
+	/**
+	 * Creates a new MainCharacter with initial health 100 at internal position (x, y).
+	 * @param x the x coordinate
+	 * @param y the y coordinate
+	 */
+	public MainCharacter(int x, int y) {
+		this.health = 100;
+		this.x = x;
+		this.y = y;
+		this.gun = new Weapon();	// different weapons have not yet been implemented
+	}
+	
+	/**
+	 * Default constructor.
+	 */
+	public MainCharacter() {
+		this(0,0);
+	}
+	
+	/**
+	 * Returns the current health of the MainCharacter.
+	 * @return int the current health
+	 */
 	public int getHealth() {
 		return health;
 	}
 	
-	//setHealth changes current health to current health - damage for more flexibility.
-	//best to rename to damageHealth instead
-	public void setHealth(int damage) {
-		health = getHealth() - damage; 
-		
+	/**
+	 * Sets the current health of the MainCharacter.
+	 * @param health the new health value
+	 */
+	public void setHealth(int health) {
+		this.health = health; 
 	}
 	
-	//Checks if get Health is equal to 0, and returns state of player.
+	/**
+	 * Returns true if the MainCharacter's health is greater than 0,
+	 * otherwise returns false.
+	 * @return bool state of player's life
+	 */
 	public boolean checkAlive() {
-		if(getHealth() == 0) {
-			return false;
-		}
-		else {
-			return true;
-		}
+		return getHealth() == 0;
 	}
 	
 	public int getXPos() {
 		return x;
-	
 	}
 	
 	public int getYPos() {
@@ -54,65 +71,6 @@ public class MainCharacter implements BoardEntity {
 		this.y = y;
 	}
 	
-	public void keyPressed(KeyEvent e) {
-		int key = e.getKeyCode();
-		int newPos;
-		
-	
-		//up
-		if(key == KeyEvent.VK_W) {
-			newPos = getXPos() + 1;
-			setX(newPos);
-			
-		}
-		//left
-		else if(key == KeyEvent.VK_A) {
-			newPos = getYPos() - 1;
-			setY(newPos);
-		}
-		//down
-		else if(key == KeyEvent.VK_S) {
-			newPos = getXPos() - 1;
-			setX(newPos);
-		}//right
-		else if(key == KeyEvent.VK_D) {
-			newPos = getYPos() + 1;
-			setY(newPos);
-		}
-		else if(key == KeyEvent.VK_LEFT) {
-			//shoot
-		}
-		else if(key == KeyEvent.VK_RIGHT) {
-			//shoot
-		}
-		else if(key == KeyEvent.VK_UP) {
-			//shoot
-		}
-		else if(key == KeyEvent.VK_DOWN) {
-			//shoot             
-		}
-	}	
-
-	
-	public static void main (String args[]) {
-	/*	MainCharacter asdf = new MainCharacter();
-		int z = asdf.getHealth();
-		System.out.println(z);
-		
-		asdf.setHealth(50);
-		boolean y =asdf.checkAlive();
-		z = asdf.getHealth();
-		System.out.println(y);
-		System.out.println(z);
-		
-		asdf.setHealth(50);
-		y =asdf.checkAlive();
-		z = asdf.getHealth();
-		System.out.println(y);
-		System.out.println(z);
-		*/
-		
-	}
 }
 
 
