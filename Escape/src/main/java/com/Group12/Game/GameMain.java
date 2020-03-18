@@ -153,7 +153,7 @@ public class GameMain{
 			// Update the enemies - covers enemy movement, unintentional collision
 			updateEnemies();
 			// Check current win/lose conditions
-			if (mainChar.getXPos() == goalX && mainChar.getYPos() == goalY) {
+			if (objectiveRewards.size() == 0 && mainChar.getXPos() == goalX && mainChar.getYPos() == goalY) {
 				System.out.println("Game over! You win!");
 				setState(GameState.WIN);
 				tick.pauseTick();
@@ -196,9 +196,10 @@ public class GameMain{
 				mainChar.setXPos(currentXPos+1);
 			}
 			break;
+		default:	//wait, no player position update
+			break;
 		}
-		
-		
+		checkCollisions();
 	}
 	
 	private void updateEnemies() {
@@ -225,9 +226,8 @@ public class GameMain{
 		int yDist = Math.abs(mainChar.getYPos() - e.getYPos());
 		int xDist = Math.abs(mainChar.getXPos() - e.getXPos());
 		
-		// enemy is standing on mainCharacter
+		// enemy is standing on mainCharacter (should never happen; enemies deleted on collision atm)
 		if (yDist == 0 && xDist == 0) {
-
 			return;
 		}
 		
@@ -298,7 +298,46 @@ public class GameMain{
 	// checks all lists only if something intersects with mainCharacter
 	// called at end of updatePlayer and updateEnemy
 	private void checkCollisions() {
-		throw new UnsupportedOperationException(); //TODO
+		int mx = mainChar.getXPos();
+		int my = mainChar.getYPos();
+		
+		// check enemies, punishments, bonusRewards, objectiveRewards, weaponCollectibles (dne) 
+		// backwards iteration for safer removal (alternative: using an iterator)
+		for (int i = this.enemies.size()-1; i >= 0; i--) {
+			Enemy obj = this.enemies.get(i);
+			if (obj.getXPos() == mx && obj.getYPos() == my) {
+				this.enemies.remove(i);
+				// Enemy-Character interaction:
+				mainChar.setHealth(mainChar.getHealth()-1);
+			}
+		}
+		
+		for (int i = this.punishments.size()-1; i >= 0; i--) {
+			Punishment obj = this.punishments.get(i);
+			if (obj.getXPos() == mx && obj.getYPos() == my) {
+				this.punishments.remove(i);
+				// Punishment-Character interaction:
+				score = score - 50;
+			}
+		}
+		
+		for (int i = this.bonusRewards.size()-1; i >= 0; i--) {
+			BonusReward obj = this.bonusRewards.get(i);
+			if (obj.getXPos() == mx && obj.getYPos() == my) {
+				this.bonusRewards.remove(i);
+				// BonusReward-Character interaction:
+				score = score + 100;
+			}
+		}
+		
+		for (int i = this.objectiveRewards.size()-1; i >= 0; i--) {
+			ObjectiveReward obj = this.objectiveRewards.get(i);
+			if (obj.getXPos() == mx && obj.getYPos() == my) {
+				this.objectiveRewards.remove(i);
+				// ObjectiveReward-Character interaction (besides win condition):
+				score = score + 300;
+			}
+		}
 	}
 
 	
