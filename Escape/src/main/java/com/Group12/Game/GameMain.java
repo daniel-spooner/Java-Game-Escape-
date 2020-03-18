@@ -60,7 +60,7 @@ public class GameMain{
 		this.tick = new TickTimer();
 		this.keyListener = new GameKeyListener();
 		this.display = new DisplayManager();
-
+	}
 	
 
 	/**
@@ -79,7 +79,7 @@ public class GameMain{
 	 * Gets the state of the application.
 	 * @return the current state of the game
 	 */
-	public GameState getState() {
+	public GameState getState() {	//TODO:Don't need this?
 		return state;
 	}
 	
@@ -87,8 +87,9 @@ public class GameMain{
 	 * Sets the state of the application.
 	 * @param state the new state of the application
 	 */
-	public void setState(GameMain.GameState state) {
+	public void setState(GameState state) {
 		this.state = state;
+		display.stateChange(this.state);
 	}
 	
 	/**
@@ -96,9 +97,6 @@ public class GameMain{
 	 * @return the KeyListener object
 	 */
 	
-	public void addKeyListener() {
-		this.display.add();
-	}
 	
 	public void getKey() {
 		int keycode;
@@ -122,9 +120,8 @@ public class GameMain{
 	public void startGame() {
 		// Initialization
 		makeBoard("map1");		//TODO: don't hardcode + decide on proper file location
-		display.setKeyListener(keyListener); 	//TODO: add function to DisplayManager.java
+		display.addKeyListener(keyListener); 	//Added addKeyListener to function to DisplayManager.java
 		keyListener.resetLastKey();
-		
 		setState(GameState.GAME);
 		score = 500;	//hardcoded initial score state
 		
@@ -164,13 +161,11 @@ public class GameMain{
 			updateEnemies();
 			// Check current win/lose conditions
 			if (mainChar.getXPos() == goalX && mainChar.getYPos() == goalY) {
-				//TODO: proper win display
 				System.out.println("Game over! You win!");
 				setState(GameState.WIN);
 				tick.pauseTick();
 			}
 			else if (score <= 0 || mainChar.getHealth() <= 0) { //TODO: re-implement getHealth() and setHealth(), easier to handle lose-cons
-				//TODO: proper lose display
 				System.out.println("Game over! You lose!");
 				setState(GameState.LOSE);
 				tick.pauseTick();
