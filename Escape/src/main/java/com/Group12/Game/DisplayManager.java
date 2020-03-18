@@ -96,7 +96,7 @@ public class DisplayManager extends JPanel{
 		Font fnt0 = new Font("arial", Font.BOLD, 100);
 		win.setFont(fnt0);
 		win.setColor(Color.red);
-		win.drawString("YOU LOSE",100,200);
+		win.drawString("YOU WIN",100,200);
 		
 	}
 

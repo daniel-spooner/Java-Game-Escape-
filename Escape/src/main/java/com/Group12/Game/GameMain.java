@@ -183,7 +183,7 @@ public class GameMain{
 			break;
 		case 65:	//A 65
 			if( isValidMove(currentXPos-1,currentYPos) == true) {
-				mainChar.setYPos(currentXPos-1);
+				mainChar.setXPos(currentXPos-1);
 			}
 			break;
 		case 83:	//S 83
@@ -193,7 +193,7 @@ public class GameMain{
 			break;
 		case 68:	//D 68
 			if( isValidMove(currentXPos+1,currentYPos) == true) {
-				mainChar.setYPos(currentXPos+1);
+				mainChar.setXPos(currentXPos+1);
 			}
 			break;
 		}
