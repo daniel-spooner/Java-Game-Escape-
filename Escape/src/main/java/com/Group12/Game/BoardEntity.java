@@ -7,8 +7,8 @@ package com.Group12.Game;
  */
 public class BoardEntity {
 	
-	int xPos;
-	int yPos;
+	private int xPos;
+	private int yPos;
 	
 	/**
 	 * Returns the entity's x coordinate.

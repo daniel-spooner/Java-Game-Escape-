@@ -3,11 +3,11 @@ package com.Group12.Game;
 
 public class TickTimer implements Runnable {
 
-	Boolean tickActive;
-	int FPS;
-	int delay;
-	long tickCount;
-	// long maxCount;
+	private Boolean tickActive;
+	private int FPS;
+	private int delay;
+	private long tickCount;
+	// private long maxCount;
    
 	public TickTimer() {
 		this(30);
