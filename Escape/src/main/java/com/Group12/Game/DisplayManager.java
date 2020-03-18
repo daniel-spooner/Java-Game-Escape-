@@ -24,7 +24,7 @@ public class DisplayManager extends JPanel{
 	// Attributes
 	JFrame gameWindow;
 	Board board;
-	GameMain ob = new GameMain();
+	//GameMain ob = new GameMain();
 	private enum State{MENU,GAME};
 	
 	
@@ -49,9 +49,9 @@ public class DisplayManager extends JPanel{
 				// Don't need this
 			}
 			
-			BoardEntity character = new BoardEntity();
-			int x = character.getXPos();
-			int y = character.getXPos();
+			//BoardEntity character = new BoardEntity();
+			//int x = character.getXPos();
+			//int y = character.getXPos();
 
 			public void keyPressed(KeyEvent e) {
 				int key = e.getKeyCode();
@@ -60,28 +60,28 @@ public class DisplayManager extends JPanel{
 				switch(key) {
 					//up
 					case KeyEvent.VK_W:
-						newPos = character.getXPos() + 1;
-						character.setX(newPos);
+						//newPos = character.getXPos() + 1;
+						//character.setX(newPos);
 						System.out.println(newPos);
 						break;
 					
 					//left
 					case KeyEvent.VK_A:
-						newPos = character.getYPos() - 1;
-						character.setY(newPos);
+						//newPos = character.getYPos() - 1;
+						//character.setY(newPos);
 						System.out.println(newPos);
 						break;
 					
 					//down
 					case KeyEvent.VK_S: 
-						newPos = character.getXPos() - 1;
-						character.setX(newPos);
+						//newPos = character.getXPos() - 1;
+						//character.setX(newPos);
 						System.out.println(newPos);
 						break;
 					//right
 					case KeyEvent.VK_D :
-						newPos = character.getYPos() + 1;
-						character.setY(newPos);
+						//newPos = character.getYPos() + 1;
+						//character.setY(newPos);
 						System.out.println(newPos);
 						break;
 					
@@ -137,6 +137,7 @@ public class DisplayManager extends JPanel{
 	public void display(Board board) { // This should take arguments for all types of game objects
 		this.board = board;
 		gameWindow.add(this);
+		repaint();
 	}
 	
 	// TODO: add more methods for displaying other objects
@@ -167,5 +168,6 @@ public class DisplayManager extends JPanel{
 		DisplayManager d = new DisplayManager(b.getXSize() * b.getXSize(), b.getYSize() * b.getXSize());
 		
     	d.display(b);
+
 	}
 }
