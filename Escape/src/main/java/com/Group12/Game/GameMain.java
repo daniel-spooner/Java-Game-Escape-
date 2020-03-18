@@ -22,7 +22,8 @@ public class GameMain {
 	private Board board;
 	
 	private int objectivesRemaining;
-//	private StateType gameState;
+	public enum STATE{MENU,GAME};
+	public STATE state;
 	private int score;
 	private TickTimer tick;
 	
@@ -38,7 +39,7 @@ public class GameMain {
 		//mainChar and board initialized in startGame()
 				
 		this.objectivesRemaining = 4;
-		//this.gameState = Menu;		//TODO: once the enumeration is finalized
+		state = State.MENU;
 		this.score = 0;
 		this.tick = new TickTimer();
 	}
@@ -73,6 +74,12 @@ public class GameMain {
 	
 	private void updateDisplay() {
 		
+	}
+	
+	public void setState(STATE newState) {
+		state = newState;
+		//System.out.println(state);
+
 	}
 	
 	private void moveAllEnemy() {
