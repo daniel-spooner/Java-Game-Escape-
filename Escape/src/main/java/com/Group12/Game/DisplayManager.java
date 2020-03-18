@@ -24,8 +24,9 @@ public class DisplayManager extends JPanel{
 	// Attributes
 	JFrame gameWindow;
 	Board board;
-	//GameMain ob = new GameMain();
-	private enum State{MENU,GAME};
+	GameMain updateState = new GameMain();
+	GameMain.STATE state = GameMain.STATE.MENU;
+
 	
 	
 	// are these constructors private or public or what?
@@ -58,46 +59,77 @@ public class DisplayManager extends JPanel{
 				int newPos;
 				
 				switch(key) {
+					
 					//up
 					case KeyEvent.VK_W:
-						//newPos = character.getXPos() + 1;
-						//character.setX(newPos);
-						System.out.println(newPos);
-						break;
+						if(state==GameMain.STATE.GAME) {
+							newPos = character.getXPos() + 1;
+							character.setX(newPos);
+							System.out.println(newPos);
+							break;
+						}
 					
 					//left
 					case KeyEvent.VK_A:
-						//newPos = character.getYPos() - 1;
-						//character.setY(newPos);
-						System.out.println(newPos);
-						break;
-					
+						if(state==GameMain.STATE.GAME) {
+							newPos = character.getYPos() - 1;
+							character.setY(newPos);
+							System.out.println(newPos);
+							break;
+						}
 					//down
 					case KeyEvent.VK_S: 
-						//newPos = character.getXPos() - 1;
-						//character.setX(newPos);
-						System.out.println(newPos);
-						break;
+						if(state==GameMain.STATE.GAME) {
+							newPos = character.getXPos() - 1;
+							character.setX(newPos);
+							System.out.println(newPos);
+							break;
+						}
 					//right
 					case KeyEvent.VK_D :
-						//newPos = character.getYPos() + 1;
-						//character.setY(newPos);
-						System.out.println(newPos);
+						if(state==GameMain.STATE.GAME) {
+							newPos = character.getYPos() + 1;
+							character.setY(newPos);
+							System.out.println(newPos);
+							break;
+						}
+						
+						else {
+							break;
+						}
+
+					
+					//Change from Menu State to Game State pressing ENTER KEY
+					//If state is already in menu, do nothing
+					case KeyEvent.VK_ENTER: 
+						if(state == GameMain.STATE.GAME) {
+							break;
+						}
+						else {
+							state = GameMain.STATE.GAME;
+							updateState.setState(state);
+							repaint();
+							
+						}
+					break;
+				
+					//Change from Game State to Menu State by pressing ESC KEY
+					//If state is already in Game, do nothing
+					case KeyEvent.VK_ESCAPE:
+						if(state == GameMain.STATE.MENU) {
+							break;
+						}
+						else {
+							state = GameMain.STATE.MENU;
+							updateState.setState(state);	
+							repaint();
+						}
 						break;
-					
-					case KeyEvent.VK_LEFT: 
-						//shoot
-					
-					case KeyEvent.VK_RIGHT:
-						//shoot
-					
-					case KeyEvent.VK_UP:
-						//shoot
-					
-					case KeyEvent.VK_DOWN:
-						//shoot           
+
+				
 				}
 			}
+			
 
 			public void keyReleased(KeyEvent e) {
 				// Don't need this
@@ -105,6 +137,7 @@ public class DisplayManager extends JPanel{
 			}
 		});
 	}
+
 
 	private void dispBoard(Graphics2D g2d) {
 		int boardX = this.board.getXSize();
@@ -122,12 +155,21 @@ public class DisplayManager extends JPanel{
 			}
 		}
 	}
-	
+	//Graphics to Display the Menu Screen
 	private void dispMenu(Graphics menu) {
-		Font fnt0 = new Font("arial", Font.BOLD, 50);
+		menu.setColor(Color.black);
+		menu.fillRect(0,0,800,750);
+		Font fnt0 = new Font("arial", Font.BOLD, 100);
 		menu.setFont(fnt0);
 		menu.setColor(Color.red);
-		menu.drawString("ESCAPE",200,100);
+		menu.drawString("ESCAPE",100,100);
+		Font fnt1 = new Font("arial", Font.BOLD,45);
+		menu.setFont(fnt1);
+		menu.setColor(Color.blue);
+		menu.drawString("Play",100,200);
+		menu.drawString("Settings",100,300);
+		menu.drawString("Help",100,400);
+
 	}
 	
 	/**
@@ -146,17 +188,15 @@ public class DisplayManager extends JPanel{
 	 * does something idk
 	 */
 	public void paint(Graphics g) {
-		Graphics2D g2d = (Graphics2D) g;
 		Graphics menu = (Graphics2D) g;
-		if(ob.getState() == 1) {
-			dispMenu(menu);
-		}
-		else {
+		Graphics2D g2d = (Graphics2D) g;
+		if(state ==  GameMain.STATE.GAME) {
 			dispBoard(g2d);
 		}
-		
-		// call more disp funcs here
-		
+		else if(state == GameMain.STATE.MENU) {
+			dispMenu(menu);
+		}
+        //call more disp funcs here
 	}
 	
 	public static void main(String[] args) {
