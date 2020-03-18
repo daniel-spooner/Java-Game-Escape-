@@ -109,9 +109,11 @@ public class GameMain{
 	public void startGame() {
 		// Initialization
 		makeBoard("map1");		//TODO: don't hardcode + decide on proper file location
-		display.addKeyListener(keyListener); 	//TODO: Added addKeyListener to function to DisplayManager.java BUT CHECK PLEASE
+		display.addKeyListener(keyListener);
 		keyListener.resetLastKey();
+		
 		setState(GameState.GAME);
+		display.stateChange(getState());
 		score = 500;	//hardcoded initial score state
 		
 		Thread t = new Thread(tick);
@@ -180,13 +182,21 @@ public class GameMain{
 	}
 	
 	private void updateEnemies() {
-		
+		/* Steps to take:
+		 * 1. Make all enemies move (unless one is already on the mainCharacter)
+		 * 2. checkCollisions() to react if any enemies ended on the mainCharacter
+		 */
+		for (Enemy e : this.enemies) {
+			moveEnemy(e);
+		}
+		checkCollisions();
 	}
 	
 	private void updateDisplay() {
 		
 	}
 	
+
 
 	private void moveAllEnemy() {
 		for (BoardEntity ee : this.enemies) {
@@ -198,75 +208,158 @@ public class GameMain{
 	//and judege whether it is allowed to move, This function isValidMove(x,y) I write in Board class (avoid wall or boundary)
 	//and then move towards MC
 	//The problem here is I have to get position of MC so I think we should public mainCharacter.
-	private void moveEnemy(Enemy e) {
-		 while(true) {
-			 int dirc; //dirc = 0 is up, 1 is down,  2 is left, 3 is right
-			 //check direction and move Enemy to Player,if the direction is invalid,enemy will move to a random direction.
-			 if(mainChar.getYPos() - e.getYPos() > 0 && Math.abs(mainChar.getYPos() - e.getYPos()) >= Math.abs(mainChar.getXPos() - e.getXPos()) && isValidMove(e.getXPos(),  e.getYPos()+1) && !hasEnemy(e.getXPos(),  e.getYPos()+1)) {
-				 dirc = 0;
-			 }
-			 else if(mainChar.getYPos() - e.getYPos() < 0 && Math.abs(mainChar.getYPos() - e.getYPos()) >= Math.abs(mainChar.getXPos() - e.getXPos()) && isValidMove( e.getXPos(),  e.getYPos()-1) && !hasEnemy(e.getXPos(),  e.getYPos()-1)) {
-				 dirc = 1;
-			 }
-			 else if(mainChar.getXPos() - e.getXPos() < 0 && Math.abs(mainChar.getXPos() - e.getXPos()) >= Math.abs(mainChar.getYPos() - e.getYPos()) && isValidMove( e.getXPos()-1,  e.getYPos()) && !hasEnemy(e.getXPos()-1,  e.getYPos())) {
-				 dirc = 2;
-			 }
-			 else if(mainChar.getXPos() - e.getXPos() > 0 && Math.abs(mainChar.getXPos() - e.getXPos()) >= Math.abs(mainChar.getYPos() - e.getYPos()) && isValidMove( e.getXPos()+1,  e.getYPos()) && !hasEnemy(e.getXPos()+1,  e.getYPos())) {
-				 dirc = 3;
-			 }
-			 else
-			 {
-				 Random rand = new Random();
-				 dirc = rand.nextInt(4);
-			 }
-			 int newX, newY;
-			 System.out.println(dirc);
-			 switch (dirc) {
-				 case 0:
-				 // up
-				 newX = e.getXPos();
-				 newY = e.getYPos()+1;
-				 break;
-			 case 1:
-				 // down
-				 newX = e.getXPos();
-				 newY = e.getYPos()-1;
-				 break;
-			 case 2:
-				 // left
-				 newX = e.getXPos()-1;
-				 newY = e.getYPos();
-				 break;
-			 case 3:
-				 // right
-				 newX = e.getXPos()+1;
-				 newY = e.getYPos();
-				 break;
-			 default:
-				 //Should set enemy is a reasonable location.
-				 newX = -1;
-				 newY = -1;
-			}
-		 
-		 
-		 if (isValidMove(newX, newY)) {
-			e.setXPos(newX);
-			e.setYPos(newY);
-			return;
-		 }
-		 }
+//	private void moveEnemy(Enemy e) {
+//		 while(true) {
+//			 int dirc; //dirc = 0 is up, 1 is down,  2 is left, 3 is right
+//			 //check direction and move Enemy to Player,if the direction is invalid,enemy will move to a random direction.
+//			 if(mainChar.getYPos() - e.getYPos() > 0 && Math.abs(mainChar.getYPos() - e.getYPos()) >= Math.abs(mainChar.getXPos() - e.getXPos()) && isValidMove(e.getXPos(),  e.getYPos()+1) && !hasEnemy(e.getXPos(),  e.getYPos()+1)) {
+//				 dirc = 0;
+//			 }
+//			 else if(mainChar.getYPos() - e.getYPos() < 0 && Math.abs(mainChar.getYPos() - e.getYPos()) >= Math.abs(mainChar.getXPos() - e.getXPos()) && isValidMove( e.getXPos(),  e.getYPos()-1) && !hasEnemy(e.getXPos(),  e.getYPos()-1)) {
+//				 dirc = 1;
+//			 }
+//			 else if(mainChar.getXPos() - e.getXPos() < 0 && Math.abs(mainChar.getXPos() - e.getXPos()) >= Math.abs(mainChar.getYPos() - e.getYPos()) && isValidMove( e.getXPos()-1,  e.getYPos()) && !hasEnemy(e.getXPos()-1,  e.getYPos())) {
+//				 dirc = 2;
+//			 }
+//			 else if(mainChar.getXPos() - e.getXPos() > 0 && Math.abs(mainChar.getXPos() - e.getXPos()) >= Math.abs(mainChar.getYPos() - e.getYPos()) && isValidMove( e.getXPos()+1,  e.getYPos()) && !hasEnemy(e.getXPos()+1,  e.getYPos())) {
+//				 dirc = 3;
+//			 }
+//			 else
+//			 {
+//				 Random rand = new Random();
+//				 dirc = rand.nextInt(4);
+//			 }
+//			 int newX, newY;
+//			 System.out.println(dirc);
+//			 switch (dirc) {
+//				 case 0:
+//				 // up
+//				 newX = e.getXPos();
+//				 newY = e.getYPos()+1;
+//				 break;
+//			 case 1:
+//				 // down
+//				 newX = e.getXPos();
+//				 newY = e.getYPos()-1;
+//				 break;
+//			 case 2:
+//				 // left
+//				 newX = e.getXPos()-1;
+//				 newY = e.getYPos();
+//				 break;
+//			 case 3:
+//				 // right
+//				 newX = e.getXPos()+1;
+//				 newY = e.getYPos();
+//				 break;
+//			 default:
+//				 //Should set enemy is a reasonable location.
+//				 newX = -1;
+//				 newY = -1;
+//			}
+//		 
+//		 
+//		 if (isValidMove(newX, newY)) {
+//			e.setXPos(newX);
+//			e.setYPos(newY);
 
+	private void moveEnemy(Enemy e) {
+		int dirc; //dirc = 0 is up, 1 is down,  2 is left, 3 is right
+		// [0][0] [i][0]
+		// [0][j] [i][j]
+		boolean mainCharUp = mainChar.getYPos() < e.getYPos();
+		boolean mainCharRight = mainChar.getXPos() < e.getXPos();
+		int yDist = Math.abs(mainChar.getYPos() - e.getYPos());
+		int xDist = Math.abs(mainChar.getXPos() - e.getXPos());
+		
+		// enemy is standing on mainCharacter
+		if (yDist == 0 && xDist == 0) {
+
+			return;
+		}
+		
+		// check closest direction to mainCharacter
+		if (yDist > xDist) {
+			if (mainCharUp) {
+				dirc = 0;
+			}
+			else {
+				dirc = 1;
+			}
+		}
+		else { //xDist >= yDist
+			if (mainCharRight) {
+				dirc = 2;
+			}
+			else {
+				dirc = 3;
+			}
+		}
+		
+		// loop until valid move made (no protection against poorly made map file)
+		Random rand = new Random();
+		int newX;
+		int newY;
+		
+		// System.out.println(dirc);
+		
+		while (true) {
+			switch (dirc) {
+			case 0:
+				// up
+				newX = e.getXPos();
+				newY = e.getYPos()-1;
+				break;
+			case 1:
+				// down
+				newX = e.getXPos();
+				newY = e.getYPos()+1;
+				break;
+			case 2:
+				// left
+				newX = e.getXPos()-1;
+				newY = e.getYPos();
+				break;
+			case 3:
+				// right
+				newX = e.getXPos()+1;
+				newY = e.getYPos();
+				break;
+			default:
+				//Should set enemy is a reasonable location.
+				newX = -1;
+				newY = -1;
+			}
+		
+			if (isValidMove(newX, newY) && !hasEnemy(newX,newY)) {
+				e.setXPos(newX);
+				e.setYPos(newY);
+				return;
+			} 
+			else {
+				dirc = rand.nextInt(4);
+			}
+		}
 	}
 	
 	//when Enemy e collision with MC.
+
 	//private void collision(Enemy e)
 	//{
 	//	if(e.getXPos() == mainChar.getXPos() && e.y == mainChar.getYPos()) {
 		//	((MainCharacter)mainChar).setHealth(100);
 		//}
 	//}
+
 	
-	//For enemyMove, check the location is valid to move.
+	// checks all lists only if something intersects with mainCharacter
+	// called at end of updatePlayer and updateEnemy
+	private void checkCollisions() {
+		throw new UnsupportedOperationException(); //TODO
+	}
+
+	
+	//check the location is valid to move.
 	private boolean isValidMove(int x, int y) {
 		return board.inBounds(x, y) && board.getCellType(x, y) != cellType.BARRIER;
 	}
