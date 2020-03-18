@@ -22,6 +22,7 @@ public class DisplayManager extends JPanel{
 	GameMain updateState = new GameMain();
 	GameMain.STATE state = GameMain.STATE.MENU;
 
+
 	
 	DisplayManager(){
 		gameWindow = new JFrame("Escape");
@@ -99,6 +100,8 @@ public class DisplayManager extends JPanel{
 						else {
 							state = GameMain.STATE.GAME;
 							updateState.setState(state);
+							repaint();
+							
 						}
 						break;
 					
@@ -110,7 +113,8 @@ public class DisplayManager extends JPanel{
 						}
 						else {
 							state = GameMain.STATE.MENU;
-							updateState.setState(state);
+							updateState.setState(state);	
+							repaint();
 						}
 						break;
 
@@ -155,7 +159,7 @@ public class DisplayManager extends JPanel{
 		menu.drawString("Play",100,200);
 		menu.drawString("Settings",100,300);
 		menu.drawString("Help",100,400);
-		
+
 	}
 	 
 	public void display(Board board) { // This should take arguments for all types of game objects
@@ -167,20 +171,18 @@ public class DisplayManager extends JPanel{
 	public void paint(Graphics g) {
 		Graphics menu = (Graphics2D) g;
 		Graphics2D g2d = (Graphics2D) g;
-		dispMenu(menu);
-		//dispBoard(g2d);
-	
+		if(state ==  GameMain.STATE.GAME) {
+			dispBoard(g2d);
+		}
+		else if(state == GameMain.STATE.MENU) {
+			dispMenu(menu);
 		}
 
-
-
-		// call more disp funcs here
-	
-	public void paintGame(Graphics g) {
-		Graphics2D g2d = (Graphics2D) g;
-		dispBoard(g2d);
-		
 	}
+
+// call more disp funcs here
+	
+
 	public static void main(String[] args) {
 		
 		Board b = new Board();
