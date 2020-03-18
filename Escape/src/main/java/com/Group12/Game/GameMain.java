@@ -96,16 +96,7 @@ public class GameMain{
 	 * @return the KeyListener object
 	 */
 	
-	/**
-	 * Gets most recent key from GameKeyListener
-	 * @return
-	 */
-	//TODO: is this necessary? Update() could just call keylistener.getLastKey() by itself.
-	public int getKey() {
-		int keycode;
-		keycode = this.keyListener.getLastKey();
-		return keycode;
-	}
+
 	
 	/**
 	 * Gets the current score of the game.
@@ -137,7 +128,7 @@ public class GameMain{
 
 		int recentKey;
 		//getLastKey() from GameKeyListener and getKey() returns type int. Every key has an equivalent number. No need to get KeyEvent type?
-		recentKey = getKey();
+		recentKey = this.keyListener.getLastKey();
 		// If the game should be paused. 27 corresponds with key 'esc'.
 		if (recentKey == 27) {
 			tick.pauseTick();
