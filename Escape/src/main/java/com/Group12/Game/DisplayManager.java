@@ -2,14 +2,11 @@ package com.Group12.Game;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import java.lang.*;
 
 // enum entityType { Open, Wall, Player, Enemy, Punishment, Reward, Weapon, Start, End }
 
@@ -60,6 +57,7 @@ public class DisplayManager extends JPanel{
 	public void display(Board board) { // This should take arguments for all types of game objects
 		this.board = board;
 		gameWindow.add(this);
+		repaint();
 	}
 	
 	//add more methods for displaying other objects
@@ -78,7 +76,7 @@ public class DisplayManager extends JPanel{
 		}
 		
 		DisplayManager d = new DisplayManager(b.getXSize() * b.getCellSize(), b.getYSize() * b.getCellSize());
-    	d.display(b);
+		d.display(b);
     	
 	}
 }

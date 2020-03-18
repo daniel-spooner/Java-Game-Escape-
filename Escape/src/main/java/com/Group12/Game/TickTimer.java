@@ -3,12 +3,11 @@ package com.Group12.Game;
 
 public class TickTimer implements Runnable {
 
-   //Thread t;
+	Boolean tickActive;
 	int FPS;
 	int delay;
 	long tickCount;
 	// long maxCount;
-	Boolean tickActive;
    
 	public TickTimer() {
 		this(30);
@@ -21,6 +20,8 @@ public class TickTimer implements Runnable {
  
 	private void runTick() {
 		if (tickActive) {
+			
+			// CALL the update function here
 			try {
 				Thread.sleep(delay);
 			} catch (Exception e) {
@@ -57,7 +58,7 @@ public class TickTimer implements Runnable {
 	public void run() {
 		tickCount = 0;
 		tickActive = true;
-		//System.out.println("Delay: " + delay);
+		
 		runTick();
 	}
    
@@ -66,7 +67,7 @@ public class TickTimer implements Runnable {
       
 		Thread t = new Thread(new TickTimer());
 		t.start();
-      
+
 	}
 } 
 
