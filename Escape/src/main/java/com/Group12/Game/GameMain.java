@@ -168,8 +168,11 @@ public class GameMain{
 		// Always update display
 		display.repaint();
 	}
-	
-	private void updatePlayer(int input) {		//TODO: Get and set Player Position for each case and collision checking?
+	/**
+	 * Checks if the input from player is valid, and updates the main character position.
+	 * @param input the key input pressed by player.
+	 */
+	private void updatePlayer(int input) {		
 		int currentXPos = mainChar.getXPos();
 		int currentYPos = mainChar.getYPos();
 		switch(input) {
