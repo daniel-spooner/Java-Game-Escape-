@@ -54,9 +54,8 @@ public class GameMain{
 		//mainChar and board initialized in startGame()
 
 
-		state = GameState.MENU;
+		setState(GameState.MENU);	//Ensure DisplayManager will display MENU state at initialization.
 		this.score = 0;
-		
 		this.tick = new TickTimer();
 		this.keyListener = new GameKeyListener();
 		this.display = new DisplayManager();
@@ -97,16 +96,15 @@ public class GameMain{
 	 * @return the KeyListener object
 	 */
 	
-	
-	public void getKey() {
+	/**
+	 * Gets most recent key from GameKeyListener
+	 * @return
+	 */
+	//TODO: is this necessary? Update() could just call keylistener.getLastKey() by itself.
+	public int getKey() {
 		int keycode;
 		keycode = this.keyListener.getLastKey();
-		switch(keycode) {
-		
-		case KeyEvent.VK_A:
-			break;
-		//handle if KeyEvent is an input for player, or Game State Change.
-		}
+		return keycode;
 	}
 	
 	/**
@@ -116,11 +114,11 @@ public class GameMain{
 	public int getScore() {
 		return score;
 	}
-	
+	//TODO: how to get to startGame from menu?
 	public void startGame() {
 		// Initialization
 		makeBoard("map1");		//TODO: don't hardcode + decide on proper file location
-		display.addKeyListener(keyListener); 	//Added addKeyListener to function to DisplayManager.java
+		display.addKeyListener(keyListener); 	//TODO: Added addKeyListener to function to DisplayManager.java BUT CHECK PLEASE
 		keyListener.resetLastKey();
 		setState(GameState.GAME);
 		score = 500;	//hardcoded initial score state
@@ -138,8 +136,8 @@ public class GameMain{
 	public void update() {
 
 		int recentKey;
-		//getLastKey() return type int. Every key has an equivalent number. No need to get lastKey type?
-		recentKey = keyListener.getLastKey();
+		//getLastKey() from GameKeyListener and getKey() returns type int. Every key has an equivalent number. No need to get KeyEvent type?
+		recentKey = getKey();
 		// If the game should be paused. 27 corresponds with key 'esc'.
 		if (recentKey == 27) {
 			tick.pauseTick();
@@ -176,7 +174,17 @@ public class GameMain{
 		display.repaint();
 	}
 	
-	private void updatePlayer(int input) {
+	private void updatePlayer(int input) {		//TODO: Get and set Player Position for each case and collision checking?
+		switch(input) {
+		case 87:	//W
+			break;
+		case 65:	//A
+			break;
+		case 83:	//S
+			break;
+		case 68:	//D
+			break;
+		}
 		
 	}
 	
