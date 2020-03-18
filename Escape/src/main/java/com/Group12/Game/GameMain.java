@@ -171,8 +171,8 @@ public class GameMain {
 		 
 		 
 		 if (isValidMove(newX, newY)) {
-			e.setX(newX);
-			e.setY(newY);
+			e.setXPos(newX);
+			e.setYPos(newY);
 			return;
 		 }
 		 }

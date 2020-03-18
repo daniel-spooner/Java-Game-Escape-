@@ -18,7 +18,7 @@ public class GameKeyListener implements KeyListener {
 			case KeyEvent.VK_W:
 				if(state==GameMain.GameState.GAME) {
 					newPos = character.getXPos() + 1;
-					character.setX(newPos);
+					character.setXPos(newPos);
 					System.out.println(newPos);
 					break;
 				}
@@ -27,7 +27,7 @@ public class GameKeyListener implements KeyListener {
 			case KeyEvent.VK_A:
 				if(state==GameMain.GameState.GAME) {
 					newPos = character.getYPos() - 1;
-					character.setY(newPos);
+					character.setYPos(newPos);
 					System.out.println(newPos);
 					break;
 				}
@@ -35,7 +35,7 @@ public class GameKeyListener implements KeyListener {
 			case KeyEvent.VK_S: 
 				if(state==GameMain.GameState.GAME) {
 					newPos = character.getXPos() - 1;
-					character.setX(newPos);
+					character.setXPos(newPos);
 					System.out.println(newPos);
 					break;
 				}
@@ -43,7 +43,7 @@ public class GameKeyListener implements KeyListener {
 			case KeyEvent.VK_D :
 				if(state==GameMain.GameState.GAME) {
 					newPos = character.getYPos() + 1;
-					character.setY(newPos);
+					character.setYPos(newPos);
 					System.out.println(newPos);
 					break;
 				}
