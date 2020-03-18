@@ -22,8 +22,8 @@ public class GameMain {
 	private Board board;
 	
 	private int objectivesRemaining;
-	public enum STATE{MENU,GAME};
-	public STATE state;
+	public enum GameState{MENU,GAME};
+	public GameState state;
 	private int score;
 	private TickTimer tick;
 	
@@ -39,7 +39,7 @@ public class GameMain {
 		//mainChar and board initialized in startGame()
 				
 		this.objectivesRemaining = 4;
-		state = State.MENU;
+		state = GameState.MENU;
 		this.score = 0;
 		this.tick = new TickTimer();
 	}

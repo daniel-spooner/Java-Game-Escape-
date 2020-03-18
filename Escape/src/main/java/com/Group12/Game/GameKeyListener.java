@@ -16,7 +16,7 @@ public class GameKeyListener implements KeyListener {
 			
 			//up
 			case KeyEvent.VK_W:
-				if(state==GameMain.STATE.GAME) {
+				if(state==GameMain.GameState.GAME) {
 					newPos = character.getXPos() + 1;
 					character.setX(newPos);
 					System.out.println(newPos);
@@ -25,7 +25,7 @@ public class GameKeyListener implements KeyListener {
 			
 			//left
 			case KeyEvent.VK_A:
-				if(state==GameMain.STATE.GAME) {
+				if(state==GameMain.GameState.GAME) {
 					newPos = character.getYPos() - 1;
 					character.setY(newPos);
 					System.out.println(newPos);
@@ -33,7 +33,7 @@ public class GameKeyListener implements KeyListener {
 				}
 			//down
 			case KeyEvent.VK_S: 
-				if(state==GameMain.STATE.GAME) {
+				if(state==GameMain.GameState.GAME) {
 					newPos = character.getXPos() - 1;
 					character.setX(newPos);
 					System.out.println(newPos);
@@ -41,7 +41,7 @@ public class GameKeyListener implements KeyListener {
 				}
 			//right
 			case KeyEvent.VK_D :
-				if(state==GameMain.STATE.GAME) {
+				if(state==GameMain.GameState.GAME) {
 					newPos = character.getYPos() + 1;
 					character.setY(newPos);
 					System.out.println(newPos);
@@ -56,11 +56,11 @@ public class GameKeyListener implements KeyListener {
 			//Change from Menu State to Game State pressing ENTER KEY
 			//If state is already in menu, do nothing
 			case KeyEvent.VK_ENTER: 
-				if(state == GameMain.STATE.GAME) {
+				if(state == GameMain.GameState.GAME) {
 					break;
 				}
 				else {
-					state = GameMain.STATE.GAME;
+					state = GameMain.GameState.GAME;
 					updateState.setState(state);
 					repaint();
 					
@@ -70,11 +70,11 @@ public class GameKeyListener implements KeyListener {
 			//Change from Game State to Menu State by pressing ESC KEY
 			//If state is already in Game, do nothing
 			case KeyEvent.VK_ESCAPE:
-				if(state == GameMain.STATE.MENU) {
+				if(state == GameMain.GameState.MENU) {
 					break;
 				}
 				else {
-					state = GameMain.STATE.MENU;
+					state = GameMain.GameState.MENU;
 					updateState.setState(state);	
 					repaint();
 				}

@@ -99,10 +99,10 @@ public class DisplayManager extends JPanel{
 	public void paint(Graphics g) {
 		Graphics menu = (Graphics2D) g;
 		Graphics2D g2d = (Graphics2D) g;
-		if(state ==  GameMain.STATE.GAME) {
+		if(state ==  GameMain.GameState.GAME) {
 			dispBoard(g2d);
 		}
-		else if(state == GameMain.STATE.MENU) {
+		else if(state == GameMain.GameState.MENU) {
 			dispMenu(menu);
 		}
         //call more disp funcs here
