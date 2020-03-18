@@ -19,20 +19,27 @@ public class GameMain{
 	
 	private static GameMain gameMain = null;
 	
-	private ArrayList<BoardEntity> enemies;
-	private ArrayList<BoardEntity> collectibles;
-	private BoardEntity mainChar;
+	private ArrayList<Enemy> enemies;
+	private ArrayList<Punishment> punishments;
+	private ArrayList<BonusReward> bonusRewards;
+	private ArrayList<ObjectiveReward> objectiveRewards;
+	// WeaponCollectible not currently implemented
+	
+	private MainCharacter mainChar;
 	private Board board;
 	
-	private int objectivesRemaining;
 	private int score;
 	
-	public static enum GameState{MENU,GAME};
+	public enum GameState{MENU,GAME};
 	private GameState state;
 	
 	private TickTimer tick;
 	private GameKeyListener keyListener;
 	private DisplayManager display;
+<<<<<<< HEAD
+=======
+	
+>>>>>>> b2da84cb45d7312c4b74e7880a0e8d6403452180
 	private int goalX;
 	private int goalY;
 
@@ -40,18 +47,32 @@ public class GameMain{
 	
 	
 	private GameMain() {
+<<<<<<< HEAD
 		this.enemies = new ArrayList<BoardEntity>();
 		//this.collectibles = new ArrayList<BoardEntity>();
 		
 		//mainChar and board initialized in startGame()
 		
 		this.objectivesRemaining = 4;
+=======
+		this.enemies 			= new ArrayList<>();
+		this.punishments		= new ArrayList<>();
+		this.bonusRewards 		= new ArrayList<>();
+		this.objectiveRewards	= new ArrayList<>();
+		
+		//mainChar and board initialized in startGame()
+
+>>>>>>> b2da84cb45d7312c4b74e7880a0e8d6403452180
 		state = GameState.MENU;
 		this.score = 0;
+		
 		this.tick = new TickTimer();
 		this.keyListener = new GameKeyListener();
 		this.display = new DisplayManager();
+<<<<<<< HEAD
 
+=======
+>>>>>>> b2da84cb45d7312c4b74e7880a0e8d6403452180
 	}
 	
 
@@ -103,8 +124,22 @@ public class GameMain{
 		}
 	}
 	
+	/**
+	 * Gets the current score of the game.
+	 * @return the score
+	 */
+	public int getScore() {
+		return score;
+	}
+	
 	public void startGame() {
+		// Initialization
 		makeBoard("map1");		//TODO: don't hardcode + decide on proper file location
+		setState(GameState.GAME);
+		display.setKeyListener(keyListener); 	//TODO: add function to DisplayManager.java
+		keyListener.resetLastKey();
+		Thread t = new Thread(tick);
+		t.start();
 	}
 	
 	public void update() {
@@ -123,12 +158,15 @@ public class GameMain{
 		
 	}
 	
+<<<<<<< HEAD
 	//public void setState(STATE newState) {
 	//	state = newState;
 		//System.out.println(state);
 
 	//}
 	
+=======
+>>>>>>> b2da84cb45d7312c4b74e7880a0e8d6403452180
 	private void moveAllEnemy() {
 		for (BoardEntity ee : this.enemies) {
 			moveEnemy((Enemy)ee);
@@ -289,13 +327,20 @@ public class GameMain{
 					this.goalY = i;
 					break;
 				case 'E':
-					this.enemies.add(new Enemy(j,i));
+					this.enemies.add(new Enemy(j, i));
 					break;
 				case 'P':
+<<<<<<< HEAD
 					//this.collectibles.add(new Punishment(j, i, 50));
 					break;
 				case 'O':
 					//this.collectibles.add(new ObjectiveReward(j,i, 50));
+=======
+					this.punishments.add(new Punishment(j, i, 50));
+					break;
+				case 'O':
+					this.objectiveRewards.add(new ObjectiveReward(j, i, 50));
+>>>>>>> b2da84cb45d7312c4b74e7880a0e8d6403452180
 					break;
 				case 'W':
 					// WeaponCollectible has not yet been implemented
