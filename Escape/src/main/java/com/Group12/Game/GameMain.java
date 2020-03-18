@@ -1,6 +1,9 @@
 package com.Group12.Game;
 
 import java.util.ArrayList;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.*;
 import java.util.Random;
 import java.util.Scanner; 
@@ -10,7 +13,7 @@ import java.util.Scanner;
  * @author Nicholas, Daniel, Wilson, Yuxi
  *
  */
-public class GameMain {
+public class GameMain{
 	
 	// Attributes
 	
@@ -29,24 +32,29 @@ public class GameMain {
 	
 	private TickTimer tick;
 	private GameKeyListener keyListener;
-	
+	private DisplayManager display;
 	private int goalX;
 	private int goalY;
-	
+
 	// Methods
+	
 	
 	private GameMain() {
 		this.enemies = new ArrayList<BoardEntity>();
-		this.collectibles = new ArrayList<BoardEntity>();
+		//this.collectibles = new ArrayList<BoardEntity>();
 		
 		//mainChar and board initialized in startGame()
-				
+		
 		this.objectivesRemaining = 4;
 		state = GameState.MENU;
 		this.score = 0;
 		this.tick = new TickTimer();
+		this.keyListener = new GameKeyListener();
+		this.display = new DisplayManager();
+
 	}
 	
+
 	/**
 	 * Returns the single instance of GameMain
 	 * if it exists; otherwise, it creates the instance.
@@ -79,8 +87,20 @@ public class GameMain {
 	 * Gets the KeyListener from the application.
 	 * @return the KeyListener object
 	 */
-	public GameKeyListener getKeyListener() {
-		return keyListener;
+	
+	public void addKeyListener() {
+		this.display.add();
+	}
+	
+	public void getKey() {
+		int keycode;
+		keycode = this.keyListener.getLastKey();
+		switch(keycode) {
+		
+		case KeyEvent.VK_A:
+			break;
+		//handle if KeyEvent is an input for player, or Game State Change.
+		}
 	}
 	
 	public void startGame() {
@@ -103,11 +123,11 @@ public class GameMain {
 		
 	}
 	
-	public void setState(STATE newState) {
-		state = newState;
+	//public void setState(STATE newState) {
+	//	state = newState;
 		//System.out.println(state);
 
-	}
+	//}
 	
 	private void moveAllEnemy() {
 		for (BoardEntity ee : this.enemies) {
@@ -180,12 +200,12 @@ public class GameMain {
 	}
 	
 	//when Enemy e collision with MC.
-	private void collision(Enemy e)
-	{
-		if(e.x == mainChar.getXPos() && e.y == mainChar.getYPos()) {
-			((MainCharacter)mainChar).setHealth(100);
-		}
-	}
+	//private void collision(Enemy e)
+	//{
+	//	if(e.x == mainChar.getXPos() && e.y == mainChar.getYPos()) {
+		//	((MainCharacter)mainChar).setHealth(100);
+		//}
+	//}
 	
 	
 	private boolean isValidMove(int x, int y) {
@@ -272,10 +292,10 @@ public class GameMain {
 					this.enemies.add(new Enemy(j,i));
 					break;
 				case 'P':
-					this.collectibles.add(new Punishment(j, i, 50));
+					//this.collectibles.add(new Punishment(j, i, 50));
 					break;
 				case 'O':
-					this.collectibles.add(new ObjectiveReward(j,i, 50));
+					//this.collectibles.add(new ObjectiveReward(j,i, 50));
 					break;
 				case 'W':
 					// WeaponCollectible has not yet been implemented
@@ -290,5 +310,14 @@ public class GameMain {
 		sc.close();
 		
 	}
+	public static void main(String args[]) {
+		GameMain n = new GameMain();
+	
+	}
+
+
+
+
+
 
 }
