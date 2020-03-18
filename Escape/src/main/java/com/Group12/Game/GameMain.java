@@ -22,8 +22,8 @@ public class GameMain {
 	private Board board;
 	
 	private int objectivesRemaining;
-	private enum STATE{MENU,GAME};
-	private STATE state = STATE.MENU;
+	public enum STATE{MENU,GAME};
+	public STATE state;
 	private int score;
 	private TickTimer tick;
 	
@@ -35,11 +35,11 @@ public class GameMain {
 	private void GameMain1() {
 		//this.enemies = new ArrayList<Enemy>;
 		//this.collectibles = new ArrayList<Collectible>;
-		//this.mainChar = new MainCharacter;
-		//this.board = new Board;	//init in startGame
+		this.mainChar = new MainCharacter();
+		this.board = new Board();	//init in startGame
 
 		//this.objectivesRemaining = 4;
-		state = STATE.MENU;//TODO: once the enumeration is finalized
+		state = STATE.MENU;
 		//this.score = 0;
 		//this.tick = new TickTimer;
 	}
@@ -49,7 +49,7 @@ public class GameMain {
 	 * if it exists, otherwise it creates a new instance.
 	 * @return GameMain	This returns the instance of GameMain.
 	 */
-	public static GameMain getInstance() {
+	static GameMain getInstance() {
 		if(gameMain == null) {
 			gameMain = new GameMain();
 		}
@@ -72,26 +72,24 @@ public class GameMain {
 		
 	}
 	
-	private void updateDisplay() {
+	
+	private void updateGame() {
 		
 	}
-	public int getState() {
-		if(state == STATE.MENU) {
-			return 1;
-		}
-		else {
-			return 0;
-		}
 	
+	// Changes State from Menu to Game, called by DisplayManager
+	public void setState(STATE newState) {
+		state = newState;
+		System.out.println(state);
+
 	}
-	
 	
 	//In moveenemy, I ask enemy to search MC's position 
 	//and judege whether it is allowed to move, This function isValidMove(x,y) I write in Board class (avoid wall or boundary)
 	//and then move towards MC
 	//The problem here is I have to get position of MC so I think we should public mainCharacter.
-	/*
-	private void moveEnemy(Enemy e) {
+	
+/*	private void moveEnemy(Enemy e) {
 		 while(true) {
 			 int dirc; //dirc = 0 is up, 1 is down,  2 is left, 3 is right
 			 // IS VALID MOVE HAS BEEN DELETED FROM BOARD, ADD IT IN GAMEMAIN
@@ -160,14 +158,17 @@ public class GameMain {
 			mainChar.setHealth(100);
 		}
 	}
-	*/
 	
+	*/
 	/**
 	 * This method reads from a file and uses it to initialize
 	 * board, enemies, collectibles, and mainChar.
 	 * @param filename This is the name of the file that makeBoard reads from.
 	 */
-/*	private void makeBoard(String filename) {
+	
+	
+	/*
+	private void makeBoard(String filename) {
 		// file format: xDim yDim
 		// remaining yDim lines of xDim characters: board layout & entity placement
 		File file = new File(filename);
@@ -177,7 +178,8 @@ public class GameMain {
 		ySize = sc.nextInt();
 		this.board = new Board(xSize, ySize);
 		sc.nextLine();
-	*/	
+		*/
+		
 		/* characters in file:
 		 * 	. = Open
 		 * 	# = Barrier				TODO: tell Daniel celltype is Barrier in the UML Diagram
@@ -189,8 +191,8 @@ public class GameMain {
 		 * 	O = ObjectiveReward
 		 * 	W = WeaponCollectible
 		 */
-		
-/*		for (int i = 0; i < ySize; i++) {
+		/*
+		for (int i = 0; i < ySize; i++) {
 			String line = sc.nextLine();	//TODO: determine if file must end with newline character (currently does not)
 			for (int j = 0; j < xSize; j++) {
 				char c = line.charAt(j);
@@ -225,8 +227,12 @@ public class GameMain {
 			}
 		}
 		
-		sc.close();*/
+		sc.close();
 	}
+	*/
+	
+	
+}
 
 
 
