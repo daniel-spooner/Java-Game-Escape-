@@ -54,11 +54,12 @@ public class GameMain{
 		//mainChar and board initialized in startGame()
 
 
-		setState(GameState.MENU);	//Ensure DisplayManager will display MENU state at initialization.
+
 		this.score = 0;
 		this.tick = new TickTimer();
 		this.keyListener = new GameKeyListener();
 		this.display = new DisplayManager();
+		setState(GameState.MENU);		//Ensure DisplayManager will display MENU state at initialization.
 	}
 	
 
@@ -86,11 +87,12 @@ public class GameMain{
 	 * Sets the state of the application.
 	 * @param state the new state of the application
 	 */
+	
 	public void setState(GameState state) {
 		this.state = state;
 		display.stateChange(this.state);
 	}
-	
+
 	/**
 	 * Gets the KeyListener from the application.
 	 * @return the KeyListener object
@@ -166,18 +168,36 @@ public class GameMain{
 		// Always update display
 		display.repaint();
 	}
-	
-	private void updatePlayer(int input) {		//TODO: Get and set Player Position for each case and collision checking?
+	/**
+	 * Checks if the input from player is valid, and updates the main character position.
+	 * @param input the key input pressed by player.
+	 */
+	private void updatePlayer(int input) {		
+		int currentXPos = mainChar.getXPos();
+		int currentYPos = mainChar.getYPos();
 		switch(input) {
-		case 87:	//W
+		case 87:	//W 87
+			if( isValidMove(currentXPos,currentYPos+1) == true) {
+				mainChar.setYPos(currentYPos+1);
+			}
 			break;
-		case 65:	//A
+		case 65:	//A 65
+			if( isValidMove(currentXPos-1,currentYPos) == true) {
+				mainChar.setYPos(currentXPos-1);
+			}
 			break;
-		case 83:	//S
+		case 83:	//S 83
+			if( isValidMove(currentXPos,currentYPos-1) == true) {
+				mainChar.setYPos(currentYPos-1);
+			}
 			break;
-		case 68:	//D
+		case 68:	//D 68
+			if( isValidMove(currentXPos+1,currentYPos) == true) {
+				mainChar.setYPos(currentXPos+1);
+			}
 			break;
 		}
+		
 		
 	}
 	
@@ -465,10 +485,7 @@ public class GameMain{
 		sc.close();
 		
 	}
-	public static void main(String args[]) {
-		GameMain n = new GameMain();
-	
-	}
+
 
 
 
