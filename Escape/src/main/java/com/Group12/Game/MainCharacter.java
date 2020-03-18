@@ -9,7 +9,7 @@ public class MainCharacter extends BoardEntity {
 	
 	// Attributes
 	//private int x, y;
-	//private int health = 100;
+	private int health;
 	//private Weapon gun;				// different weapons have not yet been implemented
 	
 	// Methods
@@ -27,7 +27,7 @@ public class MainCharacter extends BoardEntity {
 	 * @param y the y coordinate
 	 */
 	public MainCharacter(int x, int y) {
-		//this.health = 100;
+		this.health = 1;
 		this.xPos = x;
 		this.yPos = y;
 		//this.gun = new Weapon();	// different weapons have not yet been implemented
@@ -38,31 +38,33 @@ public class MainCharacter extends BoardEntity {
 	 * Gets the current health of the MainCharacter.
 	 * @return the current health
 	 */
-	/*
 	public int getHealth() {
 		return health;
 	}
-	*/
 	
 	/**
 	 * Sets the current health of the MainCharacter.
 	 * @param health the new health value
 	 */
-	/*
 	public void setHealth(int health) {
 		this.health = health; 
 	}
-	*/
+	
+	/**
+	 * Sets the current health of the MainCharacter.
+	 */
+	public boolean decHealth() {
+		this.health --;
+		return this.health > 0;
+	}
 	
 	/**
 	 * Checks if the MainCharacter's health is greater than 0.
 	 * @return true if getHealth() is greater than 0, otherwise false
 	 */
-	/*
 	public boolean checkAlive() {
 		return getHealth() > 0;
 	}
-	*/
 	
 	// BoardEntity implementation
 	/*

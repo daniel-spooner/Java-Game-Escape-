@@ -57,11 +57,12 @@ public class TickTimer implements Runnable {
 	
 	/**
 	 * Unpauses the TickTimer, causing it to continue running after being paused.
-	 * Behaviour undefined if used when the TickTimer is not currently paused.
 	 */
 	public void unpauseTick() {
-		tickActive = true;
-		runTick();
+		if(!tickActive) {
+			tickActive = true;
+			runTick();
+		}
 	}
 	
 	/**
