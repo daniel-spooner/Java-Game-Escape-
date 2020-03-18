@@ -27,7 +27,7 @@ public class GameMain {
 	
 	private int score;
 	
-	public enum GameState{MENU,GAME};
+	public enum GameState{MENU,GAME,WIN,LOSE};
 	private GameState state;
 	
 	private TickTimer tick;
@@ -119,9 +119,11 @@ public class GameMain {
 	 * performing player actions, moving enemies, and checking win conditions.
 	 */
 	public void update() {
-		int recentKey = 
-		// If the game should be paused
-		if (lastKey.equals("Escape")) {
+		int recentKey;
+		//getLastKey() return type int. Every key has an equivalent number. No need to get lastKey type?
+		recentKey = keyListener.getLastKey();
+		// If the game should be paused. 27 corresponds with key 'esc'.
+		if (recentKey == 27) {
 			tick.pauseTick();
 			setState(GameState.MENU);
 			// But if we pause TickTimer, how do we unpause?
@@ -136,18 +138,20 @@ public class GameMain {
 			
 			// The actual logic
 			// Update the player - covers player input, intentional collision
-			updatePlayer(lastKey);
+			updatePlayer(recentKey);
 			// Update the enemies - covers enemy movement, unintentional collision
 			updateEnemies();
 			// Check current win/lose conditions
 			if (mainChar.getXPos() == goalX && mainChar.getYPos() == goalY) {
 				//TODO: proper win display
 				System.out.println("Game over! You win!");
+				setState(GameState.WIN);
 				tick.pauseTick();
 			}
 			else if (score <= 0 || mainChar.getHealth() <= 0) { //TODO: re-implement getHealth() and setHealth(), easier to handle lose-cons
 				//TODO: proper lose display
 				System.out.println("Game over! You lose!");
+				setState(GameState.LOSE);
 				tick.pauseTick();
 			}
 		}
@@ -156,7 +160,7 @@ public class GameMain {
 		display.repaint();
 	}
 	
-	private void updatePlayer(String input) {
+	private void updatePlayer(int input) {
 		
 	}
 	
