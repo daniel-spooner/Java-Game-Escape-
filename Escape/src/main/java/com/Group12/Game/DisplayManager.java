@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import javax.swing.*;
 
 /**
@@ -45,97 +44,7 @@ public class DisplayManager extends JPanel{
 		gameWindow.setVisible(true);
 	    gameWindow.setLocationRelativeTo(null);
 		gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		gameWindow.addKeyListener(new KeyListener() {
-			public void keyTyped(KeyEvent e) {
-				// Don't need this
-			}
-			
-			//BoardEntity character = new BoardEntity();
-			//int x = character.getXPos();
-			//int y = character.getXPos();
-
-			public void keyPressed(KeyEvent e) {
-				int key = e.getKeyCode();
-				int newPos;
-				
-				switch(key) {
-					
-					//up
-					case KeyEvent.VK_W:
-						if(state==GameMain.STATE.GAME) {
-							newPos = character.getXPos() + 1;
-							character.setX(newPos);
-							System.out.println(newPos);
-							break;
-						}
-					
-					//left
-					case KeyEvent.VK_A:
-						if(state==GameMain.STATE.GAME) {
-							newPos = character.getYPos() - 1;
-							character.setY(newPos);
-							System.out.println(newPos);
-							break;
-						}
-					//down
-					case KeyEvent.VK_S: 
-						if(state==GameMain.STATE.GAME) {
-							newPos = character.getXPos() - 1;
-							character.setX(newPos);
-							System.out.println(newPos);
-							break;
-						}
-					//right
-					case KeyEvent.VK_D :
-						if(state==GameMain.STATE.GAME) {
-							newPos = character.getYPos() + 1;
-							character.setY(newPos);
-							System.out.println(newPos);
-							break;
-						}
-						
-						else {
-							break;
-						}
-
-					
-					//Change from Menu State to Game State pressing ENTER KEY
-					//If state is already in menu, do nothing
-					case KeyEvent.VK_ENTER: 
-						if(state == GameMain.STATE.GAME) {
-							break;
-						}
-						else {
-							state = GameMain.STATE.GAME;
-							updateState.setState(state);
-							repaint();
-							
-						}
-					break;
-				
-					//Change from Game State to Menu State by pressing ESC KEY
-					//If state is already in Game, do nothing
-					case KeyEvent.VK_ESCAPE:
-						if(state == GameMain.STATE.MENU) {
-							break;
-						}
-						else {
-							state = GameMain.STATE.MENU;
-							updateState.setState(state);	
-							repaint();
-						}
-						break;
-
-				
-				}
-			}
-			
-
-			public void keyReleased(KeyEvent e) {
-				// Don't need this
-				
-			}
-		});
+		gameWindow.addKeyListener(new GameKeyListener()); //TODO: make this an object passed by GameMain
 	}
 
 
