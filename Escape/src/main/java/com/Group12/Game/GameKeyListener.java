@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 
 
 public class GameKeyListener implements KeyListener {
+<<<<<<< HEAD
 
 	private int lastKey;
 	public void keyPressed(KeyEvent e) {
@@ -58,6 +59,26 @@ public class GameKeyListener implements KeyListener {
 				//break;
 		
 
+=======
+	
+    private int lastKey;
+
+    public int getLastKey() {
+        return lastKey;
+    }
+
+    public void resetLastKey() {
+        lastKey = 0;
+    }
+    
+	public void keyTyped(KeyEvent e) {
+		// Don't need this
+	}
+	
+	public void keyPressed(KeyEvent e) {
+        lastKey = e.getKeyCode();
+    }
+>>>>>>> 888d1680b625bc0820ff078ae77a0d37e3760343
 	
 
 	public void keyReleased(KeyEvent e) {

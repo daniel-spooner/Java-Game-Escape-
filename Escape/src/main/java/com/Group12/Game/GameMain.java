@@ -135,18 +135,62 @@ public class GameMain{
 	public void startGame() {
 		// Initialization
 		makeBoard("map1");		//TODO: don't hardcode + decide on proper file location
-		setState(GameState.GAME);
 		display.setKeyListener(keyListener); 	//TODO: add function to DisplayManager.java
 		keyListener.resetLastKey();
+		
+		setState(GameState.GAME);
+		score = 500;	//hardcoded initial score state
+		
 		Thread t = new Thread(tick);
 		t.start();
 	}
 	
+	/**
+	 * Should be called on an interval by a TickTimer and nothing else.
+	 * <p>
+	 * Updates the current state of the game if the 'tick' has ended,
+	 * performing player actions, moving enemies, and checking win conditions.
+	 */
 	public void update() {
+		String lastKey = keyListener.getLastKey(); //TODO: import KeyEvent cause these are that type instead
 		
+		// If the game should be paused
+		if (lastKey.equals("Escape")) {
+			tick.pauseTick();
+			setState(GameState.MENU);
+			// But if we pause TickTimer, how do we unpause?
+			// Proposal: maybe runTick() is always on and running update() 
+			//  but only tracks time when active? have to discuss later
+		}
+		
+		// If a full 'tick' has passed: 
+		else if (tick.getTickCount() >= (long) 3000) { // current hardcoded milliseconds per 'tick'
+			tick.resetTickCount(); // probably thread-unsafe - if this doesn't execute fast we double-update (unlikely unless tick.fps far too high)
+			keyListener.resetLastKey();
+			
+			// The actual logic
+			// Update the player - covers player input, intentional collision
+			updatePlayer(lastKey);
+			// Update the enemies - covers enemy movement, unintentional collision
+			updateEnemies();
+			// Check current win/lose conditions
+			if (mainChar.getXPos() == goalX && mainChar.getYPos() == goalY) {
+				//TODO: proper win display
+				System.out.println("Game over! You win!");
+				tick.pauseTick();
+			}
+			else if (score <= 0 || mainChar.getHealth() <= 0) { //TODO: re-implement getHealth() and setHealth(), easier to handle lose-cons
+				//TODO: proper lose display
+				System.out.println("Game over! You lose!");
+				tick.pauseTick();
+			}
+		}
+		
+		// Always update display
+		display.repaint();
 	}
 	
-	private void updatePlayer() {
+	private void updatePlayer(String input) {
 		
 	}
 	
