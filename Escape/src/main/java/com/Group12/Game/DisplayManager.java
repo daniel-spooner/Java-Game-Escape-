@@ -3,6 +3,8 @@ package com.Group12.Game;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import com.Group12.Game.GameMain.STATE;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -65,31 +67,44 @@ public class DisplayManager extends JPanel{
 			
 					//up
 				switch(key) {
+					
+
 					case KeyEvent.VK_W:
-						newPos = character.getXPos() + 1;
-						character.setX(newPos);
-						System.out.println(newPos);
-						break;
+						if(state==GameMain.STATE.GAME) {
+							newPos = character.getXPos() + 1;
+							character.setX(newPos);
+							System.out.println(newPos);
+							break;
+						}
 					
 					//left
 					case KeyEvent.VK_A:
-						newPos = character.getYPos() - 1;
-						character.setY(newPos);
-						System.out.println(newPos);
-						break;
-					
+						if(state==GameMain.STATE.GAME) {
+							newPos = character.getYPos() - 1;
+							character.setY(newPos);
+							System.out.println(newPos);
+							break;
+						}
 					//down
 					case KeyEvent.VK_S: 
-						newPos = character.getXPos() - 1;
-						character.setX(newPos);
-						System.out.println(newPos);
-						break;
+						if(state==GameMain.STATE.GAME) {
+							newPos = character.getXPos() - 1;
+							character.setX(newPos);
+							System.out.println(newPos);
+							break;
+						}
 					//right
 					case KeyEvent.VK_D :
-						newPos = character.getYPos() + 1;
-						character.setY(newPos);
-						System.out.println(newPos);
-						break;
+						if(state==GameMain.STATE.GAME) {
+							newPos = character.getYPos() + 1;
+							character.setY(newPos);
+							System.out.println(newPos);
+							break;
+						}
+						else {
+							break;
+						}
+
 					
 					//Change from Menu State to Game State pressing ENTER KEY
 					//If state is already in menu, do nothing
@@ -103,8 +118,8 @@ public class DisplayManager extends JPanel{
 							repaint();
 							
 						}
-						break;
-					
+					break;
+				
 					//Change from Game State to Menu State by pressing ESC KEY
 					//If state is already in Game, do nothing
 					case KeyEvent.VK_ESCAPE:
@@ -121,6 +136,7 @@ public class DisplayManager extends JPanel{
 				
 				}
 			}
+			
 
 			public void keyReleased(KeyEvent e) {
 				// Don't need this
