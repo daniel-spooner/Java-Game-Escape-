@@ -4,13 +4,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import javax.swing.*;
+import java.awt.event.KeyListener;
+
 
 /**
  * Handles graphical display and keyboard input.
@@ -24,8 +22,8 @@ public class DisplayManager extends JPanel{
 	JFrame gameWindow;
 	Board board;
 
-
-	
+	//Enum to hold current state. Used when updating display
+	GameMain.GameState currentState;
 	
 	// are these constructors private or public or what?
 	DisplayManager(){
@@ -40,15 +38,14 @@ public class DisplayManager extends JPanel{
 		this.setPreferredSize(new Dimension(sizeX, sizeY));
 		gameWindow.add(this);
 		gameWindow.pack();
-		
 		gameWindow.setVisible(true);
 	    gameWindow.setLocationRelativeTo(null);
 		gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		gameWindow.addKeyListener(new GameKeyListener());
+		//gameWindow.addKeyListener(new GameKeyListener());
 	}
-	public void add() {
-
-		System.out.println("I am called");
+	//Add this function?
+	public void addKeyListener(KeyListener kl) {
+		gameWindow.addKeyListener(new GameKeyListener());
 	}
 
 	private void dispBoard(Graphics2D g2d) {
@@ -84,6 +81,34 @@ public class DisplayManager extends JPanel{
 
 	}
 	
+	private void dispLose(Graphics lose) {
+		lose.setColor(Color.black);
+		lose.fillRect(0,0,800,750);
+		Font fnt0 = new Font("arial", Font.BOLD, 100);
+		lose.setFont(fnt0);
+		lose.setColor(Color.red);
+		lose.drawString("YOU LOSE",100,200);
+		
+	}
+	private void dispWin(Graphics win) {
+		win.setColor(Color.white);
+		win.fillRect(0,0,800,750);
+		Font fnt0 = new Font("arial", Font.BOLD, 100);
+		win.setFont(fnt0);
+		win.setColor(Color.red);
+		win.drawString("YOU LOSE",100,200);
+		
+	}
+
+	/**
+	 * Changes the current state of game. Called by GameMain.
+	 * @param currentState the State to be changed to
+	 */
+	public void stateChange(GameMain.GameState currentState) {
+		this.currentState = currentState;
+	}
+	
+	
 	/**
 	 * Displays a Board onto the game window.
 	 * @param board the board to be displayed
@@ -99,15 +124,24 @@ public class DisplayManager extends JPanel{
 	/**
 	 * does something idk
 	 */
+
 	public void paint(Graphics g) {
 		Graphics menu = (Graphics2D) g;
 		Graphics2D g2d = (Graphics2D) g;
-		//if(state ==  GameMain.GameState.GAME) {
+		Graphics win = (Graphics2D) g;
+		Graphics2D lose = (Graphics2D) g;
+		if(currentState ==  GameMain.GameState.GAME) {
 			dispBoard(g2d);
-		//}
-		//else if(state == GameMain.GameState.MENU) {
-		//	dispMenu(menu);
-		//}
+		}
+		else if(currentState == GameMain.GameState.MENU) {
+			dispMenu(menu);
+		}
+		else if(currentState == GameMain.GameState.WIN) {
+			dispWin(win);
+		}
+		else if(currentState == GameMain.GameState.LOSE) {
+			dispLose(lose);
+		}
         //call more disp funcs here
 	}
 	
