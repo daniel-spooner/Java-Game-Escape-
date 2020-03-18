@@ -102,6 +102,11 @@ public class GameMain {
 	public void startGame() {
 		// Initialization
 		makeBoard("map1");		//TODO: don't hardcode + decide on proper file location
+		setState(GameState.GAME);
+		display.setKeyListener(keyListener); 	//TODO: add function to DisplayManager.java
+		keyListener.resetLastKey();
+		Thread t = new Thread(tick);
+		t.start();
 	}
 	
 	public void update() {
