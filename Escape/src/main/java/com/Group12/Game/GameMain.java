@@ -226,8 +226,7 @@ public class GameMain {
 				}
 			}
 		}
-		
-		sc.close();
+			sc.close();
 	}
 	*/
 	
