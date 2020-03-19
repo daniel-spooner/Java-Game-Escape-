@@ -90,10 +90,10 @@ public class TickTimer implements Runnable {
 		runTick();
 	}
 	
-	public static void main(String[] args) throws Exception {
-		Thread t = new Thread(new TickTimer());
-		t.start();
-
-	}
+//	public static void main(String[] args) throws Exception {
+//		Thread t = new Thread(new TickTimer());
+//		t.start();
+//
+//	}
 } 
 

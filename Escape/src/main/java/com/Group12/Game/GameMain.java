@@ -158,7 +158,7 @@ public class GameMain{
 			}
 			
 			// ... a full 'tick' has passed.
-			else if (tick.getTickCount() >= (long) 3000) { // current hardcoded milliseconds per 'tick'
+			else if (tick.getTickCount() >= (long) 1000) { // current hardcoded milliseconds per 'tick'
 				tick.resetTickCount(); // probably thread-unsafe - if this doesn't execute fast we double-update (unlikely unless tick.fps far too high)
 				keyListener.resetLastKey();
 				
@@ -301,7 +301,7 @@ public class GameMain{
 	}
 	
 	private void updateUserInterface() { //TODO
-		display.display(board, mainChar, enemies, objectiveRewards, punishments, bonusRewards, goalX, goalY, (float)(1.0f - (float)tick.getTickCount()/3000.0f), score);
+		display.display(board, mainChar, enemies, objectiveRewards, punishments, bonusRewards, goalX, goalY, (float)(1.0f - (float)tick.getTickCount()/1000.0f), score);
 		//throw new UnsupportedOperationException();
 	}
 	
