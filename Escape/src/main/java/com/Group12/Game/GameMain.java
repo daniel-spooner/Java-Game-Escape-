@@ -6,7 +6,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.*;
 import java.util.Random;
-import java.util.Scanner; 
+import java.util.Scanner;
+
+import com.sun.tools.javac.launcher.Main; 
 
 /**
  * Handles the game's logic.
@@ -92,13 +94,6 @@ public class GameMain{
 		this.state = state;
 		display.stateChange(this.state);
 	}
-
-	/**
-	 * Gets the KeyListener from the application.
-	 * @return the KeyListener object
-	 */
-	
-
 	
 	/**
 	 * Gets the current score of the game.
@@ -115,7 +110,6 @@ public class GameMain{
 		keyListener.resetLastKey();
 		
 		setState(GameState.MENU);
-		display.stateChange(getState());
 		score = 500;	//hardcoded initial score state
 		
 		//Thread t = new Thread(tick);
@@ -175,8 +169,8 @@ public class GameMain{
 				updatePlayer(recentKey);
 				// Update the enemies - covers enemy movement, unintentional collision
 				updateEnemies();
-				// Spawn and update BonusRewards - TODO
-				
+				// Spawn and update BonusRewards
+				updateBonusRewards();
 				// Check current win/lose conditions
 				if (objectiveRewards.isEmpty() && mainChar.getXPos() == goalX && mainChar.getYPos() == goalY) {
 					System.out.println("Game over! You win!");
@@ -239,6 +233,69 @@ public class GameMain{
 			moveEnemy(e);
 		}
 		checkCollisions();
+	}
+	
+	private void updateBonusRewards() {
+		/* Steps to take:
+		 * A. update all lifespans of existing BonusRewards
+		 * 	1. delete any with lifespan 0
+		 * B. attempt to create a new BonusReward 
+		 * 	1. random 1/5 chance to continue
+		 * 	2. random selection of board coordinates
+		 * 	3. check if it's Open or Barrier
+		 * 	4. check if any entity is already present there (O(n))
+		 * 	5. create a new BonusReward() at that location if it is free
+		 */
+		
+		// Lifespan updating
+		for (int i = bonusRewards.size()-1; i >= 0; i--) {
+			BonusReward obj = bonusRewards.get(i);
+			obj.decLifespan();
+			if (obj.getLifespan() <= 0) {
+				bonusRewards.remove(i);
+			}
+		}
+		
+		// BonusReward creation
+		Random rand = new Random();
+		if (rand.nextInt(5) == 0) {
+			int randX = rand.nextInt(board.getXSize());
+			int randY = rand.nextInt(board.getYSize());
+			if (isValidMove(randX, randY)) {
+				// Check intersection with mainChar, enemies, punishments, bonusRewards, objectiveRewards
+				if (mainChar.getXPos() == randX && mainChar.getYPos() == randY) {
+					return;
+				}
+				for (int i = 0; i < enemies.size(); i++) {
+					Enemy obj = enemies.get(i);
+					if (obj.getXPos() == randX && obj.getYPos() == randY) {
+						return;
+					}
+				}
+				for (int i = 0; i < punishments.size(); i++) {
+					Punishment obj = punishments.get(i);
+					if (obj.getXPos() == randX && obj.getYPos() == randY) {
+						return;
+					}
+				}
+				for (int i = 0; i < bonusRewards.size(); i++) {
+					BonusReward obj = bonusRewards.get(i);
+					if (obj.getXPos() == randX && obj.getYPos() == randY) {
+						return;
+					}
+				}
+				for (int i = 0; i < objectiveRewards.size(); i++) {
+					ObjectiveReward obj = objectiveRewards.get(i);
+					if (obj.getXPos() == randX && obj.getYPos() == randY) {
+						return;
+					}
+				}
+				// No implementation of weaponCollectible 
+				
+				// At this point, we confirm no intersection of entities, so we create a BonusReward
+				bonusRewards.add(new BonusReward(randX, randY, 20, 100)); // BonusReward should have a constructor(x,y)
+			}
+		}
 	}
 	
 	private void updateDisplay() { //TODO
@@ -338,36 +395,36 @@ public class GameMain{
 		for (int i = this.enemies.size()-1; i >= 0; i--) {
 			Enemy obj = this.enemies.get(i);
 			if (obj.getXPos() == mx && obj.getYPos() == my) {
-				this.enemies.remove(i);
 				// Enemy-Character interaction:
 				mainChar.setHealth(mainChar.getHealth()-1);
+				this.enemies.remove(i);
 			}
 		}
 		
 		for (int i = this.punishments.size()-1; i >= 0; i--) {
 			Punishment obj = this.punishments.get(i);
 			if (obj.getXPos() == mx && obj.getYPos() == my) {
-				this.punishments.remove(i);
 				// Punishment-Character interaction:
-				score = score - 50;
+				score = score - obj.getDamage(); // Change if health implementation finalized
+				this.punishments.remove(i);
 			}
 		}
 		
 		for (int i = this.bonusRewards.size()-1; i >= 0; i--) {
 			BonusReward obj = this.bonusRewards.get(i);
 			if (obj.getXPos() == mx && obj.getYPos() == my) {
-				this.bonusRewards.remove(i);
 				// BonusReward-Character interaction:
-				score = score + 100;
+				score = score + obj.getScore();
+				this.bonusRewards.remove(i);
 			}
 		}
 		
 		for (int i = this.objectiveRewards.size()-1; i >= 0; i--) {
 			ObjectiveReward obj = this.objectiveRewards.get(i);
 			if (obj.getXPos() == mx && obj.getYPos() == my) {
-				this.objectiveRewards.remove(i);
 				// ObjectiveReward-Character interaction (besides win condition):
-				score = score + 300;
+				score = score + obj.getScore();
+				this.objectiveRewards.remove(i);
 			}
 		}
 	}
