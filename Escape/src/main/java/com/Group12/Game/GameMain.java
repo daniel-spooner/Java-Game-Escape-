@@ -1,14 +1,9 @@
 package com.Group12.Game;
 
+import java.io.File;
 import java.util.ArrayList;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.io.*;
 import java.util.Random;
 import java.util.Scanner;
-
-import com.sun.tools.javac.launcher.Main; 
 
 /**
  * Handles the game's logic.
@@ -299,7 +294,7 @@ public class GameMain{
 	}
 	
 	private void updateDisplay() { 
-		display.display(board, mainChar, enemies, objectiveRewards, punishments, bonusRewards);
+		display.display(board, mainChar, enemies, objectiveRewards, punishments, bonusRewards, goalX, goalY);
 	}
 	
 	private void updateUserInterface() { //TODO

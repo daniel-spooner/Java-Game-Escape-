@@ -25,6 +25,8 @@ public class DisplayManager extends JPanel{
 	
 	//Game Items
 	private int cellSize;
+	private int goalX;
+	private int goalY;
 	private Board board;
 	private MainCharacter mainChar;
 	private ArrayList<Enemy> enemies;
@@ -105,6 +107,8 @@ public class DisplayManager extends JPanel{
 		for(int i = 0; i < objectiveRewards.size(); i ++) {
 			g2d.fillRect(objectiveRewards.get(i).getXPos()*cellSize, objectiveRewards.get(i).getYPos() * cellSize, cellSize, cellSize);
 		}
+		g2d.setColor(new Color(0.6f, 0.3f, 0.9f, 1.0f));
+		g2d.fillRect(goalX * cellSize, goalY * cellSize, cellSize, cellSize);
 	}
 	
 	private void dispEnemies(Graphics2D g2d) {
@@ -171,7 +175,7 @@ public class DisplayManager extends JPanel{
 	 */
 	public void display(Board board, MainCharacter mainChar, ArrayList<Enemy> enemies, 
 						ArrayList<ObjectiveReward> objectiveRewards, ArrayList<Punishment> punishments,
-						ArrayList<BonusReward> bonusRewards) {
+						ArrayList<BonusReward> bonusRewards, int goalX, int goalY) {
 		
 		this.cellSize = board.getCellSize();
 		
@@ -181,6 +185,7 @@ public class DisplayManager extends JPanel{
 		this.objectiveRewards = objectiveRewards;
 		this.enemies = enemies;
 		this.mainChar = mainChar;
+		this.goalX = goalX; this.goalY = goalY;
 		
 		gameWindow.add(this);
 		repaint();
@@ -249,11 +254,12 @@ public class DisplayManager extends JPanel{
 			b.setCellType(b.getXSize()-1, y, cellType.BARRIER);
 		}
 		b.setCellType(b.getXSize()/2, b.getYSize()/2, cellType.OPEN);
+		b.setCellType(24, 11, cellType.OPEN);
 		
 		
 		DisplayManager d = new DisplayManager(b.getXSize() * b.getCellSize(), b.getYSize() * b.getCellSize());
 		d.stateChange(GameMain.GameState.GAME);
-    	d.display(b, mc, es, or, pn, br);
+    	d.display(b, mc, es, or, pn, br, 24, 11);
 
 	}
 }
