@@ -53,10 +53,7 @@ public class GameMain{
 
 
 		this.score = 0;
-		//this.tick = new TickTimer();
 		this.keyListener = new GameKeyListener();
-		this.display = new DisplayManager();
-		setState(GameState.MENU);		//Ensure DisplayManager will display MENU state at initialization.
 	}
 	
 
@@ -70,14 +67,6 @@ public class GameMain{
 			gameMain = new GameMain();
 		}
 		return gameMain;
-	}
-	
-	/**
-	 * Gets the state of the application.
-	 * @return the current state of the game
-	 */
-	public GameState getState() {	//TODO:Don't need this?
-		return state;
 	}
 	
 	/**
@@ -97,20 +86,28 @@ public class GameMain{
 	public int getScore() {
 		return score;
 	}
-	//TODO: how to get to startGame from menu?
+
+	/**
+	 * Helper function. Must be called when starting the program.
+	 */
 	public void startGame() {
 		// Initialization
 		makeBoard("map1");
+		display = new DisplayManager(board.getXSize() * board.getCellSize(), board.getYSize() * board.getCellSize());
 		display.addKeyListener(keyListener);
 		keyListener.resetLastKey();
 		
-		setState(GameState.MENU);
+		setState(GameState.MENU);		//Ensure DisplayManager will display MENU state at initialization.
 		score = 500;	//hardcoded initial score state
 		
 		//Thread t = new Thread(tick);
 		//t.start();
 	}
 	
+	/**
+	 * Sets the TickTimer of the application.
+	 * @param tick the TickTimer
+	 */
 	public void setTickTimer(TickTimer tick) {
 		this.tick = tick;
 	}
@@ -132,11 +129,16 @@ public class GameMain{
 	 */
 	public void update() {
 		int recentKey = this.keyListener.getLastKey();
-		
+		boolean verboseLogging = false;
+		if (verboseLogging) {
+			System.out.println(tick.getTickCount());
+			System.out.println(recentKey);
+		}
+
 		// If the game is paused and should be unpaused. 
-		// VK_RETURN is 13.
-		if (getState() == GameState.MENU) {
-			if (recentKey == 13) {
+		// VK_RETURN is 10.
+		if (state == GameState.MENU) {
+			if (recentKey == 10) {
 				tick.unpauseTick();
 				setState(GameState.GAME);
 				updateDisplay();
@@ -144,7 +146,7 @@ public class GameMain{
 		}
 		
 		// If the game is not paused and...
-		else if (getState() == GameState.GAME) {
+		else if (state == GameState.GAME) {
 			
 			// ... should be paused. 
 			// VK_ESCAPE is 27.
@@ -181,7 +183,7 @@ public class GameMain{
 			}
 			
 			// Always update user interface if the game is not paused
-			updateUserInterface();
+//			updateUserInterface(); //TODO uncomment when implemented
 		}
 	}
 	
@@ -194,8 +196,8 @@ public class GameMain{
 		int currentYPos = mainChar.getYPos();
 		switch(input) {
 		case 87:	//W 87
-			if( isValidMove(currentXPos,currentYPos+1) == true) {
-				mainChar.setYPos(currentYPos+1);
+			if( isValidMove(currentXPos,currentYPos-1) == true) {
+				mainChar.setYPos(currentYPos-1);
 			}
 			break;
 		case 65:	//A 65
@@ -204,8 +206,8 @@ public class GameMain{
 			}
 			break;
 		case 83:	//S 83
-			if( isValidMove(currentXPos,currentYPos-1) == true) {
-				mainChar.setYPos(currentYPos-1);
+			if( isValidMove(currentXPos,currentYPos+1) == true) {
+				mainChar.setYPos(currentYPos+1);
 			}
 			break;
 		case 68:	//D 68
@@ -474,7 +476,7 @@ public class GameMain{
 		int ySize;
 		xSize = sc.nextInt();
 		ySize = sc.nextInt();
-		this.board = new Board(xSize, ySize);
+		this.board = new Board(xSize, ySize, 20); //hardcoded cellsizing for now
 		sc.nextLine();
 		
 		/* characters in file:
@@ -548,6 +550,8 @@ public class GameMain{
 		Thread t = new Thread(tick);
 		
 		t.start();
+		
+		tick.pauseTick();
 	}
 
 }

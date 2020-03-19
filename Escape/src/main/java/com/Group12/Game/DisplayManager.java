@@ -56,9 +56,9 @@ public class DisplayManager extends JPanel{
 		gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//gameWindow.addKeyListener(new GameKeyListener());
 	}
-	//Add this function?
+
 	public void addKeyListener(KeyListener kl) {
-		gameWindow.addKeyListener(new GameKeyListener());
+		gameWindow.addKeyListener(kl);
 	}
 	
 	private void dispGame(Graphics2D g2d) {
