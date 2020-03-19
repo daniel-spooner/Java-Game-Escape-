@@ -149,6 +149,7 @@ public class GameMain{
 			if (recentKey == 27) {
 				tick.pauseTick();
 				setState(GameState.MENU);
+				updateDisplay();
 			}
 			
 			// ... a full 'tick' has passed.
@@ -175,8 +176,8 @@ public class GameMain{
 					tick.pauseTick();
 				}
 				
-				// Update full display
-				updateDisplay();
+		
+		
 			}
 			
 			// Always update user interface if the game is not paused
