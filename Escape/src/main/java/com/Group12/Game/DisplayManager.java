@@ -4,11 +4,11 @@ package com.Group12.Game;
 import java.util.ArrayList;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import java.awt.*;
 import java.awt.event.KeyListener;
 
 
@@ -24,9 +24,14 @@ public class DisplayManager extends JPanel{
 	JFrame gameWindow;
 	
 	//Game Items
+	private int sizeX;
+	private int sizeY;
 	private int cellSize;
+	private int score;
+	
 	private int goalX;
 	private int goalY;
+	private float timePercentage;
 	private Board board;
 	private MainCharacter mainChar;
 	private ArrayList<Enemy> enemies;
@@ -48,13 +53,15 @@ public class DisplayManager extends JPanel{
 		gameWindow = new JFrame("Escape");
 		
 		gameWindow.setResizable(false);
-		this.setPreferredSize(new Dimension(sizeX, sizeY));
+		this.setPreferredSize(new Dimension(sizeX + sizeX/3, sizeY));
 		gameWindow.add(this);
 		gameWindow.pack();
 		gameWindow.setVisible(true);
 	    gameWindow.setLocationRelativeTo(null);
 		gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//gameWindow.addKeyListener(new GameKeyListener());
+		
+		this.sizeX = sizeX;
+		this.sizeY = sizeY;
 	}
 	//Add this function?
 	public void addKeyListener(KeyListener kl) {
@@ -68,9 +75,23 @@ public class DisplayManager extends JPanel{
 		dispObjectiveRewards(g2d);
 		dispEnemies(g2d);
 		dispMainChar(g2d);
+		dispHUD(g2d);
 	} 
 	
-	//Graphics to Display Game Screen
+	private void dispHUD(Graphics2D g2d) {
+		g2d.setColor(new Color(0.3f, 0.3f, 0.3f, 1.0f));
+		g2d.fillRect(sizeX, 0, sizeX/3, sizeY);
+		g2d.setColor(new Color(0.8f, 0.2f, 0.2f, 1.0f));
+		g2d.fillRect(sizeX + sizeX/20, sizeY/3, sizeX/3 - sizeX/10, sizeY/20);
+		g2d.setColor(new Color(0.2f, 0.8f, 0.2f, 1.0f));
+		g2d.fillRect(sizeX + sizeX/20, sizeY/3, (int)((sizeX/3 - sizeX/10) * timePercentage), sizeY/20);
+		
+		g2d.setColor(Color.white);
+		Font fnt0 = new Font("arial", Font.BOLD, 20);
+		g2d.setFont(fnt0);
+		g2d.drawString("Score:  " + Integer.toString(score) ,sizeX + sizeX/20, sizeY/8);
+	}
+	
 	private void dispBoard(Graphics2D g2d) {
 		int boardX = this.board.getXSize();
 		int boardY = this.board.getYSize();
@@ -126,7 +147,7 @@ public class DisplayManager extends JPanel{
 	//Graphics to Display the Menu Screen
 	private void dispMenu(Graphics menu) {
 		menu.setColor(Color.black);
-		menu.fillRect(0,0,800,750);
+		menu.fillRect(0, 0, sizeX, sizeY);
 		Font fnt0 = new Font("arial", Font.BOLD, 100);
 		menu.setFont(fnt0);
 		menu.setColor(Color.red);
@@ -175,7 +196,7 @@ public class DisplayManager extends JPanel{
 	 */
 	public void display(Board board, MainCharacter mainChar, ArrayList<Enemy> enemies, 
 						ArrayList<ObjectiveReward> objectiveRewards, ArrayList<Punishment> punishments,
-						ArrayList<BonusReward> bonusRewards, int goalX, int goalY) {
+						ArrayList<BonusReward> bonusRewards, int goalX, int goalY, float timePercentage, int score) {
 		
 		this.cellSize = board.getCellSize();
 		
@@ -186,6 +207,8 @@ public class DisplayManager extends JPanel{
 		this.enemies = enemies;
 		this.mainChar = mainChar;
 		this.goalX = goalX; this.goalY = goalY;
+		this.timePercentage = timePercentage;
+		this.score = score;
 		
 		gameWindow.add(this);
 		repaint();
@@ -259,7 +282,7 @@ public class DisplayManager extends JPanel{
 		
 		DisplayManager d = new DisplayManager(b.getXSize() * b.getCellSize(), b.getYSize() * b.getCellSize());
 		d.stateChange(GameMain.GameState.GAME);
-    	d.display(b, mc, es, or, pn, br, 24, 11);
+    	d.display(b, mc, es, or, pn, br, 24, 11, 0.76f, 5000);
 
 	}
 }
