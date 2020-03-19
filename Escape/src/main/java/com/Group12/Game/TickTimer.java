@@ -18,8 +18,8 @@ public class TickTimer implements Runnable {
 	/** 
 	 * Default constructor.
 	 */
-	public TickTimer() {
-		this(30);
+	public TickTimer() { // Defaults to 50 fps
+		this(50);
 	}
 	
 	/**
@@ -35,7 +35,8 @@ public class TickTimer implements Runnable {
 	private void runTick() {
 		if (tickActive) {
 			
-			game.update();
+			game.placeholder();
+			//game.update();
 			
 			try {
 				Thread.sleep(delay);

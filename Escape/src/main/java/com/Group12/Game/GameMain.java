@@ -56,7 +56,7 @@ public class GameMain{
 
 
 		this.score = 0;
-		this.tick = new TickTimer();
+		//this.tick = new TickTimer();
 		this.keyListener = new GameKeyListener();
 		this.display = new DisplayManager();
 		setState(GameState.MENU);		//Ensure DisplayManager will display MENU state at initialization.
@@ -118,8 +118,21 @@ public class GameMain{
 		display.stateChange(getState());
 		score = 500;	//hardcoded initial score state
 		
-		Thread t = new Thread(tick);
-		t.start();
+		//Thread t = new Thread(tick);
+		//t.start();
+	}
+	
+	public void setTickTimer(TickTimer tick) {
+		this.tick = tick;
+	}
+	
+	public void placeholder() { // This function is being called by tick timer instead of update, because update is broken.
+		if (tick != null)
+			System.out.println(tick.getTickCount());
+		if (tick.getTickCount() > 10000) {
+			tick.pauseTick();
+			System.out.println("That was 10 seconds right there!");
+		}
 	}
 	
 	/**
@@ -475,9 +488,15 @@ public class GameMain{
 
 
 
-
 	public static void main(String[] args) {
 		GameMain g = GameMain.getInstance();
+		
+		TickTimer tick = new TickTimer();
+		g.setTickTimer(tick);
+		
+		Thread t = new Thread(tick);
+		
+		t.start();
 	}
 
 }
