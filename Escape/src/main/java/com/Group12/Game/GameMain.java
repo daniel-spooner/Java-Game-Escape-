@@ -150,6 +150,7 @@ public class GameMain{
 			
 			// ... should be paused. 
 			// VK_ESCAPE is 27.
+			updateUserInterface();
 			if (recentKey == 27) {
 				tick.pauseTick();
 				setState(GameState.MENU);
@@ -296,11 +297,12 @@ public class GameMain{
 	}
 	
 	private void updateDisplay() { 
-		display.display(board, mainChar, enemies, objectiveRewards, punishments, bonusRewards, goalX, goalY, (float)(tick.getTickCount()/3000), score);
+		display.display(board, mainChar, enemies, objectiveRewards, punishments, bonusRewards, goalX, goalY, 0.0f, score);
 	}
 	
 	private void updateUserInterface() { //TODO
-		throw new UnsupportedOperationException();
+		display.display(board, mainChar, enemies, objectiveRewards, punishments, bonusRewards, goalX, goalY, (float)(1.0f - (float)tick.getTickCount()/3000.0f), score);
+		//throw new UnsupportedOperationException();
 	}
 	
 	private void moveEnemy(Enemy e) {
