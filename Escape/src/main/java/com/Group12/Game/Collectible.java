@@ -54,7 +54,7 @@ class BonusReward extends Collectible{
 		return lifespan;
 	}
 	
-	public int decLifeSpan() {
+	public int decLifespan() {
 		this.lifespan --;
 		return this.lifespan;
 	}

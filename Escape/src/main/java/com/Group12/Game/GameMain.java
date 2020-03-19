@@ -488,6 +488,7 @@ public class GameMain{
 
 	public static void main(String[] args) {
 		GameMain g = GameMain.getInstance();
+		g.startGame();
 		
 		TickTimer tick = new TickTimer();
 		g.setTickTimer(tick);
