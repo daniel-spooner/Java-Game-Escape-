@@ -298,8 +298,8 @@ public class GameMain{
 		}
 	}
 	
-	private void updateDisplay() { //TODO
-		throw new UnsupportedOperationException();
+	private void updateDisplay() { 
+		display.display(board, mainChar, enemies, objectiveRewards, punishments, bonusRewards);
 	}
 	
 	private void updateUserInterface() { //TODO
