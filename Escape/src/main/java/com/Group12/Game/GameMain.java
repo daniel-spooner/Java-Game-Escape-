@@ -296,7 +296,7 @@ public class GameMain{
 	}
 	
 	private void updateDisplay() { 
-		display.display(board, mainChar, enemies, objectiveRewards, punishments, bonusRewards, goalX, goalY);
+		display.display(board, mainChar, enemies, objectiveRewards, punishments, bonusRewards, goalX, goalY, (float)(tick.getTickCount()/3000), score);
 	}
 	
 	private void updateUserInterface() { //TODO
@@ -531,13 +531,10 @@ public class GameMain{
 					break;
 				}
 			}
-		}
-		
+		}	
 		sc.close();
 		
 	}
-
-
 
 
 	public static void main(String[] args) {
