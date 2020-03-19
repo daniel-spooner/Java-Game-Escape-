@@ -114,7 +114,7 @@ public class GameMain{
 		display.addKeyListener(keyListener);
 		keyListener.resetLastKey();
 		
-		setState(GameState.GAME);
+		setState(GameState.MENU);
 		display.stateChange(getState());
 		score = 500;	//hardcoded initial score state
 		
@@ -129,45 +129,61 @@ public class GameMain{
 	 * performing player actions, moving enemies, and checking win conditions.
 	 */
 	public void update() {
-
-		int recentKey;
-		//getLastKey() from GameKeyListener and getKey() returns type int. Every key has an equivalent number. No need to get KeyEvent type?
-		recentKey = this.keyListener.getLastKey();
-		// If the game should be paused. 27 corresponds with key 'esc'.
-		if (recentKey == 27) {
-			tick.pauseTick();
-			setState(GameState.MENU);
-			// But if we pause TickTimer, how do we unpause?
-			// Proposal: maybe runTick() is always on and running update() 
-			//  but only tracks time when active? have to discuss later
+		int recentKey = this.keyListener.getLastKey();
+		
+		// If the game is paused and should be unpaused. 
+		// VK_RETURN is 13.
+		if (getState() == GameState.MENU) {
+			if (recentKey == 13) {
+				tick.unpauseTick();
+				setState(GameState.GAME);
+				updateDisplay();
+			}
 		}
 		
-		// If a full 'tick' has passed: 
-		else if (tick.getTickCount() >= (long) 3000) { // current hardcoded milliseconds per 'tick'
-			tick.resetTickCount(); // probably thread-unsafe - if this doesn't execute fast we double-update (unlikely unless tick.fps far too high)
-			keyListener.resetLastKey();
+		// If the game is not paused and...
+		else if (getState() == GameState.GAME) {
 			
-			// The actual logic
-			// Update the player - covers player input, intentional collision
-			updatePlayer(recentKey);
-			// Update the enemies - covers enemy movement, unintentional collision
-			updateEnemies();
-			// Check current win/lose conditions
-			if (objectiveRewards.size() == 0 && mainChar.getXPos() == goalX && mainChar.getYPos() == goalY) {
-				System.out.println("Game over! You win!");
-				setState(GameState.WIN);
+			// ... should be paused. 
+			// VK_ESCAPE is 27.
+			if (recentKey == 27) {
 				tick.pauseTick();
+				setState(GameState.MENU);
 			}
-			else if (score <= 0 || mainChar.getHealth() <= 0) { //TODO: re-implement getHealth() and setHealth(), easier to handle lose-cons
-				System.out.println("Game over! You lose!");
-				setState(GameState.LOSE);
-				tick.pauseTick();
+			
+			// ... a full 'tick' has passed.
+			else if (tick.getTickCount() >= (long) 3000) { // current hardcoded milliseconds per 'tick'
+				tick.resetTickCount(); // probably thread-unsafe - if this doesn't execute fast we double-update (unlikely unless tick.fps far too high)
+				keyListener.resetLastKey();
+				
+				// The actual logic
+				// Update the player - covers player input, intentional collision
+				updatePlayer(recentKey);
+				// Update the enemies - covers enemy movement, unintentional collision
+				updateEnemies();
+				// Spawn and update BonusRewards - TODO
+				
+				// Check current win/lose conditions
+				if (objectiveRewards.isEmpty() && mainChar.getXPos() == goalX && mainChar.getYPos() == goalY) {
+					System.out.println("Game over! You win!");
+					setState(GameState.WIN);
+					tick.pauseTick();
+				}
+				else if (score <= 0 || !mainChar.checkAlive()) {
+					System.out.println("Game over! You lose!");
+					setState(GameState.LOSE);
+					tick.pauseTick();
+				}
+				
+				// Update full display
+				updateDisplay();
 			}
+			
+			// Always update user interface if the game is not paused
+			updateUserInterface();
 		}
-		
-		// Always update display
-		display.repaint();
 	}
+	
 	/**
 	 * Checks if the input from player is valid, and updates the main character position.
 	 * @param input the key input pressed by player.
@@ -213,8 +229,12 @@ public class GameMain{
 		checkCollisions();
 	}
 	
-	private void updateDisplay() {
-		
+	private void updateDisplay() { //TODO
+		throw new UnsupportedOperationException();
+	}
+	
+	private void updateUserInterface() { //TODO
+		throw new UnsupportedOperationException();
 	}
 	
 	private void moveEnemy(Enemy e) {
