@@ -188,9 +188,7 @@ public class GameMain{
 					setState(GameState.LOSE);
 					tick.pauseTick();
 				}
-				
-		
-		
+				updateDisplay();
 			}
 			
 			// Always update user interface if the game is not paused
