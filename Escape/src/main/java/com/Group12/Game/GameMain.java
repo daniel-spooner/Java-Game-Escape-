@@ -18,7 +18,6 @@ public class GameMain{
 	// Attributes
 	
 	private static GameMain gameMain = null;
-	
 	private ArrayList<Enemy> enemies;
 	private ArrayList<Punishment> punishments;
 	private ArrayList<BonusReward> bonusRewards;
@@ -45,7 +44,6 @@ public class GameMain{
 	
 	private GameMain() {
 
-
 		this.enemies 			= new ArrayList<>();
 		this.punishments		= new ArrayList<>();
 		this.bonusRewards 		= new ArrayList<>();
@@ -56,7 +54,6 @@ public class GameMain{
 
 
 		this.score = 0;
-		this.tick = new TickTimer();
 		this.keyListener = new GameKeyListener();
 		this.display = new DisplayManager();
 		setState(GameState.MENU);		//Ensure DisplayManager will display MENU state at initialization.
@@ -69,6 +66,7 @@ public class GameMain{
 	 * @return the instance of GameMain
 	 */
 	public static GameMain getInstance() {
+		
 		if(gameMain == null) {
 			gameMain = new GameMain();
 		}
@@ -110,7 +108,7 @@ public class GameMain{
 	//TODO: how to get to startGame from menu?
 	public void startGame() {
 		// Initialization
-		makeBoard("map1");		//TODO: don't hardcode + decide on proper file location
+		//makeBoard("map1");		//TODO: don't hardcode + decide on proper file location
 		display.addKeyListener(keyListener);
 		keyListener.resetLastKey();
 		
@@ -118,8 +116,12 @@ public class GameMain{
 		display.stateChange(getState());
 		score = 500;	//hardcoded initial score state
 		
-		Thread t = new Thread(tick);
-		t.start();
+		//Thread t = new Thread(tick);
+		//t.start();
+	}
+	
+	public void setTickTimer(TickTimer t) {
+		tick = t;
 	}
 	
 	/**
@@ -128,14 +130,21 @@ public class GameMain{
 	 * Updates the current state of the game if the 'tick' has ended,
 	 * performing player actions, moving enemies, and checking win conditions.
 	 */
+	public void test() {
+		System.out.println("Test!");
+		if (tick.getTickCount() > 5000) {
+			tick.pauseTick();
+		}
+	}
+	
 	public void update() {
-
+		long x = 3000;
 		int recentKey;
 		//getLastKey() from GameKeyListener and getKey() returns type int. Every key has an equivalent number. No need to get KeyEvent type?
 		recentKey = this.keyListener.getLastKey();
 		// If the game should be paused. 27 corresponds with key 'esc'.
 		if (recentKey == 27) {
-			tick.pauseTick();
+			//tick.pauseTick();
 			setState(GameState.MENU);
 			// But if we pause TickTimer, how do we unpause?
 			// Proposal: maybe runTick() is always on and running update() 
@@ -143,8 +152,9 @@ public class GameMain{
 		}
 		
 		// If a full 'tick' has passed: 
-		else if (tick.getTickCount() >= (long) 3000) { // current hardcoded milliseconds per 'tick'
-			tick.resetTickCount(); // probably thread-unsafe - if this doesn't execute fast we double-update (unlikely unless tick.fps far too high)
+		
+		else if (/*tick.getTickCount()*/x >= (long) 3000) { // current hardcoded milliseconds per 'tick'
+			//tick.resetTickCount(); // probably thread-unsafe - if this doesn't execute fast we double-update (unlikely unless tick.fps far too high)
 			keyListener.resetLastKey();
 			
 			// The actual logic
@@ -156,12 +166,12 @@ public class GameMain{
 			if (mainChar.getXPos() == goalX && mainChar.getYPos() == goalY) {
 				System.out.println("Game over! You win!");
 				setState(GameState.WIN);
-				tick.pauseTick();
+				//tick.pauseTick();
 			}
 			else if (score <= 0 || mainChar.getHealth() <= 0) { //TODO: re-implement getHealth() and setHealth(), easier to handle lose-cons
 				System.out.println("Game over! You lose!");
 				setState(GameState.LOSE);
-				tick.pauseTick();
+				//tick.pauseTick();
 			}
 		}
 		
@@ -487,11 +497,15 @@ public class GameMain{
 	}
 
 
-
-
-
 	public static void main(String[] args) {
 		GameMain g = GameMain.getInstance();
+		g.startGame();
+		
+		//TickTimer tick = new TickTimer();
+		//Thread t = new Thread(tick);
+		//g.setTickTimer(tick);
+		//t.start();
+
 	}
 
 }

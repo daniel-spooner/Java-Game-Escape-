@@ -19,7 +19,7 @@ public class TickTimer implements Runnable {
 	 * Default constructor.
 	 */
 	public TickTimer() {
-		this(30);
+		this(50);
 	}
 	
 	/**
@@ -30,11 +30,13 @@ public class TickTimer implements Runnable {
 		this.fps = fps;
 		this.delay = 1000/fps;
 		this.game = GameMain.getInstance();
+		System.out.println(game.getState());
 	}
  
 	private void runTick() {
 		if (tickActive) {
 			
+			//game.test();
 			game.update();
 			
 			try {
@@ -43,6 +45,7 @@ public class TickTimer implements Runnable {
 				System.out.println(e);
 			}
 			tickCount += delay;
+			System.out.println(tickCount);
 			
 			runTick();
 		}
