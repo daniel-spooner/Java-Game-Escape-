@@ -10,11 +10,6 @@ public class BoardEntity {
 	protected int xPos;
 	protected int yPos;
 	
-	/**
-	 * Returns the entity's x coordinate.
-	 * @return the x coordinate
-	 */
-	
 	public BoardEntity() {
 		xPos = 0;
 		yPos = 0;
@@ -24,7 +19,11 @@ public class BoardEntity {
 		xPos = x;
 		yPos = y;
 	}
-	
+
+	/**
+	 * Returns the entity's x coordinate.
+	 * @return the x coordinate
+	 */
 	public int getXPos() {
 		return xPos;
 	}
