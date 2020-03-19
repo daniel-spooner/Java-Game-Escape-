@@ -296,7 +296,7 @@ public class GameMain{
 	}
 	
 	private void updateDisplay() { 
-		display.display(board, mainChar, enemies, objectiveRewards, punishments, bonusRewards, goalX, goalY);
+		display.display(board, mainChar, enemies, objectiveRewards, punishments, bonusRewards, goalX, goalY, (float)(tick.getTickCount()/3000), score);
 	}
 	
 	private void updateUserInterface() { //TODO
@@ -342,7 +342,14 @@ public class GameMain{
 		
 		// System.out.println(dirc);
 		
+		int[] tried = {0, 1, 2, 3};
+		
 		while (true) {
+			// Enemy is stuck
+			if (tried[0] == -1 && tried[1] == -1 && tried[2] == -1 && tried[3] == -1) {
+				return;
+			}
+			
 			switch (dirc) {
 			case 0:
 				// up
@@ -376,6 +383,7 @@ public class GameMain{
 				return;
 			} 
 			else {
+				tried[dirc] = -1;
 				dirc = rand.nextInt(4);
 			}
 		}
@@ -531,13 +539,10 @@ public class GameMain{
 					break;
 				}
 			}
-		}
-		
+		}	
 		sc.close();
 		
 	}
-
-
 
 
 	public static void main(String[] args) {

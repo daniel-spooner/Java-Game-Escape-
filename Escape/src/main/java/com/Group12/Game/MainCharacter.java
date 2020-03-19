@@ -27,7 +27,7 @@ public class MainCharacter extends BoardEntity {
 	 * @param y the y coordinate
 	 */
 	public MainCharacter(int x, int y) {
-		this.health = 1;
+		this.health = 100;
 		this.xPos = x;
 		this.yPos = y;
 		//this.gun = new Weapon();	// different weapons have not yet been implemented
