@@ -35,8 +35,8 @@ public class TickTimer implements Runnable {
 	private void runTick() {
 		if (tickActive) {
 			
-			game.placeholder();
-			//game.update();
+			//game.placeholder();
+			game.update();
 			
 			try {
 				Thread.sleep(delay);

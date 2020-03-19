@@ -1,5 +1,7 @@
 package com.Group12.Game;
 
+
+import java.util.ArrayList;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -20,8 +22,17 @@ public class DisplayManager extends JPanel{
 	
 	// Attributes
 	JFrame gameWindow;
-	Board board;
-
+	
+	//Game Items
+	private int cellSize;
+	private Board board;
+	private MainCharacter mainChar;
+	private ArrayList<Enemy> enemies;
+	private ArrayList<Punishment> punishments;
+	private ArrayList<BonusReward> bonusRewards;
+	private ArrayList<ObjectiveReward> objectiveRewards;
+	
+	
 	//Enum to hold current state. Used when updating display
 	GameMain.GameState currentState;
 	
@@ -47,16 +58,26 @@ public class DisplayManager extends JPanel{
 	public void addKeyListener(KeyListener kl) {
 		gameWindow.addKeyListener(new GameKeyListener());
 	}
+	
+	private void dispGame(Graphics2D g2d) {
+		dispBoard(g2d);
+		dispBonusRewards(g2d);
+		dispPunishments(g2d);
+		dispObjectiveRewards(g2d);
+		dispEnemies(g2d);
+		dispMainChar(g2d);
+	} 
+	
 	//Graphics to Display Game Screen
 	private void dispBoard(Graphics2D g2d) {
 		int boardX = this.board.getXSize();
 		int boardY = this.board.getYSize();
-		int cellSize = this.board.getXSize();
+		this.cellSize = this.board.getCellSize();
 		
 		for(int y = 0; y < boardY; y++) {
 			for(int x = 0; x < boardX; x++) {
 				if(this.board.getCellType(x, y) == cellType.OPEN) {
-					g2d.setColor(new Color(1.0f, 1.0f, 1.0f, 1.0f));
+					g2d.setColor(new Color(0.6f, 0.6f, 0.6f, 1.0f));
 				}else {
 					g2d.setColor(new Color(0.0f, 0.0f, 0.0f, 1.0f));
 				}
@@ -64,6 +85,40 @@ public class DisplayManager extends JPanel{
 			}
 		}
 	}
+	
+	private void dispBonusRewards(Graphics2D g2d) {
+		g2d.setColor(new Color(0.0f, 0.8f, 1.0f, 1.0f));
+		for(int i = 0; i < bonusRewards.size(); i ++) {
+			g2d.fillRect(bonusRewards.get(i).getXPos()*cellSize, bonusRewards.get(i).getYPos() * cellSize, cellSize, cellSize);
+		}
+	}
+	
+	private void dispPunishments(Graphics2D g2d) {
+		g2d.setColor(new Color(1.0f, 0.5f, 0.0f, 1.0f));
+		for(int i = 0; i < punishments.size(); i ++) {
+			g2d.fillRect(punishments.get(i).getXPos()*cellSize, punishments.get(i).getYPos() * cellSize, cellSize, cellSize);
+		}
+	}
+	
+	private void dispObjectiveRewards(Graphics2D g2d) {
+		g2d.setColor(new Color(0.9f, 1.0f, 0.4f, 1.0f));
+		for(int i = 0; i < objectiveRewards.size(); i ++) {
+			g2d.fillRect(objectiveRewards.get(i).getXPos()*cellSize, objectiveRewards.get(i).getYPos() * cellSize, cellSize, cellSize);
+		}
+	}
+	
+	private void dispEnemies(Graphics2D g2d) {
+		g2d.setColor(new Color(1.0f, 0.0f, 0.0f, 1.0f));
+		for(int i = 0; i < enemies.size(); i ++) {
+			g2d.fillRect(enemies.get(i).getXPos()*cellSize, enemies.get(i).getYPos() * cellSize, cellSize, cellSize);
+		}
+	}
+	
+	private void dispMainChar(Graphics2D g2d) {
+		g2d.setColor(new Color(0.0f, 1.0f, 0.0f, 1.0f));
+		g2d.fillRect(mainChar.getXPos()*cellSize, mainChar.getYPos() * cellSize, cellSize, cellSize);
+	}
+	
 	//Graphics to Display the Menu Screen
 	private void dispMenu(Graphics menu) {
 		menu.setColor(Color.black);
@@ -114,8 +169,19 @@ public class DisplayManager extends JPanel{
 	 * Displays a Board onto the game window.
 	 * @param board the board to be displayed
 	 */
-	public void display(Board board) { // This should take arguments for all types of game objects
+	public void display(Board board, MainCharacter mainChar, ArrayList<Enemy> enemies, 
+						ArrayList<ObjectiveReward> objectiveRewards, ArrayList<Punishment> punishments,
+						ArrayList<BonusReward> bonusRewards) {
+		
+		this.cellSize = board.getCellSize();
+		
 		this.board = board;
+		this.bonusRewards = bonusRewards;
+		this.punishments = punishments;
+		this.objectiveRewards = objectiveRewards;
+		this.enemies = enemies;
+		this.mainChar = mainChar;
+		
 		gameWindow.add(this);
 		repaint();
 	}
@@ -132,7 +198,7 @@ public class DisplayManager extends JPanel{
 		Graphics win = (Graphics2D) g;
 		Graphics2D lose = (Graphics2D) g;
 		if(currentState ==  GameMain.GameState.GAME) {
-			dispBoard(g2d);
+			dispGame(g2d);
 		}
 		else if(currentState == GameMain.GameState.MENU) {
 			dispMenu(menu);
@@ -147,14 +213,47 @@ public class DisplayManager extends JPanel{
 	}
 	
 	public static void main(String[] args) {
+		
 		Board b = new Board();
-		for(int i = 0; i < b.getXSize(); i++) {
+		MainCharacter mc = new MainCharacter(4, 3);
+		ArrayList<Enemy> es = new ArrayList<Enemy>();
+		ArrayList<ObjectiveReward> or = new ArrayList<ObjectiveReward>();
+		ArrayList<Punishment> pn = new ArrayList<Punishment>();
+		ArrayList<BonusReward> br = new ArrayList<BonusReward>();
+		
+		es.add(new Enemy(3, 12));
+		es.add(new Enemy(17, 15));
+		es.add(new Enemy(11, 14));
+
+		or.add(new ObjectiveReward(20, 5, 50));
+		or.add(new ObjectiveReward(3, 15, 50));
+		
+		pn.add(new Punishment(9, 8, 100));
+		pn.add(new Punishment(12, 17, 100));
+		
+		br.add(new BonusReward(22, 17, 15, 50));
+		br.add(new BonusReward(14, 1, 15, 50));
+		
+		/*for(int i = 0; i < b.getXSize(); i++) {
 			b.setCellType(i, i%5, cellType.BARRIER);
+		}*/
+		
+		//Sample board
+		for(int x = 0; x < b.getXSize(); x ++) {
+			b.setCellType(x, 0, cellType.BARRIER);
+			b.setCellType(x, b.getYSize()-1, cellType.BARRIER);
+			b.setCellType(x, (int)b.getYSize()/2, cellType.BARRIER);
 		}
+		for(int y = 0; y < b.getYSize(); y ++) {
+			b.setCellType(0, y, cellType.BARRIER);
+			b.setCellType(b.getXSize()-1, y, cellType.BARRIER);
+		}
+		b.setCellType(b.getXSize()/2, b.getYSize()/2, cellType.OPEN);
 		
-		DisplayManager d = new DisplayManager(b.getXSize() * b.getXSize(), b.getYSize() * b.getXSize());
 		
-    	d.display(b);
+		DisplayManager d = new DisplayManager(b.getXSize() * b.getCellSize(), b.getYSize() * b.getCellSize());
+		d.stateChange(GameMain.GameState.GAME);
+    	d.display(b, mc, es, or, pn, br);
 
 	}
 }

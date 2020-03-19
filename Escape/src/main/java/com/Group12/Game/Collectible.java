@@ -72,6 +72,7 @@ class BonusReward extends Collectible{
 	public int getLifespan() {
 		return lifespan;
 	}
+	
 	//Reducing Lifespan of Bonus Reward
 	public int decLifespan() {
 		this.lifespan --;
