@@ -11,7 +11,7 @@ import java.awt.event.KeyListener;
 
 
 /**
- * Handles graphical display and keyboard input.
+ * Handles graphical display.
  * @author Daniel, Wilson
  *
  */
@@ -47,7 +47,7 @@ public class DisplayManager extends JPanel{
 	public void addKeyListener(KeyListener kl) {
 		gameWindow.addKeyListener(new GameKeyListener());
 	}
-
+	//Graphics to Display Game Screen
 	private void dispBoard(Graphics2D g2d) {
 		int boardX = this.board.getXSize();
 		int boardY = this.board.getYSize();
@@ -80,7 +80,7 @@ public class DisplayManager extends JPanel{
 		menu.drawString("Help",100,400);
 
 	}
-	
+	//Graphics to Display the Lose Screen
 	private void dispLose(Graphics lose) {
 		lose.setColor(Color.black);
 		lose.fillRect(0,0,800,750);
@@ -90,6 +90,7 @@ public class DisplayManager extends JPanel{
 		lose.drawString("YOU LOSE",100,200);
 		
 	}
+	//Graphics to Display the Win Screen
 	private void dispWin(Graphics win) {
 		win.setColor(Color.white);
 		win.fillRect(0,0,800,750);
