@@ -110,7 +110,7 @@ public class GameMain{
 	//TODO: how to get to startGame from menu?
 	public void startGame() {
 		// Initialization
-		makeBoard("map1");		//TODO: don't hardcode + decide on proper file location
+		makeBoard("map1");
 		display.addKeyListener(keyListener);
 		keyListener.resetLastKey();
 		
@@ -388,8 +388,11 @@ public class GameMain{
 		// remaining yDim lines of xDim characters: board layout & entity placement
 		File file;
 		Scanner sc;
+		String fullpath;
+		fullpath = "src/main/resources/" + filename;
+		
 		try {
-			file = new File(filename);
+			file = new File(fullpath);
 		}
 		catch (java.lang.NullPointerException e) {
 			e.printStackTrace();
