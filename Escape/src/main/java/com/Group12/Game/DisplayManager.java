@@ -158,6 +158,8 @@ public class DisplayManager extends JPanel{
 		menu.drawString("Play",100,200);
 		menu.drawString("Settings",100,300);
 		menu.drawString("Help",100,400);
+		menu.setColor(Color.white);
+		menu.drawString("(press ENTER to play)",100,600);
 
 	}
 	//Graphics to Display the Lose Screen

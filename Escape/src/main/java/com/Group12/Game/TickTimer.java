@@ -32,7 +32,8 @@ public class TickTimer implements Runnable {
 		this.game = GameMain.getInstance();
 	}
  
-	private void runTick() {
+	public void runTick() {
+		
 		
 		//game.placeholder();
 		game.update();
@@ -41,10 +42,13 @@ public class TickTimer implements Runnable {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+		
 		if (tickActive) {
 			tickCount += delay;
 		}
+		//System.out.println("runTick()");
 		runTick();
+	
 		
 	}
 	
@@ -61,7 +65,7 @@ public class TickTimer implements Runnable {
 	public void unpauseTick() {
 		if(!tickActive) {
 			tickActive = true;
-			runTick();
+			//runTick();
 		}
 	}
 	

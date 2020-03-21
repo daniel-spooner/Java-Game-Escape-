@@ -113,15 +113,6 @@ public class GameMain{
 		this.tick = tick;
 	}
 	
-	public void placeholder() { // This function is being called by tick timer instead of update, because update is broken.
-		if (tick != null)
-			System.out.println(tick.getTickCount());
-		if (tick.getTickCount() > 10000) {
-			tick.pauseTick();
-			System.out.println("That was 10 seconds right there!");
-		}
-	}
-	
 	/**
 	 * Should be called on an interval by a TickTimer and nothing else.
 	 * <p>
@@ -552,7 +543,7 @@ public class GameMain{
 		GameMain g = GameMain.getInstance();
 		g.startGame();
 		
-		TickTimer tick = new TickTimer();
+		TickTimer tick = new TickTimer(25);
 		g.setTickTimer(tick);
 		
 		Thread t = new Thread(tick);
