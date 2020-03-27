@@ -147,7 +147,7 @@ public class DisplayManager extends JPanel{
 	//Graphics to Display the Menu Screen
 	private void dispMenu(Graphics menu) {
 		menu.setColor(Color.black);
-		menu.fillRect(0, 0, sizeX, sizeY);
+		menu.fillRect(0, 0, sizeX + sizeX/3, sizeY);
 		Font fnt0 = new Font("arial", Font.BOLD, 100);
 		menu.setFont(fnt0);
 		menu.setColor(Color.red);
@@ -158,12 +158,14 @@ public class DisplayManager extends JPanel{
 		menu.drawString("Play",100,200);
 		menu.drawString("Settings",100,300);
 		menu.drawString("Help",100,400);
+		menu.setColor(Color.white);
+		menu.drawString("(press ENTER to play)",100,600);
 
 	}
 	//Graphics to Display the Lose Screen
 	private void dispLose(Graphics lose) {
 		lose.setColor(Color.black);
-		lose.fillRect(0,0,800,750);
+		lose.fillRect(0,0,sizeX + sizeX/3,sizeY);
 		Font fnt0 = new Font("arial", Font.BOLD, 100);
 		lose.setFont(fnt0);
 		lose.setColor(Color.red);
@@ -173,7 +175,7 @@ public class DisplayManager extends JPanel{
 	//Graphics to Display the Win Screen
 	private void dispWin(Graphics win) {
 		win.setColor(Color.white);
-		win.fillRect(0,0,800,750);
+		win.fillRect(0,0,sizeX + sizeX/3,sizeY);
 		Font fnt0 = new Font("arial", Font.BOLD, 100);
 		win.setFont(fnt0);
 		win.setColor(Color.red);
