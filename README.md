@@ -13,3 +13,7 @@ yuxih@sfu.ca
 Wilson Wu
 wwa87@sfu.ca
 "Let's get this bread."
+
+compile with mvn install,
+
+run with java -jar target/Escape-1.0-SNAPSHOT.jar
