@@ -4,7 +4,11 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
+/**
+ * Handles graphical display.
+ * @author Yuxi Hu
+ *
+ */
 public class ImageData {
 
 	private BufferedImage playerImg;

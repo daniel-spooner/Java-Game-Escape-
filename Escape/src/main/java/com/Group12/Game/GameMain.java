@@ -373,7 +373,7 @@ public class GameMain{
 				newY = -1;
 			}
 		
-			if (isValidMove(newX, newY) && !hasEnemy(newX,newY)) {
+			if (isValidMove(newX, newY) && !hasElements(newX,newY)) {
 				e.setXPos(newX);
 				e.setYPos(newY);
 				return;
@@ -438,9 +438,24 @@ public class GameMain{
 	
 	
 	//check the location does have other enemy.
-	private boolean hasEnemy(int x, int y) {
+	private boolean hasElements(int x, int y) {
 		for (BoardEntity e : this.enemies) {
 			if (e.getXPos() == x && e.getYPos() == y) {
+				return true;
+			}
+		}
+		for (BoardEntity p : this.punishments) {
+			if (p.getXPos() == x && p.getYPos() == y) {
+				return true;
+			}
+		}
+		for (BoardEntity k : this.objectiveRewards) {
+			if (k.getXPos() == x && k.getYPos() == y) {
+				return true;
+			}
+		}
+		for (BoardEntity b : this.bonusRewards) {
+			if (b.getXPos() == x && b.getYPos() == y) {
 				return true;
 			}
 		}

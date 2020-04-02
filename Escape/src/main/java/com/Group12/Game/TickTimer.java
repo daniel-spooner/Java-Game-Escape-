@@ -3,7 +3,7 @@ package com.Group12.Game;
 /**
  * Runs GameMain.update() some number of times per second,
  * and keeps track of how many milliseconds have passed since beginning execution.
- * @author Daniel
+ * @author Daniel, Yuxi Hu
  *
  */
 public class TickTimer implements Runnable {

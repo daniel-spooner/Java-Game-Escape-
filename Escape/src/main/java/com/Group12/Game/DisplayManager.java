@@ -18,7 +18,7 @@ import java.awt.image.BufferedImage;
 
 /**
  * Handles graphical display.
- * @author Daniel, Wilson
+ * @author Daniel, Wilson, Yuxi Hu
  *
  */
 @SuppressWarnings("serial")
