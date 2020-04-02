@@ -33,21 +33,21 @@ public class TickTimer implements Runnable {
 	}
  
 	public void runTick() {
+		boolean updateEnemy = true;
+		while (true) {
+			game.update(updateEnemy);
+			try {
+				Thread.sleep(delay/2);
+			} catch (Exception e) {
+				System.out.println(e);
+			}
 		
-		
-		//game.placeholder();
-		game.update();
-		try {
-			Thread.sleep(delay);
-		} catch (Exception e) {
-			System.out.println(e);
+			if (tickActive) {
+				tickCount += delay;
+			}
+			
+			updateEnemy = !updateEnemy;
 		}
-		
-		if (tickActive) {
-			tickCount += delay;
-		}
-		//System.out.println("runTick()");
-		runTick();
 	
 		
 	}

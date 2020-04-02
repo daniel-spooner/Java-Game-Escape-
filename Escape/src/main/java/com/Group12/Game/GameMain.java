@@ -97,8 +97,8 @@ public class GameMain{
 		display = new DisplayManager(board.getXSize() * board.getCellSize(), board.getYSize() * board.getCellSize());
 		display.addKeyListener(keyListener);
 		keyListener.resetLastKey();
-		
 		setState(GameState.MENU);		//Ensure DisplayManager will display MENU state at initialization.
+		
 		score = 500;	//hardcoded initial score state
 		
 		//Thread t = new Thread(tick);
@@ -119,7 +119,7 @@ public class GameMain{
 	 * Updates the current state of the game if the 'tick' has ended,
 	 * performing player actions, moving enemies, and checking win conditions.
 	 */
-	public void update() {
+	public void update(boolean updateEnemy) {
 		int recentKey = this.keyListener.getLastKey();
 		boolean verboseLogging = false;
 		if (verboseLogging) {
@@ -157,8 +157,10 @@ public class GameMain{
 				// The actual logic
 				// Update the player - covers player input, intentional collision
 				updatePlayer(recentKey);
+				if (updateEnemy) {
 				// Update the enemies - covers enemy movement, unintentional collision
-				updateEnemies();
+					updateEnemies();
+				}
 				// Spawn and update BonusRewards
 				updateBonusRewards();
 				// Check current win/lose conditions

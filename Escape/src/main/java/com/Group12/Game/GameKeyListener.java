@@ -10,7 +10,7 @@ import java.awt.event.KeyListener;
  */
 public class GameKeyListener implements KeyListener {
 	
-    private int lastKey;
+    private int lastKey;    
 
     /**
      * Getter method for more recent key pressed.

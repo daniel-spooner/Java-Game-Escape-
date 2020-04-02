@@ -9,7 +9,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import com.Group12.Game.GameMain.GameState;
+
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 
 
 /**
@@ -39,6 +43,8 @@ public class DisplayManager extends JPanel{
 	private ArrayList<BonusReward> bonusRewards;
 	private ArrayList<ObjectiveReward> objectiveRewards;
 	
+	private ImageData imgData;
+	
 	
 	//Enum to hold current state. Used when updating display
 	GameMain.GameState currentState;
@@ -62,6 +68,10 @@ public class DisplayManager extends JPanel{
 		
 		this.sizeX = sizeX;
 		this.sizeY = sizeY;
+		
+		imgData = new ImageData();
+		this.currentState = GameState.MENU;
+		this.repaint();
 	}
 
 	public void addKeyListener(KeyListener kl) {
@@ -118,8 +128,9 @@ public class DisplayManager extends JPanel{
 	
 	private void dispPunishments(Graphics2D g2d) {
 		g2d.setColor(new Color(1.0f, 0.5f, 0.0f, 1.0f));
+		BufferedImage img = imgData.getPunishmentImg();
 		for(int i = 0; i < punishments.size(); i ++) {
-			g2d.fillRect(punishments.get(i).getXPos()*cellSize, punishments.get(i).getYPos() * cellSize, cellSize, cellSize);
+			g2d.drawImage(img, punishments.get(i).getXPos()*cellSize, punishments.get(i).getYPos() * cellSize, cellSize, cellSize, null);
 		}
 	}
 	
@@ -133,15 +144,14 @@ public class DisplayManager extends JPanel{
 	}
 	
 	private void dispEnemies(Graphics2D g2d) {
-		g2d.setColor(new Color(1.0f, 0.0f, 0.0f, 1.0f));
+		BufferedImage enemyImage = imgData.getEnemyImg(); 
 		for(int i = 0; i < enemies.size(); i ++) {
-			g2d.fillRect(enemies.get(i).getXPos()*cellSize, enemies.get(i).getYPos() * cellSize, cellSize, cellSize);
+			g2d.drawImage(enemyImage, enemies.get(i).getXPos()*cellSize, enemies.get(i).getYPos() * cellSize, cellSize, cellSize, null);
 		}
 	}
 	
 	private void dispMainChar(Graphics2D g2d) {
-		g2d.setColor(new Color(0.0f, 1.0f, 0.0f, 1.0f));
-		g2d.fillRect(mainChar.getXPos()*cellSize, mainChar.getYPos() * cellSize, cellSize, cellSize);
+		g2d.drawImage(imgData.getPlayerImg(), mainChar.getXPos()*cellSize, mainChar.getYPos() * cellSize, cellSize, cellSize, null);
 	}
 	
 	//Graphics to Display the Menu Screen
@@ -222,6 +232,7 @@ public class DisplayManager extends JPanel{
 	 * does something idk
 	 */
 
+	@Override
 	public void paint(Graphics g) {
 		Graphics menu = (Graphics2D) g;
 		Graphics2D g2d = (Graphics2D) g;
