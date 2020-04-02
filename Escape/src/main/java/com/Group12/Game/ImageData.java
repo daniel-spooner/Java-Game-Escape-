@@ -17,6 +17,8 @@ public class ImageData {
 	private BufferedImage objectImg;
 	private BufferedImage goalImg;
 	private BufferedImage bonusImg;
+	private BufferedImage cellImg;
+	private BufferedImage boardImg;
 	
 	public ImageData() {
 		try {
@@ -27,6 +29,8 @@ public class ImageData {
             punishmentImg = ImageIO.read(new File(System.getProperty("user.dir") + "/resources/pul.png"));
             goalImg = ImageIO.read(new File(System.getProperty("user.dir") + "/resources/goal.png"));
             bonusImg = ImageIO.read(new File(System.getProperty("user.dir") + "/resources/bonus.png"));
+            cellImg = ImageIO.read(new File(System.getProperty("user.dir") + "/resources/cell.png"));
+            boardImg = ImageIO.read(new File(System.getProperty("user.dir") + "/resources/board.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -54,5 +58,13 @@ public class ImageData {
 	
 	public BufferedImage getBonusImg() {
 		return this.bonusImg;
+	}
+	
+	public BufferedImage getCellImg() {
+		return this.cellImg;
+	}
+	
+	public BufferedImage getBoardImg() {
+		return this.boardImg;
 	}
 }

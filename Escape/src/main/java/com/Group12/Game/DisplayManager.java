@@ -110,11 +110,13 @@ public class DisplayManager extends JPanel{
 		for(int y = 0; y < boardY; y++) {
 			for(int x = 0; x < boardX; x++) {
 				if(this.board.getCellType(x, y) == cellType.OPEN) {
-					g2d.setColor(new Color(0.6f, 0.6f, 0.6f, 1.0f));
+					BufferedImage boardImg = imgData.getBoardImg();
+					g2d.drawImage(boardImg, x*cellSize, y*cellSize, cellSize, cellSize,null);
 				}else {
-					g2d.setColor(new Color(0.0f, 0.0f, 0.0f, 1.0f));
+					BufferedImage cellImg = imgData.getCellImg(); 
+					g2d.drawImage(cellImg, x*cellSize, y*cellSize, cellSize, cellSize,null);
 				}
-				g2d.fillRect(x*cellSize, y*cellSize, cellSize, cellSize);
+				
 			}
 		}
 	}
