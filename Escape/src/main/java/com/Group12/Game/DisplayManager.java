@@ -120,9 +120,9 @@ public class DisplayManager extends JPanel{
 	}
 	
 	private void dispBonusRewards(Graphics2D g2d) {
-		g2d.setColor(new Color(0.0f, 0.8f, 1.0f, 1.0f));
+		BufferedImage bonusImg = imgData.getBonusImg(); 
 		for(int i = 0; i < bonusRewards.size(); i ++) {
-			g2d.fillRect(bonusRewards.get(i).getXPos()*cellSize, bonusRewards.get(i).getYPos() * cellSize, cellSize, cellSize);
+			g2d.drawImage(bonusImg, bonusRewards.get(i).getXPos()*cellSize, bonusRewards.get(i).getYPos() * cellSize, cellSize, cellSize,null);
 		}
 	}
 	
@@ -135,12 +135,12 @@ public class DisplayManager extends JPanel{
 	}
 	
 	private void dispObjectiveRewards(Graphics2D g2d) {
-		g2d.setColor(new Color(0.9f, 1.0f, 0.4f, 1.0f));
+		BufferedImage objImg = imgData.getObjectImg(); 
 		for(int i = 0; i < objectiveRewards.size(); i ++) {
-			g2d.fillRect(objectiveRewards.get(i).getXPos()*cellSize, objectiveRewards.get(i).getYPos() * cellSize, cellSize, cellSize);
+			g2d.drawImage(objImg, objectiveRewards.get(i).getXPos()*cellSize, objectiveRewards.get(i).getYPos() * cellSize, cellSize, cellSize, null);
 		}
-		g2d.setColor(new Color(0.6f, 0.3f, 0.9f, 1.0f));
-		g2d.fillRect(goalX * cellSize, goalY * cellSize, cellSize, cellSize);
+		BufferedImage goalImg = imgData.getGoalImg(); 
+		g2d.drawImage(goalImg, goalX * cellSize, goalY * cellSize, cellSize, cellSize,null);
 	}
 	
 	private void dispEnemies(Graphics2D g2d) {
