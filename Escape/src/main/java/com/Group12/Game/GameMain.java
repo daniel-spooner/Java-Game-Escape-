@@ -397,7 +397,7 @@ public class GameMain{
 			Enemy obj = this.enemies.get(i);
 			if (obj.getXPos() == mx && obj.getYPos() == my) {
 				// Enemy-Character interaction:
-				mainChar.setHealth(mainChar.getHealth()-1);
+				mainChar.setHealth(mainChar.getHealth()-10);
 				this.enemies.remove(i);
 			}
 		}

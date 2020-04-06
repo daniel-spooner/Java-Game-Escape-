@@ -32,6 +32,7 @@ public class DisplayManager extends JPanel{
 	private int sizeY;
 	private int cellSize;
 	private int score;
+	private int HP;
 	
 	private int goalX;
 	private int goalY;
@@ -100,6 +101,7 @@ public class DisplayManager extends JPanel{
 		Font fnt0 = new Font("arial", Font.BOLD, 20);
 		g2d.setFont(fnt0);
 		g2d.drawString("Score:  " + Integer.toString(score) ,sizeX + sizeX/20, sizeY/8);
+		g2d.drawString("HP:  " + Integer.toString(HP) ,sizeX + sizeX/20, sizeY/6);
 	}
 	
 	private void dispBoard(Graphics2D g2d) {
@@ -223,6 +225,7 @@ public class DisplayManager extends JPanel{
 		this.goalX = goalX; this.goalY = goalY;
 		this.timePercentage = timePercentage;
 		this.score = score;
+		this.HP = mainChar.getHealth();
 		
 		gameWindow.add(this);
 		repaint();
