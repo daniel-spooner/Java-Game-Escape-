@@ -47,8 +47,10 @@ public class MainCharacterTest {
 		assertEquals(true,output);
 		
 	}
+	
+	//Tests checkAlive() method. Brining the main char health down to 0 should have the method return false.
 	@Test
-	public void checkIfAlive() {
+	public void MainCharDead() {
 		MainCharacter test = new MainCharacter();	
 		//Decrease the health 100 times from initial 100 health.
 		for(int i = 0; i<100; i++) {
@@ -56,6 +58,19 @@ public class MainCharacterTest {
 		}
 		boolean output = test.checkAlive();
 		assertEquals(false,output);
+		
+	}	
+	
+	//Tests checkAlive() method. Brining the main char health down to 1 should have the method return true.
+	@Test
+	public void MainCharAlive() {
+		MainCharacter test = new MainCharacter();	
+		//Decrease the health 100 times from initial 100 health.
+		for(int i = 0; i<99; i++) {
+			test.decHealth();
+		}
+		boolean output = test.checkAlive();
+		assertEquals(true,output);
 		
 	}	
 	
