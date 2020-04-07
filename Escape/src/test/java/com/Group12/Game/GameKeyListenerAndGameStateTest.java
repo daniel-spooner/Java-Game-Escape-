@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import com.Group12.Game.GameMain.GameState;
 
-public class TestingGameKeyListenerAndGameMainGameState {
+public class GameKeyListenerAndGameStateTest {
 
 	//INTEGRATION TESTING
 	

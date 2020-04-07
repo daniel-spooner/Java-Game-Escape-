@@ -5,7 +5,7 @@ import org.junit.Test;
 import com.Group12.Game.GameMain.GameState;
 
 import java.awt.event.KeyEvent;
-public class TestingGameKeyListener {
+public class GameKeyListenerTest {
 	
 	
 	//Lower case and upper case Characters have different Keycodes, but KeyPressed handles both cases with the same keycode
