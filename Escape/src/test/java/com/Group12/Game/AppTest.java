@@ -1,6 +1,6 @@
 package com.Group12.Game;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
