@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-public class MainCharacterTest {
+public class TestingMainCharacter {
 	//Before Method executes preconditions necessary for the tests.
 	MainCharacter test;
 	

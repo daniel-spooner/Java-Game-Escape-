@@ -5,7 +5,7 @@ import org.junit.Test;
 import com.Group12.Game.GameMain.GameState;
 
 import java.awt.event.KeyEvent;
-public class GameKeyListenerTest {
+public class TestingGameKeyListener {
 	
 	
 	//Lower case and upper case Characters have different Keycodes, but KeyPressed handles both cases with the same keycode
@@ -156,8 +156,8 @@ public class GameKeyListenerTest {
     @Test
 	public void keyboardInputChangingGameStatetoGame() {
 		@SuppressWarnings("deprecation")
-		KeyEvent e = new KeyEvent(main.display, 1, 20, 1, 10);
-		main.keyListener.keyPressed(e);
+		KeyEvent e = new KeyEvent(main.getDisplay(), 1, 20, 1, 10);
+		main.getKeyListener().keyPressed(e);
 		main.update(false);
 
 		assertEquals(main.getState(),GameState.GAME);
@@ -168,12 +168,12 @@ public class GameKeyListenerTest {
 	@Test
 	public void keyboardInputChangingGameStatetoMenu() {
 		@SuppressWarnings("deprecation")
-		KeyEvent e = new KeyEvent(display, 1, 20, 1, 10);
-		main.keyListener.keyPressed(e);
+		KeyEvent e = new KeyEvent(main.getDisplay(), 1, 20, 1, 10);
+		main.getKeyListener().keyPressed(e);
 		main.update(false);
 		@SuppressWarnings("deprecation")
-		KeyEvent e1 = new KeyEvent(display, 1, 20, 1, 27);
-		main.keyListener.keyPressed(e1);
+		KeyEvent e1 = new KeyEvent(main.getDisplay(), 1, 20, 1, 27);
+		main.getKeyListener().keyPressed(e1);
 		main.update(false);
 
 		assertEquals(main.getState(),GameState.MENU);
