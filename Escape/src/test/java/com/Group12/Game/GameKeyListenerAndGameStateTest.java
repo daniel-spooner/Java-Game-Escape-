@@ -44,7 +44,7 @@ public class GameKeyListenerAndGameStateTest {
     
     //Testing if hitting the Escape Key Results in changing the GameState from Game to Menu.
 	@Test
-	public void kTestingSetStatetToMenu() {
+	public void TestingSetStatetToMenu() {
 		@SuppressWarnings("deprecation")
 		KeyEvent e = new KeyEvent(main.getDisplay(), 1, 20, 1, 10);
 		main.getKeyListener().keyPressed(e);
@@ -57,6 +57,12 @@ public class GameKeyListenerAndGameStateTest {
 		assertEquals(main.getState(),GameState.MENU);
 	
 	}
+	@Test
+	public void TestingDisplayManagerThroughGameMain() {
+		main.setState(GameState.GAME);
+		assertEquals(main.getState(),GameState.GAME);
+	}
+	
 
 
 }
