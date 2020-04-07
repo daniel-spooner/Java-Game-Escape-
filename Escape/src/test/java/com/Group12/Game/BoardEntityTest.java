@@ -28,7 +28,9 @@ public class BoardEntityTest {
 	
 	@Test
 	public void testingDefaultConstructor() {
-		
+		be = new BoardEntity();
+		assertEquals("x should be 0 by default", 0, be.getXPos());
+		assertEquals("y should be 0 by default", 0, be.getYPos());
 	}
 	
 	@Test
