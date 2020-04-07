@@ -10,20 +10,25 @@ public class CollectibleTest {
 	BonusReward bo;
 	Punishment pu;
 	ObjectiveReward ob;
-	int x = 5;
-	int y = 10;
+	
 	
 	@Before
 	public void setupTests() {
-		bo = new BonusReward(x, y, 10, 100);
-		pu = new Punishment(x,y,20);
-		ob = new ObjectiveReward(x,y,50);
+		bo = new BonusReward(5, 10, 10, 100);
+		pu = new Punishment(10,20,20);
+		ob = new ObjectiveReward(20,30,50);
 	}
 	
 	
 	@Test
 	public void testBonusRewardgetLifespan() {
 		assertEquals(10, bo.getLifespan());
+	}
+	
+	@Test
+	public void testBonusRewardPos() {
+		assertEquals(5, bo.getXPos());
+		assertEquals(10, bo.getYPos());
 	}
 	
 	
@@ -46,6 +51,12 @@ public class CollectibleTest {
 	}
 	
 	@Test
+	public void testPunishmentPos() {
+		assertEquals(10, pu.getXPos());
+		assertEquals(20, pu.getYPos());
+	}
+	
+	@Test
 	public void testPunishmentgetDamage() {
 		assertEquals(20, pu.getDamage());
 	}
@@ -56,6 +67,12 @@ public class CollectibleTest {
 		assertEquals(50, pu.getDamage());
 	}
 
+	@Test
+	public void testObjectiveRewardPos() {
+		assertEquals(20, ob.getXPos());
+		assertEquals(30, ob.getYPos());
+	}
+	
 	@Test
 	public void testObjectiveRewardgetScore() {
 		assertEquals(50, ob.getScore());
