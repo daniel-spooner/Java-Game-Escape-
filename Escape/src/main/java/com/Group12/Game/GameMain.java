@@ -81,6 +81,23 @@ public class GameMain{
 	}
 	
 	/**
+	 * Gets the state of the application.
+	 * Returns the current State.
+	 * Added for JUNIT Test Cases.
+	 */
+	
+	public GameState getState() {
+		return state;
+	}
+	
+	public GameKeyListener getKeyListener() {
+		return keyListener;
+	}
+	public DisplayManager getDisplay() {
+		return display;
+	}
+	
+	/**
 	 * Gets the current score of the game.
 	 * @return the score
 	 */

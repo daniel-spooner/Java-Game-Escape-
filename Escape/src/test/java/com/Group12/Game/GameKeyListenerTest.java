@@ -1,23 +1,45 @@
 package com.Group12.Game;
-
 import static org.junit.Assert.*;
-
+import org.junit.Before;
 import org.junit.Test;
+import com.Group12.Game.GameMain.GameState;
 
 import java.awt.event.KeyEvent;
-import java.util.Scanner;
 public class GameKeyListenerTest {
 	
 	
-	//Lower case and upper case Characters have different keycodes but the game works with either inputs!?
-
-	//The lower case (keycodes =  uppercase keycodes + 32) !?
+	//Lower case and upper case Characters have different Keycodes, but KeyPressed handles both cases with the same keycode
+	//The lower case keycodes =  uppercase keycodes + 32
+	//Boundaries of GameKeyListener Class are the keys (W,A,S,D,Enter,Escape). All other keys have no impact in the game.
 	
-	DisplayManager display = new DisplayManager();
-	GameKeyListener test = new GameKeyListener();
+	DisplayManager display;
+	GameKeyListener test;
+	@Before
+	public void exectuedBeforeEach() {
+		display = new DisplayManager();
+		test = new GameKeyListener();
+	}
+
+		
+	@Test
+	public void TestingGetLastKey() {
+		@SuppressWarnings("deprecation")
+		KeyEvent e = new KeyEvent(display, 0, 0, 0, 'A');
+		test.keyPressed(e);
+		assertEquals(65,test.getLastKey());
+	}
+	
+	@Test
+    public void TestingResetLastKey() {
+		@SuppressWarnings("deprecation")
+		KeyEvent e = new KeyEvent(display, 0, 0, 0, 'A');
+		test.keyPressed(e);
+		 test.resetLastKey();
+		 assertEquals(0,test.getLastKey());
+    }
 
 	@Test
-	public void testingWKey() {
+	public void TestingKeyPressedW() {
 
 		@SuppressWarnings("deprecation")
 		KeyEvent e = new KeyEvent(display, 0, 0, 0, 'W');
@@ -27,7 +49,7 @@ public class GameKeyListenerTest {
 		
 	}
 	@Test
-	public void testingAKey() {
+	public void TestingKeyPressedA() {
 
 		@SuppressWarnings("deprecation")
 		KeyEvent e = new KeyEvent(display, 1, 20, 1, 'A');
@@ -37,7 +59,7 @@ public class GameKeyListenerTest {
 		
 	}
 	@Test
-	public void testingSKey() {
+	public void TestingKeyPressedS() {
 
 		@SuppressWarnings("deprecation")
 		KeyEvent e = new KeyEvent(display, 1, 20, 1, 'S');
@@ -47,7 +69,7 @@ public class GameKeyListenerTest {
 		
 	}
 	@Test
-	public void testingDKey() {
+	public void TestingKeyPressedD() {
 
 		@SuppressWarnings("deprecation")
 		KeyEvent e = new KeyEvent(display, 1, 20, 1, 'D');
@@ -57,7 +79,7 @@ public class GameKeyListenerTest {
 		
 	}
 	@Test 
-	public void testingLowerWCaseKey() {
+	public void TestingLowerWCaseKey() {
 
 		@SuppressWarnings("deprecation")
 		KeyEvent e = new KeyEvent(display, 1, 20, 1, 'w');
@@ -68,7 +90,7 @@ public class GameKeyListenerTest {
 	}	
 
 	@Test 
-	public void testingLowerACaseKey() {
+	public void TestingLowerACaseKey() {
 
 		@SuppressWarnings("deprecation")
 		KeyEvent e = new KeyEvent(display, 1, 20, 1, 'a');
@@ -79,7 +101,7 @@ public class GameKeyListenerTest {
 	}	
 
 	@Test 
-	public void testingLowerSCaseKey() {
+	public void TestingLowerSCaseKey() {
 
 		@SuppressWarnings("deprecation")
 		KeyEvent e = new KeyEvent(display, 1, 20, 1, 's');
@@ -87,8 +109,9 @@ public class GameKeyListenerTest {
 		//System.out.println(test.getLastKey());
 		assertEquals(115,test.getLastKey());
 		
-	}	@Test 
-	public void testingLowerDCaseKey() {
+	}	
+	@Test 
+	public void TestingLowerDCaseKey() {
 
 		@SuppressWarnings("deprecation")
 		KeyEvent e = new KeyEvent(display, 1, 20, 1, 'd');
@@ -97,9 +120,24 @@ public class GameKeyListenerTest {
 		assertEquals(100,test.getLastKey());
 		
 	}
-
-	
-	
-
+	//Virtual Key Code equivalent of Enter Key is 13
+	@Test
+	public void TestingEnterKey() {
+		@SuppressWarnings("deprecation")
+		KeyEvent e = new KeyEvent(display, 1, 20, 1, 10);
+		test.keyPressed(e);
+		//System.out.println(test.getLastKey());
+		assertEquals(10,test.getLastKey());
+	}
+	//Virtual Key Code equivalent of Escape Key is 27
+	@Test
+	public void TestingESCKey() {
+		@SuppressWarnings("deprecation")
+		KeyEvent e = new KeyEvent(display, 1, 20, 1, 27);
+		test.keyPressed(e);
+		//System.out.println(test.getLastKey());
+		
+		assertEquals(27,test.getLastKey());
+	}	
 
 }
