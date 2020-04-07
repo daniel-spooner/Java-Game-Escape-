@@ -34,8 +34,10 @@ public class BoardEntityTest {
 	}
 	
 	@Test
-	public void testingRegularConstructor() {
-		
+	public void testingParameterizedConstructor() {
+		be = new BoardEntity(3, 6);
+		assertEquals("x should be 3", 3, be.getXPos());
+		assertEquals("y should be 6", 6, be.getYPos());
 	}
 	
 	@Test
