@@ -32,7 +32,7 @@ public class GameMain{
 	private GameState state;
 	
 	private TickTimer tick;
-	protected GameKeyListener keyListener;
+	private GameKeyListener keyListener;
 	private DisplayManager display;
 
 	private int goalX;
@@ -89,7 +89,13 @@ public class GameMain{
 	public GameState getState() {
 		return state;
 	}
-
+	
+	public GameKeyListener getKeyListener() {
+		return keyListener;
+	}
+	public DisplayManager getDisplay() {
+		return display;
+	}
 	
 	/**
 	 * Gets the current score of the game.
