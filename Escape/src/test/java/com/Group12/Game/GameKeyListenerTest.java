@@ -118,10 +118,13 @@ public class GameKeyListenerTest {
 		
 		assertEquals(27,test.getLastKey());
 	}
-	//Integration Test
 	
-	//Testing if hitting the Enter Key Results in changing the GameState from Menu to Game.
-	@Test
+	//INTEGRATION TESTING
+	
+
+	//TESTING GameMain AND GameKeyListener CLASSES
+	//Testing if hitting the Enter Key Results in changing the GameState from Menu to Game within GameMain
+    @Test
 	public void keyboardInputChangingGameStatetoGame() {
 		GameMain main = GameMain.getInstance();
 		DisplayManager display = new DisplayManager();
