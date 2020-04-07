@@ -32,7 +32,7 @@ public class GameMain{
 	private GameState state;
 	
 	private TickTimer tick;
-	private GameKeyListener keyListener;
+	protected GameKeyListener keyListener;
 	private DisplayManager display;
 
 	private int goalX;
@@ -79,6 +79,17 @@ public class GameMain{
 		this.state = state;
 		display.stateChange(this.state);
 	}
+	
+	/**
+	 * Gets the state of the application.
+	 * Returns the current State.
+	 * Added for JUNIT Test Cases.
+	 */
+	
+	public GameState getState() {
+		return state;
+	}
+
 	
 	/**
 	 * Gets the current score of the game.
