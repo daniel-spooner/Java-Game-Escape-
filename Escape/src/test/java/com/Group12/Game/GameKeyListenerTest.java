@@ -4,14 +4,15 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import com.Group12.Game.GameMain.GameState;
+
 import java.awt.event.KeyEvent;
-import java.util.Scanner;
 public class GameKeyListenerTest {
 	
 	
-	//Lower case and upper case Characters have different keycodes but the game works with either inputs!?
-
-	//The lower case (keycodes =  uppercase keycodes + 32) !?
+	//Lower case and upper case Characters have different Keycodes, but KeyPressed handles both cases with the same keycode
+	//The lower case keycodes =  uppercase keycodes + 32
+	//Boundaries of GameKeyListener Class are the keys (W,A,S,D,Enter,Escape). All other keys have no impact in the game.
 	
 	DisplayManager display = new DisplayManager();
 	GameKeyListener test = new GameKeyListener();
@@ -87,7 +88,8 @@ public class GameKeyListenerTest {
 		//System.out.println(test.getLastKey());
 		assertEquals(115,test.getLastKey());
 		
-	}	@Test 
+	}	
+	@Test 
 	public void testingLowerDCaseKey() {
 
 		@SuppressWarnings("deprecation")
@@ -97,7 +99,73 @@ public class GameKeyListenerTest {
 		assertEquals(100,test.getLastKey());
 		
 	}
+	//Virtual Key Code equivalent of Enter Key is 13
+	@Test
+	public void testingEnterKey() {
+		@SuppressWarnings("deprecation")
+		KeyEvent e = new KeyEvent(display, 1, 20, 1, 10);
+		test.keyPressed(e);
+		//System.out.println(test.getLastKey());
+		assertEquals(10,test.getLastKey());
+	}
+	//Virtual Key Code equivalent of Escape Key is 27
+	@Test
+	public void testingESCKey() {
+		@SuppressWarnings("deprecation")
+		KeyEvent e = new KeyEvent(display, 1, 20, 1, 27);
+		test.keyPressed(e);
+		//System.out.println(test.getLastKey());
+		
+		assertEquals(27,test.getLastKey());
+	}
+	//Integration Test
+	
+	//Testing if hitting the Enter Key Results in changing the GameState from Menu to Game.
+	@Test
+	public void keyboardInputChangingGameStatetoGame() {
+		GameMain main = GameMain.getInstance();
+		DisplayManager display = new DisplayManager();
+		
+		main.startGame();
+		TickTimer tick = new TickTimer(25);
+		main.setTickTimer(tick);
+		Thread t = new Thread(tick);
+		t.start();
+		
+		tick.pauseTick();
+		@SuppressWarnings("deprecation")
+		KeyEvent e = new KeyEvent(display, 1, 20, 1, 10);
+		main.keyListener.keyPressed(e);
+		main.update(false);
 
+		assertEquals(main.getState(),GameState.GAME);
+	
+	}	//Testing if hitting the Escape Key Results in changing the GameState from Game to Menu.
+	@Test
+	public void keyboardInputChangingGameStatetoMenu() {
+		GameMain main = GameMain.getInstance();
+		DisplayManager display = new DisplayManager();
+		
+		main.startGame();
+		TickTimer tick = new TickTimer(25);
+		main.setTickTimer(tick);
+		Thread t = new Thread(tick);
+		t.start();
+		
+		tick.pauseTick();
+		@SuppressWarnings("deprecation")
+		KeyEvent e = new KeyEvent(display, 1, 20, 1, 10);
+		main.keyListener.keyPressed(e);
+		main.update(false);
+		@SuppressWarnings("deprecation")
+		KeyEvent e1 = new KeyEvent(display, 1, 20, 1, 27);
+		main.keyListener.keyPressed(e1);
+		main.update(false);
+
+		assertEquals(main.getState(),GameState.MENU);
+	
+	}
+	
 	
 	
 
