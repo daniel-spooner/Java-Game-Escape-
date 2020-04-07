@@ -32,7 +32,7 @@ public class GameKeyListenerAndGameStateTest {
 	
 	//Testing if hitting the Enter Key Results in changing the GameState from Menu to Game within GameMain
     @Test
-	public void keyboardInputChangingGameStatetoGame() {
+	public void TestingSetStateToGame() {
 		@SuppressWarnings("deprecation")
 		KeyEvent e = new KeyEvent(main.getDisplay(), 1, 20, 1, 10);
 		main.getKeyListener().keyPressed(e);
@@ -44,7 +44,7 @@ public class GameKeyListenerAndGameStateTest {
     
     //Testing if hitting the Escape Key Results in changing the GameState from Game to Menu.
 	@Test
-	public void keyboardInputChangingGameStatetoMenu() {
+	public void kTestingSetStatetToMenu() {
 		@SuppressWarnings("deprecation")
 		KeyEvent e = new KeyEvent(main.getDisplay(), 1, 20, 1, 10);
 		main.getKeyListener().keyPressed(e);
@@ -57,22 +57,6 @@ public class GameKeyListenerAndGameStateTest {
 		assertEquals(main.getState(),GameState.MENU);
 	
 	}
-	
-	//Check whether the keys (W,A,S,D) successfully move the Main Character
-	
-	@Test
-	public void keyboardInputChangingPlayerCoordinate() {
-		MainCharacter test = new MainCharacter();
-		@SuppressWarnings("deprecation")
-		KeyEvent e = new KeyEvent(main.getDisplay(), 1, 20, 1, 'W');
-		main.getKeyListener().keyPressed(e);
-		main.update(false);
-		int YPos = test.getYPos();
-		test.setYPos(YPos+1);
-		assertEquals(1,test.getYPos());
-	}
-	
-	
-	
+
 
 }

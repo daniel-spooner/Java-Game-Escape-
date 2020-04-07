@@ -22,7 +22,7 @@ public class MainCharacterTest {
 
 	//Checks if Initial health is set to 100.
 	@Test
-	public void	initialHealth() {
+	public void	TestingInitialHealth() {
 		
 		int output = test.getHealth();
 		assertEquals(100,output);

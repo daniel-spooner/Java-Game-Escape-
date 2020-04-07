@@ -22,7 +22,7 @@ public class GameKeyListenerTest {
 
 		
 	@Test
-	public void getLastKeyMethodTest() {
+	public void TestingGetLastKey() {
 		@SuppressWarnings("deprecation")
 		KeyEvent e = new KeyEvent(display, 0, 0, 0, 'A');
 		test.keyPressed(e);
@@ -30,7 +30,7 @@ public class GameKeyListenerTest {
 	}
 	
 	@Test
-    public void resetLastKeyMethodTest() {
+    public void TestingResetLastKey() {
 		@SuppressWarnings("deprecation")
 		KeyEvent e = new KeyEvent(display, 0, 0, 0, 'A');
 		test.keyPressed(e);
@@ -39,7 +39,7 @@ public class GameKeyListenerTest {
     }
 
 	@Test
-	public void testingWKey() {
+	public void TestingKeyPressedW() {
 
 		@SuppressWarnings("deprecation")
 		KeyEvent e = new KeyEvent(display, 0, 0, 0, 'W');
@@ -49,7 +49,7 @@ public class GameKeyListenerTest {
 		
 	}
 	@Test
-	public void testingAKey() {
+	public void TestingKeyPressedA() {
 
 		@SuppressWarnings("deprecation")
 		KeyEvent e = new KeyEvent(display, 1, 20, 1, 'A');
@@ -59,7 +59,7 @@ public class GameKeyListenerTest {
 		
 	}
 	@Test
-	public void testingSKey() {
+	public void TestingKeyPressedS() {
 
 		@SuppressWarnings("deprecation")
 		KeyEvent e = new KeyEvent(display, 1, 20, 1, 'S');
@@ -69,7 +69,7 @@ public class GameKeyListenerTest {
 		
 	}
 	@Test
-	public void testingDKey() {
+	public void TestingKeyPressedD() {
 
 		@SuppressWarnings("deprecation")
 		KeyEvent e = new KeyEvent(display, 1, 20, 1, 'D');
@@ -79,7 +79,7 @@ public class GameKeyListenerTest {
 		
 	}
 	@Test 
-	public void testingLowerWCaseKey() {
+	public void TestingLowerWCaseKey() {
 
 		@SuppressWarnings("deprecation")
 		KeyEvent e = new KeyEvent(display, 1, 20, 1, 'w');
@@ -90,7 +90,7 @@ public class GameKeyListenerTest {
 	}	
 
 	@Test 
-	public void testingLowerACaseKey() {
+	public void TestingLowerACaseKey() {
 
 		@SuppressWarnings("deprecation")
 		KeyEvent e = new KeyEvent(display, 1, 20, 1, 'a');
@@ -101,7 +101,7 @@ public class GameKeyListenerTest {
 	}	
 
 	@Test 
-	public void testingLowerSCaseKey() {
+	public void TestingLowerSCaseKey() {
 
 		@SuppressWarnings("deprecation")
 		KeyEvent e = new KeyEvent(display, 1, 20, 1, 's');
@@ -111,7 +111,7 @@ public class GameKeyListenerTest {
 		
 	}	
 	@Test 
-	public void testingLowerDCaseKey() {
+	public void TestingLowerDCaseKey() {
 
 		@SuppressWarnings("deprecation")
 		KeyEvent e = new KeyEvent(display, 1, 20, 1, 'd');
@@ -122,7 +122,7 @@ public class GameKeyListenerTest {
 	}
 	//Virtual Key Code equivalent of Enter Key is 13
 	@Test
-	public void testingEnterKey() {
+	public void TestingEnterKey() {
 		@SuppressWarnings("deprecation")
 		KeyEvent e = new KeyEvent(display, 1, 20, 1, 10);
 		test.keyPressed(e);
@@ -131,59 +131,13 @@ public class GameKeyListenerTest {
 	}
 	//Virtual Key Code equivalent of Escape Key is 27
 	@Test
-	public void testingESCKey() {
+	public void TestingESCKey() {
 		@SuppressWarnings("deprecation")
 		KeyEvent e = new KeyEvent(display, 1, 20, 1, 27);
 		test.keyPressed(e);
 		//System.out.println(test.getLastKey());
 		
 		assertEquals(27,test.getLastKey());
-	}	GameMain main;
-	TickTimer tick;
-	
-	@Before 
-	public void createNewGameMain() {
-		main = GameMain.getInstance();
-		main.startGame();
-		tick = new TickTimer(25);
-		main.setTickTimer(tick);
-		Thread t = new Thread(tick);
-		t.start();
-		tick.pauseTick();
-	}
-
-	//Testing if hitting the Enter Key Results in changing the GameState from Menu to Game within GameMain
-    @Test
-	public void keyboardInputChangingGameStatetoGame() {
-		@SuppressWarnings("deprecation")
-		KeyEvent e = new KeyEvent(main.getDisplay(), 1, 20, 1, 10);
-		main.getKeyListener().keyPressed(e);
-		main.update(false);
-
-		assertEquals(main.getState(),GameState.GAME);
-	
 	}	
-    
-    //Testing if hitting the Escape Key Results in changing the GameState from Game to Menu.
-	@Test
-	public void keyboardInputChangingGameStatetoMenu() {
-		@SuppressWarnings("deprecation")
-		KeyEvent e = new KeyEvent(main.getDisplay(), 1, 20, 1, 10);
-		main.getKeyListener().keyPressed(e);
-		main.update(false);
-		@SuppressWarnings("deprecation")
-		KeyEvent e1 = new KeyEvent(main.getDisplay(), 1, 20, 1, 27);
-		main.getKeyListener().keyPressed(e1);
-		main.update(false);
-
-		assertEquals(main.getState(),GameState.MENU);
-	
-	}
-	
-	
-	
-
-	
-
 
 }
