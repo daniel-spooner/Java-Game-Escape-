@@ -2,31 +2,41 @@ package com.Group12.Game;
 
 import static org.junit.Assert.*;
 
+import java.awt.event.KeyEvent;
+
+import org.junit.Before;
+
 import org.junit.Test;
 
+
 public class MainCharacterTest {
+	//Before Method executes preconditions necessary for the tests.
+	MainCharacter test;
+	
+	@Before
+	public void exectuedBeforeEach() {
+		test = new MainCharacter();
+	}
 	
 	//The boundary of when health will change state are ( Health > 0) and ( Health <= 0).
 
 	//Checks if Initial health is set to 100.
 	@Test
-	public void	initialHealth() {
-		MainCharacter test = new MainCharacter();
+	public void	TestingInitialHealth() {
+		
 		int output = test.getHealth();
 		assertEquals(100,output);
 	}
 	//Checks if taking damage one time from initial health will set health to be < 0 (It shouldn't).
 	@Test
-	public void decreaseHealthByOne() {
-		MainCharacter test = new MainCharacter();
+	public void TestingDecHealth() {
 		boolean output = test.decHealth();
 		assertEquals(true,output);
 		
 	}
 	//Checks if decreasing the health <= 0, the function decHealth() should return false. The player is dead.
 	@Test
-	public void decreaseHealthToZero() {
-		MainCharacter test = new MainCharacter();
+	public void TestingDecHealthToZero() {
 		boolean output = true;
 		//Decrease the health 100 times from initial 100 health.
 		for(int i = 0; i<100; i++) {
@@ -37,8 +47,7 @@ public class MainCharacterTest {
 	}	
 	//Checks if decreasing the health to 1, the function decHealth() should return true. The player is alive with 1 Health Point.
 	@Test
-	public void decreaseHealthTo99() {
-		MainCharacter test = new MainCharacter();
+	public void TestingDecHealthTo99() {
 		boolean output = true;
 		//Decrease the health 100 times from initial 100 health.
 		for(int i = 0; i<99; i++) {
@@ -50,8 +59,7 @@ public class MainCharacterTest {
 	
 	//Tests checkAlive() method. Brining the main char health down to 0 should have the method return false.
 	@Test
-	public void MainCharDead() {
-		MainCharacter test = new MainCharacter();	
+	public void TestingCheckAliveIsFalse() {
 		//Decrease the health 100 times from initial 100 health.
 		for(int i = 0; i<100; i++) {
 			test.decHealth();
@@ -63,8 +71,7 @@ public class MainCharacterTest {
 	
 	//Tests checkAlive() method. Brining the main char health down to 1 should have the method return true.
 	@Test
-	public void MainCharAlive() {
-		MainCharacter test = new MainCharacter();	
+	public void TestingCheckAliveIsTrue() {	
 		//Decrease the health 100 times from initial 100 health.
 		for(int i = 0; i<99; i++) {
 			test.decHealth();
@@ -76,8 +83,7 @@ public class MainCharacterTest {
 	
 	
 	@Test
-	public void mainCharXPos() {
-		MainCharacter test = new MainCharacter();
+	public void TestingMainCharXPos() {
 		int XPos = test.getXPos();
 		test.setXPos(XPos+1);
 		assertEquals(1,test.getXPos());
@@ -87,8 +93,7 @@ public class MainCharacterTest {
 		
 	}
 	@Test
-	public void mainCharYPos() {
-		MainCharacter test = new MainCharacter();
+	public void TestingMainCharYPos() {
 		int YPos = test.getYPos();
 		test.setYPos(YPos+1);
 		assertEquals(1,test.getYPos());
@@ -97,6 +102,9 @@ public class MainCharacterTest {
 		assertEquals(0,test.getYPos());
 		
 	}
+	
+
+ 
 
 
 }

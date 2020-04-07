@@ -16,27 +16,13 @@ public class Enemy extends BoardEntity {
 	  * @param y coordinate
 	  */
 	 public Enemy(int x, int y) {
-		 //this.HP = 100;
 		 this.xPos = x;
 		 this.yPos = y;
 	 }
-	 
-	 
-	 /*
-	 public void takeDamage(int damage) {
-		 HP -= damage;
+	 public Enemy() {
+		 super();
 	 }
 	 
-	 public int getHP() {
-		 return HP;
-	 }
 	 
-	 public boolean enemyAlive(int damage) {
-	 if (HP <= 0) {
-	 // enemy die
-		 return false;
-	 	}
-	 	return true;
-	 }
-	 */
+	
 }
