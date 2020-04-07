@@ -24,21 +24,5 @@ public class Enemy extends BoardEntity {
 	 }
 	 
 	 
-	 /*
-	 public void takeDamage(int damage) {
-		 HP -= damage;
-	 }
-	 
-	 public int getHP() {
-		 return HP;
-	 }
-	 
-	 public boolean enemyAlive(int damage) {
-	 if (HP <= 0) {
-	 // enemy die
-		 return false;
-	 	}
-	 	return true;
-	 }
-	 */
+	
 }
