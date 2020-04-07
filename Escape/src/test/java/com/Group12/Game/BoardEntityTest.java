@@ -18,12 +18,12 @@ public class BoardEntityTest {
 	
 	@Test
 	public void testingGetXPos() {
-		
+		assertEquals(x, be.getXPos());
 	}
 	
 	@Test
 	public void testingGetYPos() {
-		
+		assertEquals(y, be.getYPos());
 	}
 	
 	@Test
@@ -40,12 +40,14 @@ public class BoardEntityTest {
 	
 	@Test
 	public void testingSetXPos() {
-		
+		be.setXPos(15);
+		assertEquals(15, be.getXPos());
 	}
 	
 	@Test 
 	public void testingSetYPos() {
-		
+		be.setYPos(30);
+		assertEquals(30, be.getYPos());
 	}
 	
 }
