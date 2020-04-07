@@ -16,9 +16,12 @@ public class Enemy extends BoardEntity {
 	  * @param y coordinate
 	  */
 	 public Enemy(int x, int y) {
-		 //this.HP = 100;
 		 this.xPos = x;
 		 this.yPos = y;
+	 }
+	 public Enemy() {
+		 this.xPos = 2;
+		 this.yPos = 2;
 	 }
 	 
 	 
