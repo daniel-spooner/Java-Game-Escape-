@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.Group12.Game.AppTest" time="0.09" tests="1" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="13"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.class.path" value="E:\Homework\SFU 2020 1\cmpt276\project\Escape\target\test-classes;E:\Homework\SFU 2020 1\cmpt276\project\Escape\target\classes;C:\Users\Nicholas\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\Nicholas\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;"/>
+    <property name="java.vm.vendor" value="AdoptOpenJDK"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="user.variant" value=""/>
+    <property name="java.vendor.url" value="https://adoptopenjdk.net/"/>
+    <property name="user.timezone" value="America/Los_Angeles"/>
+    <property name="os.name" value="Windows 10"/>
+    <property name="java.vm.specification.version" value="13"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\AdoptOpenJDK\jdk-13.0.2.8-hotspot\bin"/>
+    <property name="sun.java.command" value="C:\Users\Nicholas\AppData\Local\Temp\surefire17827036797265772547\surefirebooter15715245099710609977.jar C:\Users\Nicholas\AppData\Local\Temp\surefire17827036797265772547 2020-04-06T13-50-30_538-jvmRun1 surefire8050047710172500822tmp surefire_013387628389321211125tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="E:\Homework\SFU 2020 1\cmpt276\project\Escape\target\test-classes;E:\Homework\SFU 2020 1\cmpt276\project\Escape\target\classes;C:\Users\Nicholas\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\Nicholas\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="C:\Users\Nicholas"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2020-01-14"/>
+    <property name="java.home" value="C:\Program Files\AdoptOpenJDK\jdk-13.0.2.8-hotspot"/>
+    <property name="file.separator" value="\"/>
+    <property name="basedir" value="E:\Homework\SFU 2020 1\cmpt276\project\Escape"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="surefire.real.class.path" value="C:\Users\Nicholas\AppData\Local\Temp\surefire17827036797265772547\surefirebooter15715245099710609977.jar"/>
+    <property name="user.script" value=""/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="13.0.2+8"/>
+    <property name="user.name" value="Nicholas"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="Cp1252"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="AdoptOpenJDK"/>
+    <property name="localRepository" value="C:\Users\Nicholas\.m2\repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/AdoptOpenJDK/openjdk-support/issues"/>
+    <property name="java.io.tmpdir" value="C:\Users\Nicholas\AppData\Local\Temp\"/>
+    <property name="java.version" value="13.0.2"/>
+    <property name="user.dir" value="E:\Homework\SFU 2020 1\cmpt276\project\Escape"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="java.library.path" value="C:\Program Files\AdoptOpenJDK\jdk-13.0.2.8-hotspot\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Users\Nicholas\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\Nicholas\bin;C:\Program Files\AdoptOpenJDK\jdk-13.0.2.8-hotspot\bin;C:\Python27;C:\Python27\Scripts;C:\FFmpeg\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\MinGW\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\Users\Nicholas\.dnx\bin;C:\ProgramData\Oracle\Java\javapath;C:\Program Files\Microsoft DNX\Dnvm;C:\Program Files\Microsoft SQL Server\130\Tools\Binn;C:\WINDOWS\System32\OpenSSH;C:\texlive\2018\bin\win32;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Users\Nicholas\AppData\Local\Microsoft\WindowsApps;C:\Users\Nicholas\AppData\Local\atom\bin;E:\Programs\Calibre;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Git\cmd;C:\Program Files\dotnet;C:\Program Files\PuTTY;C:\Program Files\CMake\bin;C:\Program Files\nodejs;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\Yarn\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\apache-maven-3.6.3\bin;C:\Users\Nicholas\.cargo\bin;C:\Users\Nicholas\AppData\Local\Programs\Python\Python37\Scripts;C:\Users\Nicholas\AppData\Local\Programs\Python\Python37;C:\Users\Nicholas\AppData\Local\Programs\Python\Python37-32\Scripts;C:\Users\Nicholas\AppData\Local\Programs\Python\Python37-32;C:\Users\Nicholas\AppData\Local\Microsoft\WindowsApps;C:\Users\Nicholas\AppData\Local\atom\bin;C:\Users\Nicholas\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Sublime Text 3;C:\Users\Nicholas\AppData\Roaming\npm;C:\Users\Nicholas\AppData\Local\Yarn\bin;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl;."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="java.vendor" value="AdoptOpenJDK"/>
+    <property name="java.vm.version" value="13.0.2+8"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="57.0"/>
+  </properties>
+  <testcase name="shouldAnswerWithTrue" classname="com.Group12.Game.AppTest" time="0.002"/>
+</testsuite>
