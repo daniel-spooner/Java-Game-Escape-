@@ -62,6 +62,17 @@ public class GameKeyListenerAndGameStateTest {
 		main.setState(GameState.GAME);
 		assertEquals(main.getState(),GameState.GAME);
 	}
+		@Test
+	public void TestingWinGameState() {
+		main.setState(GameState.WIN);
+		assertEquals(main.getState(),GameState.WIN);
+	}
+	@Test
+	public void TestingLoseGameState() {
+		main.setState(GameState.LOSE);
+		assertEquals(main.getState(),GameState.LOSE);
+	}
+
 	
 
 
