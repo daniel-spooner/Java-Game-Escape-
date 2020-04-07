@@ -5,15 +5,17 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class MainCharacterTest {
+	
+	//The boundary of when health will change state are ( Health > 0) and ( Health <= 0).
 
-	//Checks if Initial health is set to 100
+	//Checks if Initial health is set to 100.
 	@Test
 	public void	initialHealth() {
 		MainCharacter test = new MainCharacter();
 		int output = test.getHealth();
 		assertEquals(100,output);
 	}
-	//
+	//Checks if taking damage one time from initial health will set health to be < 0 (It shouldn't).
 	@Test
 	public void decreaseHealthByOne() {
 		MainCharacter test = new MainCharacter();
@@ -21,6 +23,7 @@ public class MainCharacterTest {
 		assertEquals(true,output);
 		
 	}
+	//Checks if decreasing the health <= 0, the function decHealth() should return false. The player is dead.
 	@Test
 	public void decreaseHealthToZero() {
 		MainCharacter test = new MainCharacter();
@@ -32,6 +35,7 @@ public class MainCharacterTest {
 		assertEquals(false,output);
 		
 	}	
+	//Checks if decreasing the health to 1, the function decHealth() should return true. The player is alive with 1 Health Point.
 	@Test
 	public void decreaseHealthTo99() {
 		MainCharacter test = new MainCharacter();
@@ -54,6 +58,8 @@ public class MainCharacterTest {
 		assertEquals(false,output);
 		
 	}	
+	
+	
 	@Test
 	public void mainCharXPos() {
 		MainCharacter test = new MainCharacter();
