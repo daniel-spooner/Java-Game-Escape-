@@ -20,8 +20,7 @@ public class Enemy extends BoardEntity {
 		 this.yPos = y;
 	 }
 	 public Enemy() {
-		 this.xPos = 2;
-		 this.yPos = 2;
+		 super();
 	 }
 	 
 	 

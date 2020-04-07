@@ -9,8 +9,8 @@ public class EnemyTest {
 	@Test
 	public void testEnemyDefault() {
 		Enemy e= new Enemy();
-		assertEquals(2, e.getXPos());
-		assertEquals(2, e.getYPos());
+		assertEquals(0, e.getXPos());
+		assertEquals(0, e.getYPos());
 	}
 
 }
