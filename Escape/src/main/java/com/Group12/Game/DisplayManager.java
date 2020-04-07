@@ -257,7 +257,7 @@ public class DisplayManager extends JPanel{
 		}
         //call more disp funcs here
 	}
-	
+	/*
 	public static void main(String[] args) {
 		
 		Board b = new Board();
@@ -280,9 +280,9 @@ public class DisplayManager extends JPanel{
 		br.add(new BonusReward(22, 17, 15, 50));
 		br.add(new BonusReward(14, 1, 15, 50));
 		
-		/*for(int i = 0; i < b.getXSize(); i++) {
+		for(int i = 0; i < b.getXSize(); i++) {
 			b.setCellType(i, i%5, cellType.BARRIER);
-		}*/
+		}
 		
 		//Sample board
 		for(int x = 0; x < b.getXSize(); x ++) {
@@ -303,4 +303,5 @@ public class DisplayManager extends JPanel{
     	d.display(b, mc, es, or, pn, br, 24, 11, 0.76f, 5000);
 
 	}
+	*/
 }
