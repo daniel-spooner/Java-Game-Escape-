@@ -1,9 +1,7 @@
 package com.Group12.Game;
-
 import static org.junit.Assert.*;
-
+import org.junit.Before;
 import org.junit.Test;
-
 import com.Group12.Game.GameMain.GameState;
 
 import java.awt.event.KeyEvent;
@@ -14,8 +12,31 @@ public class GameKeyListenerTest {
 	//The lower case keycodes =  uppercase keycodes + 32
 	//Boundaries of GameKeyListener Class are the keys (W,A,S,D,Enter,Escape). All other keys have no impact in the game.
 	
-	DisplayManager display = new DisplayManager();
-	GameKeyListener test = new GameKeyListener();
+	DisplayManager display;
+	GameKeyListener test;
+	@Before
+	public void exectuedBeforeEach() {
+		display = new DisplayManager();
+		test = new GameKeyListener();
+	}
+
+		
+	@Test
+	public void getLastKeyMethodTest() {
+		@SuppressWarnings("deprecation")
+		KeyEvent e = new KeyEvent(display, 0, 0, 0, 'A');
+		test.keyPressed(e);
+		assertEquals(65,test.getLastKey());
+	}
+	
+	@Test
+    public void resetLastKeyMethodTest() {
+		@SuppressWarnings("deprecation")
+		KeyEvent e = new KeyEvent(display, 0, 0, 0, 'A');
+		test.keyPressed(e);
+		 test.resetLastKey();
+		 assertEquals(0,test.getLastKey());
+    }
 
 	@Test
 	public void testingWKey() {
@@ -117,45 +138,35 @@ public class GameKeyListenerTest {
 		//System.out.println(test.getLastKey());
 		
 		assertEquals(27,test.getLastKey());
-	}
+	}	GameMain main;
+	TickTimer tick;
 	
-	//INTEGRATION TESTING
-	
-
-	//TESTING GameMain AND GameKeyListener CLASSES
-	//Testing if hitting the Enter Key Results in changing the GameState from Menu to Game within GameMain
-    @Test
-	public void keyboardInputChangingGameStatetoGame() {
-		GameMain main = GameMain.getInstance();
-		DisplayManager display = new DisplayManager();
-		
+	@Before 
+	public void createNewGameMain() {
+		main = GameMain.getInstance();
 		main.startGame();
-		TickTimer tick = new TickTimer(25);
+		tick = new TickTimer(25);
 		main.setTickTimer(tick);
 		Thread t = new Thread(tick);
 		t.start();
-		
 		tick.pauseTick();
+	}
+
+	//Testing if hitting the Enter Key Results in changing the GameState from Menu to Game within GameMain
+    @Test
+	public void keyboardInputChangingGameStatetoGame() {
 		@SuppressWarnings("deprecation")
-		KeyEvent e = new KeyEvent(display, 1, 20, 1, 10);
+		KeyEvent e = new KeyEvent(main.display, 1, 20, 1, 10);
 		main.keyListener.keyPressed(e);
 		main.update(false);
 
 		assertEquals(main.getState(),GameState.GAME);
 	
-	}	//Testing if hitting the Escape Key Results in changing the GameState from Game to Menu.
+	}	
+    
+    //Testing if hitting the Escape Key Results in changing the GameState from Game to Menu.
 	@Test
 	public void keyboardInputChangingGameStatetoMenu() {
-		GameMain main = GameMain.getInstance();
-		DisplayManager display = new DisplayManager();
-		
-		main.startGame();
-		TickTimer tick = new TickTimer(25);
-		main.setTickTimer(tick);
-		Thread t = new Thread(tick);
-		t.start();
-		
-		tick.pauseTick();
 		@SuppressWarnings("deprecation")
 		KeyEvent e = new KeyEvent(display, 1, 20, 1, 10);
 		main.keyListener.keyPressed(e);
@@ -170,6 +181,8 @@ public class GameKeyListenerTest {
 	}
 	
 	
+	
+
 	
 
 
