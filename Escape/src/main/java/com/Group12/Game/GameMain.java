@@ -406,7 +406,7 @@ public class GameMain{
 			Punishment obj = this.punishments.get(i);
 			if (obj.getXPos() == mx && obj.getYPos() == my) {
 				// Punishment-Character interaction:
-				score = score - obj.getDamage(); // Change if health implementation finalized
+				mainChar.setHealth(mainChar.getHealth()-obj.getDamage()); // Change if health implementation finalized
 				this.punishments.remove(i);
 			}
 		}
