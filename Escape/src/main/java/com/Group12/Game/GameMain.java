@@ -204,6 +204,7 @@ public class GameMain{
 	 * @param input the key input pressed by player.
 	 */
 	private void updatePlayer(int input) {		
+		int shoot=0;
 		int currentXPos = mainChar.getXPos();
 		int currentYPos = mainChar.getYPos();
 		switch(input) {
@@ -227,10 +228,21 @@ public class GameMain{
 				mainChar.setXPos(currentXPos+1);
 			}
 			break;
+		case 37:
+			shoot = 1;
+			break;
+		case 38:
+			shoot = 2;
+			break;
+		case 39:
+			shoot = 3;
+			break;
+		case 40:
+			shoot = 4;
 		default:	//wait, no player position update
 			break;
 		}
-		checkCollisions();
+		checkCollisions(shoot);
 	}
 	
 	private void updateEnemies() {
@@ -241,7 +253,7 @@ public class GameMain{
 		for (Enemy e : this.enemies) {
 			moveEnemy(e);
 		}
-		checkCollisions();
+		checkCollisions(0);
 	}
 	
 	private void updateBonusRewards() {
@@ -404,14 +416,78 @@ public class GameMain{
 	
 	// checks all lists only if something intersects with mainCharacter
 	// called at end of updatePlayer and updateEnemy
-	private void checkCollisions() {
+	private void checkCollisions(int shoot) {
 		int mx = mainChar.getXPos();
 		int my = mainChar.getYPos();
+		
+
 		
 		// check enemies, punishments, bonusRewards, objectiveRewards, weaponCollectibles (dne) 
 		// backwards iteration for safer removal (alternative: using an iterator)
 		for (int i = this.enemies.size()-1; i >= 0; i--) {
 			Enemy obj = this.enemies.get(i);
+			boolean openSpace=true;
+			if (shoot == 1) {
+				if((obj.getYPos()==my)&&(obj.getXPos()<mx)) {
+					for(int j = mx; j>obj.getXPos(); j--) {
+
+						if(isValidMove(j,my)==false) {
+							openSpace=false;
+						}
+					}
+					if(openSpace==true) {
+						this.enemies.remove(i);
+					}
+				}
+
+
+			}
+			else if (shoot == 2) {
+				System.out.println(my);
+				if((obj.getXPos()==mx)&&(obj.getYPos()<my)) {
+					for(int j = my; j>obj.getYPos(); j--) {
+
+						if(isValidMove(mx,j)==false) {
+							openSpace=false;
+						}
+					}
+					if(openSpace==true) {
+						this.enemies.remove(i);
+					}
+				}
+				
+				
+				
+				
+			}
+			else if (shoot == 3) {
+				if((obj.getYPos()==my)&&(obj.getXPos()>mx)) {
+					for(int j = mx; j<obj.getXPos(); j++) {
+
+						if(isValidMove(j,my)==false) {
+							openSpace=false;
+						}
+					}
+					if(openSpace==true) {
+						this.enemies.remove(i);
+					}
+				}
+				
+			}
+			else if (shoot == 4) {
+				if((obj.getXPos()==mx)&&(obj.getYPos()>my)) {
+					for(int j = my; j<obj.getYPos(); j++) {
+
+						if(isValidMove(mx,j)==false) {
+							openSpace=false;
+						}
+					}
+					if(openSpace==true) {
+						this.enemies.remove(i);
+					}
+				}
+				
+			}
 			if (obj.getXPos() == mx && obj.getYPos() == my) {
 				// Enemy-Character interaction:
 				mainChar.setHealth(mainChar.getHealth()-10);
