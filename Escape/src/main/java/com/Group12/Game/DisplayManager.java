@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import com.Group12.Game.GameMain.GameState;
+import com.Group12.Game.GameMain.shootDirection;
 
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
@@ -49,7 +50,7 @@ public class DisplayManager extends JPanel{
 	
 	//Enum to hold current state. Used when updating display
 	GameMain.GameState currentState;
-	
+	GameMain.shootDirection direction;
 	// are these constructors private or public or what?
 	DisplayManager(){
 	
@@ -71,6 +72,7 @@ public class DisplayManager extends JPanel{
 		this.sizeY = sizeY;
 		
 		imgData = new ImageData();
+		this.direction = shootDirection.NOTHING;
 		this.currentState = GameState.MENU;
 		this.repaint();
 	}
@@ -103,18 +105,129 @@ public class DisplayManager extends JPanel{
 		g2d.drawString("Score:  " + Integer.toString(score) ,sizeX + sizeX/20, sizeY/8);
 		g2d.drawString("HP:  " + Integer.toString(HP) ,sizeX + sizeX/20, sizeY/6);
 	}
+	private int left(int x, int y) {
+		
+		int barrierHere = 0;
 	
+		for(int i = x; i>0;i--) {
+			
+			if((board.inBounds(i, y) && board.getCellType(i, y) != cellType.BARRIER)==false){
+				
+				barrierHere = i;
+				
+				return barrierHere;
+			}
+		}
+		return barrierHere;	
+	}
+	private int up(int x, int y) {
+		
+		int barrierHere = 0;
+
+		for(int i = y; i>0;i--) {
+			
+			if((board.inBounds(x, i) && board.getCellType(x, i) != cellType.BARRIER)==false){
+				
+				barrierHere = i;
+				
+				return barrierHere;
+			}
+		}
+		return barrierHere;	
+	}
+	private int right(int x, int y) {
+		int boardX = this.board.getXSize();
+		int barrierHere = boardX;
+		
+		for(int i = x; i<boardX;i++) {
+			
+			if((board.inBounds(i, y) && board.getCellType(i, y) != cellType.BARRIER)==false){
+				
+				barrierHere = i;
+			
+				return barrierHere;
+			}
+		}
+		return barrierHere;	
+	}
+	private int down(int x, int y) {
+		int boardY = this.board.getYSize();
+		int barrierHere = boardY ;
+
+		for(int i = y; i<boardY;i++) {
+			
+			if((board.inBounds(x, i) && board.getCellType(x, i) != cellType.BARRIER)==false){
+				
+				barrierHere = i;
+				
+				return barrierHere;
+			}
+		}
+		return barrierHere;	
+	}
 	private void dispBoard(Graphics2D g2d) {
 		int boardX = this.board.getXSize();
 		int boardY = this.board.getYSize();
 		this.cellSize = this.board.getCellSize();
-		
+		BufferedImage boardImg = imgData.getBoardImg();
+		BufferedImage XAxisShoot = imgData.getXAxisImg();
+		BufferedImage YAxisShoot = imgData.getYAxisImg();
+		int XStop = 0;
+		int YStop = 0;;
 		for(int y = 0; y < boardY; y++) {
 			for(int x = 0; x < boardX; x++) {
 				if(this.board.getCellType(x, y) == cellType.OPEN) {
-					BufferedImage boardImg = imgData.getBoardImg();
-					g2d.drawImage(boardImg, x*cellSize, y*cellSize, cellSize, cellSize,null);
-				}else {
+					if(direction == GameMain.shootDirection.LEFT) {
+						
+							g2d.drawImage(boardImg, x*cellSize, y*cellSize, cellSize, cellSize,null);
+							if((mainChar.getYPos()==y)&&(mainChar.getXPos()>x)&&(x > left(mainChar.getXPos(),y))) {
+									g2d.drawImage(XAxisShoot, x*cellSize, y*cellSize, cellSize, cellSize,null);
+							}
+					}
+						
+					else if(direction == GameMain.shootDirection.UP) {
+						g2d.drawImage(boardImg, x*cellSize, y*cellSize, cellSize, cellSize,null);
+						if((mainChar.getXPos()==x)&&(mainChar.getYPos()>y)&&(y>up(x,mainChar.getYPos()))) {
+							
+							
+								g2d.drawImage(YAxisShoot, x*cellSize, y*cellSize, cellSize, cellSize,null);
+							}
+					}
+					else if(direction == GameMain.shootDirection.RIGHT) {
+						g2d.drawImage(boardImg, x*cellSize, y*cellSize, cellSize, cellSize,null);
+						if((mainChar.getYPos()==y)&&(mainChar.getXPos()<x)&&(x < right(mainChar.getXPos(),y))) {
+							
+							
+								g2d.drawImage(XAxisShoot, x*cellSize, y*cellSize, cellSize, cellSize,null);
+							}
+						
+
+					
+						
+					}
+					else if(direction == GameMain.shootDirection.DOWN) {
+						g2d.drawImage(boardImg, x*cellSize, y*cellSize, cellSize, cellSize,null);
+						if((mainChar.getXPos()==x)&&(mainChar.getYPos()<y)&&(y<down(x,mainChar.getYPos()))) {
+							
+							
+								g2d.drawImage(YAxisShoot, x*cellSize, y*cellSize, cellSize, cellSize,null);
+							}
+						
+					}
+					
+				
+					else {
+
+						g2d.drawImage(boardImg, x*cellSize, y*cellSize, cellSize, cellSize,null);
+					}
+					
+
+
+
+					
+				}
+				else 
+				{
 					BufferedImage cellImg = imgData.getCellImg(); 
 					g2d.drawImage(cellImg, x*cellSize, y*cellSize, cellSize, cellSize,null);
 				}
@@ -122,6 +235,8 @@ public class DisplayManager extends JPanel{
 			}
 		}
 	}
+	
+
 	
 	private void dispBonusRewards(Graphics2D g2d) {
 		BufferedImage bonusImg = imgData.getBonusImg(); 
@@ -205,6 +320,11 @@ public class DisplayManager extends JPanel{
 		this.currentState = currentState;
 	}
 	
+	public void stateChangeDirection(GameMain.shootDirection currentDirection) {
+		this.direction = currentDirection;
+		
+	}
+	
 	
 	/**
 	 * Displays a Board onto the game window.
@@ -243,7 +363,9 @@ public class DisplayManager extends JPanel{
 		Graphics2D g2d = (Graphics2D) g;
 		Graphics win = (Graphics2D) g;
 		Graphics2D lose = (Graphics2D) g;
+
 		if(currentState ==  GameMain.GameState.GAME) {
+
 			dispGame(g2d);
 		}
 		else if(currentState == GameMain.GameState.MENU) {
@@ -255,9 +377,10 @@ public class DisplayManager extends JPanel{
 		else if(currentState == GameMain.GameState.LOSE) {
 			dispLose(lose);
 		}
+		
         //call more disp funcs here
 	}
-	
+	/*
 	public static void main(String[] args) {
 		
 		Board b = new Board();
@@ -280,9 +403,9 @@ public class DisplayManager extends JPanel{
 		br.add(new BonusReward(22, 17, 15, 50));
 		br.add(new BonusReward(14, 1, 15, 50));
 		
-		/*for(int i = 0; i < b.getXSize(); i++) {
+		for(int i = 0; i < b.getXSize(); i++) {
 			b.setCellType(i, i%5, cellType.BARRIER);
-		}*/
+		}
 		
 		//Sample board
 		for(int x = 0; x < b.getXSize(); x ++) {
@@ -303,4 +426,5 @@ public class DisplayManager extends JPanel{
     	d.display(b, mc, es, or, pn, br, 24, 11, 0.76f, 5000);
 
 	}
+	*/
 }
