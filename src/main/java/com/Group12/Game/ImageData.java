@@ -20,6 +20,7 @@ public class ImageData {
 	private BufferedImage boardImg;
 	private BufferedImage XAxisShoot;
 	private BufferedImage YAxisShoot;
+	
 	public ImageData() {
 		try {
             playerImg 		= ImageIO.read(getClass().getResource("/player.png"));
@@ -30,8 +31,8 @@ public class ImageData {
             bonusImg 		= ImageIO.read(getClass().getResource("/bonus.png"));
             cellImg 		= ImageIO.read(getClass().getResource("/cell.png"));
             boardImg 		= ImageIO.read(getClass().getResource("/board.png"));
-            XAxisShoot 		= ImageIO.read(getClass().getResource("/X-Axis shoot.png"));
-            YAxisShoot 		= ImageIO.read(getClass().getResource("/Y-Axis shoot.png"));
+            XAxisShoot 		= ImageIO.read(getClass().getResource("/X-Axis Shoot.png"));
+            YAxisShoot 		= ImageIO.read(getClass().getResource("/Y-Axis Shoot.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
