@@ -172,8 +172,7 @@ public class DisplayManager extends JPanel{
 		BufferedImage boardImg = imgData.getBoardImg();
 		BufferedImage XAxisShoot = imgData.getXAxisImg();
 		BufferedImage YAxisShoot = imgData.getYAxisImg();
-		int XStop = 0;
-		int YStop = 0;;
+
 		for(int y = 0; y < boardY; y++) {
 			for(int x = 0; x < boardX; x++) {
 				if(this.board.getCellType(x, y) == cellType.OPEN) {
