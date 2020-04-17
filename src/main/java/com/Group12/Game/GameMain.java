@@ -434,9 +434,10 @@ public class GameMain{
 	}
 	
 
-	/**checks all lists only if something intersects with mainCharacter or if the mainCharacter shoots. Called at end of updatePlayer and updateEnemy
+	/*checks all lists only if something intersects with mainCharacter or if the mainCharacter shoots. Called at end of updatePlayer and updateEnemy
 	 * @param direction of the shot(players input)
-	 * /
+	 */
+
 	 
 	private void checkCollisions(shootDirection direction) {
 		int mx = mainChar.getXPos();
