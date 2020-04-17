@@ -120,6 +120,13 @@ public class GameKeyListenerTest {
 		assertEquals(100,test.getLastKey());
 		
 	}
+	@Test
+	public void TestingOtherKeys() {
+		@SuppressWarnings("deprecation")
+		KeyEvent e = new KeyEvent(display, 1, 20, 1, 'X');
+		assertNotEquals(97,test.getLastKey());
+		
+	}
 	//Virtual Key Code equivalent of Enter Key is 13
 	@Test
 	public void TestingEnterKey() {

@@ -31,6 +31,9 @@ public class GameMain{
 	public enum GameState{MENU,GAME,WIN,LOSE};
 	private GameState state;
 	
+	public enum shootDirection{LEFT,UP,RIGHT,DOWN,NOTHING};
+	private shootDirection direction;
+	
 	private TickTimer tick;
 	private GameKeyListener keyListener;
 	private DisplayManager display;
@@ -97,6 +100,13 @@ public class GameMain{
 		return display;
 	}
 	
+	public void setDirectionState(shootDirection direction) {
+		this.direction = direction;
+		display.stateChangeDirection(this.direction);
+
+	}
+	
+	
 	/**
 	 * Gets the current score of the game.
 	 * @return the score
@@ -104,6 +114,7 @@ public class GameMain{
 	public int getScore() {
 		return score;
 	}
+	
 
 	/**
 	 * Helper function. Must be called when starting the program.
@@ -141,7 +152,7 @@ public class GameMain{
 		boolean verboseLogging = false;
 		if (verboseLogging) {
 			System.out.println(tick.getTickCount());
-			System.out.println(recentKey);
+		
 		}
 
 		// If the game is paused and should be unpaused. 
@@ -192,6 +203,8 @@ public class GameMain{
 					tick.pauseTick();
 				}
 				updateDisplay();
+	
+				
 			}
 			
 			// Always update user interface if the game is not paused
@@ -204,6 +217,7 @@ public class GameMain{
 	 * @param input the key input pressed by player.
 	 */
 	private void updatePlayer(int input) {		
+
 		int currentXPos = mainChar.getXPos();
 		int currentYPos = mainChar.getYPos();
 		switch(input) {
@@ -211,26 +225,43 @@ public class GameMain{
 			if( isValidMove(currentXPos,currentYPos-1) == true) {
 				mainChar.setYPos(currentYPos-1);
 			}
+			setDirectionState(shootDirection.NOTHING);	//reset Direction
 			break;
 		case 65:	//A 65
 			if( isValidMove(currentXPos-1,currentYPos) == true) {
 				mainChar.setXPos(currentXPos-1);
 			}
+			setDirectionState(shootDirection.NOTHING);	//reset Direction
 			break;
 		case 83:	//S 83
 			if( isValidMove(currentXPos,currentYPos+1) == true) {
 				mainChar.setYPos(currentYPos+1);
 			}
+			setDirectionState(shootDirection.NOTHING);	//reset Direction
 			break;
 		case 68:	//D 68
 			if( isValidMove(currentXPos+1,currentYPos) == true) {
 				mainChar.setXPos(currentXPos+1);
 			}
+			setDirectionState(shootDirection.NOTHING);	//reset Direction
+			break;
+		case 37:
+			setDirectionState(shootDirection.LEFT);
+			break;
+		case 38:
+			setDirectionState(shootDirection.UP);
+			break;
+		case 39:
+			setDirectionState(shootDirection.RIGHT);
+			break;
+		case 40:
+			setDirectionState(shootDirection.DOWN);
 			break;
 		default:	//wait, no player position update
+			setDirectionState(shootDirection.NOTHING);	//reset Direction
 			break;
 		}
-		checkCollisions();
+		checkCollisions(direction);
 	}
 	
 	private void updateEnemies() {
@@ -241,7 +272,7 @@ public class GameMain{
 		for (Enemy e : this.enemies) {
 			moveEnemy(e);
 		}
-		checkCollisions();
+		checkCollisions(shootDirection.NOTHING);
 	}
 	
 	private void updateBonusRewards() {
@@ -404,14 +435,82 @@ public class GameMain{
 	
 	// checks all lists only if something intersects with mainCharacter
 	// called at end of updatePlayer and updateEnemy
-	private void checkCollisions() {
+	private void checkCollisions(shootDirection direction) {
 		int mx = mainChar.getXPos();
 		int my = mainChar.getYPos();
 		
+
+		
 		// check enemies, punishments, bonusRewards, objectiveRewards, weaponCollectibles (dne) 
 		// backwards iteration for safer removal (alternative: using an iterator)
+		
+		//Checks if a enemy is on the same line as the shot direction.
+		//Currently removes ALL enemies on the line. TODO: 1 shot corresponds with removing only 1 enemy
 		for (int i = this.enemies.size()-1; i >= 0; i--) {
 			Enemy obj = this.enemies.get(i);
+			boolean openSpace=true;
+			if (direction == shootDirection.LEFT) {
+				if((obj.getYPos()==my)&&(obj.getXPos()<mx)) {
+					for(int j = mx; j>obj.getXPos(); j--) {
+
+						if(isValidMove(j,my)==false) {
+							openSpace=false;
+						}
+					}
+					if(openSpace==true) {
+						this.enemies.remove(i);
+					}
+				}
+
+
+			}
+			else if (direction == shootDirection.UP) {
+				
+				if((obj.getXPos()==mx)&&(obj.getYPos()<my)) {
+					for(int j = my; j>obj.getYPos(); j--) {
+
+						if(isValidMove(mx,j)==false) {
+							openSpace=false;
+						}
+					}
+					if(openSpace==true) {
+						this.enemies.remove(i);
+					}
+				}
+				
+				
+				
+				
+			}
+			else if (direction == shootDirection.RIGHT) {
+				if((obj.getYPos()==my)&&(obj.getXPos()>mx)) {
+					for(int j = mx; j<obj.getXPos(); j++) {
+
+						if(isValidMove(j,my)==false) {
+							openSpace=false;
+						}
+					}
+					if(openSpace==true) {
+						this.enemies.remove(i);
+					}
+				}
+				
+			}
+			else if (direction == shootDirection.DOWN) {
+				if((obj.getXPos()==mx)&&(obj.getYPos()>my)) {
+					for(int j = my; j<obj.getYPos(); j++) {
+
+						if(isValidMove(mx,j)==false) {
+							openSpace=false;
+						}
+					}
+					if(openSpace==true) {
+						this.enemies.remove(i);
+					}
+				}
+				
+			}
+
 			if (obj.getXPos() == mx && obj.getYPos() == my) {
 				// Enemy-Character interaction:
 				mainChar.setHealth(mainChar.getHealth()-10);
@@ -452,6 +551,8 @@ public class GameMain{
 	private boolean isValidMove(int x, int y) {
 		return board.inBounds(x, y) && board.getCellType(x, y) != cellType.BARRIER;
 	}
+	
+
 	
 	
 	//check the location does have other enemy.
