@@ -2,7 +2,6 @@ package com.Group12.Game;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 /**
  * Handles graphical display.
@@ -23,17 +22,16 @@ public class ImageData {
 	private BufferedImage YAxisShoot;
 	public ImageData() {
 		try {
-			System.out.println(System.getProperty("user.dir"));
-            playerImg = ImageIO.read(new File(System.getProperty("user.dir") + "/src/main/resources/player.png"));
-            enemyImg = ImageIO.read(new File(System.getProperty("user.dir") + "/src/main/resources/enemy.png"));
-            objectImg = ImageIO.read(new File(System.getProperty("user.dir") + "/src/main/resources/key.png"));
-            punishmentImg = ImageIO.read(new File(System.getProperty("user.dir") + "/src/main/resources/pul.png"));
-            goalImg = ImageIO.read(new File(System.getProperty("user.dir") + "/src/main/resources/goal.png"));
-            bonusImg = ImageIO.read(new File(System.getProperty("user.dir") + "/src/main/resources/bonus.png"));
-            cellImg = ImageIO.read(new File(System.getProperty("user.dir") + "/src/main/resources/cell.png"));
-            boardImg = ImageIO.read(new File(System.getProperty("user.dir") + "/src/main/resources/board.png"));
-            XAxisShoot = ImageIO.read(new File(System.getProperty("user.dir") + "/src/main/resources/X-Axis shoot.png"));
-            YAxisShoot = ImageIO.read(new File(System.getProperty("user.dir") + "/src/main/resources/Y-Axis shoot.png"));
+            playerImg 		= ImageIO.read(getClass().getResource("/player.png"));
+            enemyImg 		= ImageIO.read(getClass().getResource("/enemy.png"));
+            objectImg 		= ImageIO.read(getClass().getResource("/key.png"));
+            punishmentImg 	= ImageIO.read(getClass().getResource("/pul.png"));
+            goalImg 		= ImageIO.read(getClass().getResource("/goal.png"));
+            bonusImg 		= ImageIO.read(getClass().getResource("/bonus.png"));
+            cellImg 		= ImageIO.read(getClass().getResource("/cell.png"));
+            boardImg 		= ImageIO.read(getClass().getResource("/board.png"));
+            XAxisShoot 		= ImageIO.read(getClass().getResource("/X-Axis shoot.png"));
+            YAxisShoot 		= ImageIO.read(getClass().getResource("/Y-Axis shoot.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
