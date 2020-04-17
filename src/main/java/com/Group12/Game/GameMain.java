@@ -1,6 +1,7 @@
 package com.Group12.Game;
 
-import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -589,26 +590,22 @@ public class GameMain{
 	private void makeBoard(String filename) {
 		// file format: xDim yDim
 		// remaining yDim lines of xDim characters: board layout & entity placement
-		File file;
 		Scanner sc;
-		String fullpath;
-		fullpath = "src/main/resources/" + filename;
+		InputStream is;
 		
 		try {
-			file = new File(fullpath);
+			is = getClass().getResourceAsStream("/" + filename);
+			if (is == null) {
+				throw new IllegalArgumentException(filename + " resouce not found");
+			}
 		}
-		catch (java.lang.NullPointerException e) {
+		catch (Exception e) {
 			e.printStackTrace();
-			return;
+			throw e;
 		}
 		
-		try {
-			sc = new Scanner(file);
-		}
-		catch (java.io.FileNotFoundException e) {
-			e.printStackTrace();
-			return;
-		}
+		sc = new Scanner(is);
+		
 		int xSize;
 		int ySize;
 		xSize = sc.nextInt();
@@ -631,7 +628,7 @@ public class GameMain{
 		for (int i = 0; i < ySize; i++) {
 			String line;
 			try {
-				line = sc.nextLine();	//TODO: determine if file must end with newline character (currently does not)
+				line = sc.nextLine();
 			}
 			catch (java.util.NoSuchElementException e) {
 				line = sc.next();
@@ -668,9 +665,14 @@ public class GameMain{
 					break;
 				}
 			}
-		}	
-		sc.close();
+		}
 		
+		sc.close();
+		try {
+			is.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 
