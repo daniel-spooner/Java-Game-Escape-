@@ -213,7 +213,7 @@ public class GameMain{
 	}
 	
 	/**
-	 * Checks if the input from player is valid, and updates the main character position.
+	 * Checks if the input from player is valid, and updates the main character. Main Character can either shoot or move.
 	 * @param input the key input pressed by player.
 	 */
 	private void updatePlayer(int input) {		
@@ -245,16 +245,16 @@ public class GameMain{
 			}
 			setDirectionState(shootDirection.NOTHING);	//reset Direction
 			break;
-		case 37:
+		case 37:    //Left Arrow Key
 			setDirectionState(shootDirection.LEFT);
 			break;
-		case 38:
+		case 38:    //Up Arrow Key
 			setDirectionState(shootDirection.UP);
 			break;
-		case 39:
+		case 39:    //Right Arrow Key
 			setDirectionState(shootDirection.RIGHT);
 			break;
-		case 40:
+		case 40:    //Down Arrow Key
 			setDirectionState(shootDirection.DOWN);
 			break;
 		default:	//wait, no player position update
@@ -433,8 +433,11 @@ public class GameMain{
 		}
 	}
 	
-	// checks all lists only if something intersects with mainCharacter
-	// called at end of updatePlayer and updateEnemy
+
+	/**checks all lists only if something intersects with mainCharacter or if the mainCharacter shoots. Called at end of updatePlayer and updateEnemy
+	 * @param direction of the shot(players input)
+	 * /
+	 
 	private void checkCollisions(shootDirection direction) {
 		int mx = mainChar.getXPos();
 		int my = mainChar.getYPos();
@@ -445,7 +448,7 @@ public class GameMain{
 		// backwards iteration for safer removal (alternative: using an iterator)
 		
 		//Checks if a enemy is on the same line as the shot direction.
-		//Currently removes ALL enemies on the line. TODO: 1 shot corresponds with removing only 1 enemy
+		//Currently removes ALL enemies on the line.
 		for (int i = this.enemies.size()-1; i >= 0; i--) {
 			Enemy obj = this.enemies.get(i);
 			boolean openSpace=true;
