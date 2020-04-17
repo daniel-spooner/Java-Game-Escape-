@@ -19,18 +19,21 @@ public class ImageData {
 	private BufferedImage bonusImg;
 	private BufferedImage cellImg;
 	private BufferedImage boardImg;
-	
+	private BufferedImage XAxisShoot;
+	private BufferedImage YAxisShoot;
 	public ImageData() {
 		try {
 			System.out.println(System.getProperty("user.dir"));
-            playerImg = ImageIO.read(new File(System.getProperty("user.dir") + "/resources/player.png"));
-            enemyImg = ImageIO.read(new File(System.getProperty("user.dir") + "/resources/enemy.png"));
-            objectImg = ImageIO.read(new File(System.getProperty("user.dir") + "/resources/key.png"));
-            punishmentImg = ImageIO.read(new File(System.getProperty("user.dir") + "/resources/pul.png"));
-            goalImg = ImageIO.read(new File(System.getProperty("user.dir") + "/resources/goal.png"));
-            bonusImg = ImageIO.read(new File(System.getProperty("user.dir") + "/resources/bonus.png"));
-            cellImg = ImageIO.read(new File(System.getProperty("user.dir") + "/resources/cell.png"));
-            boardImg = ImageIO.read(new File(System.getProperty("user.dir") + "/resources/board.png"));
+            playerImg = ImageIO.read(new File(System.getProperty("user.dir") + "/src/main/resources/player.png"));
+            enemyImg = ImageIO.read(new File(System.getProperty("user.dir") + "/src/main/resources/enemy.png"));
+            objectImg = ImageIO.read(new File(System.getProperty("user.dir") + "/src/main/resources/key.png"));
+            punishmentImg = ImageIO.read(new File(System.getProperty("user.dir") + "/src/main/resources/pul.png"));
+            goalImg = ImageIO.read(new File(System.getProperty("user.dir") + "/src/main/resources/goal.png"));
+            bonusImg = ImageIO.read(new File(System.getProperty("user.dir") + "/src/main/resources/bonus.png"));
+            cellImg = ImageIO.read(new File(System.getProperty("user.dir") + "/src/main/resources/cell.png"));
+            boardImg = ImageIO.read(new File(System.getProperty("user.dir") + "/src/main/resources/board.png"));
+            XAxisShoot = ImageIO.read(new File(System.getProperty("user.dir") + "/src/main/resources/X-Axis shoot.png"));
+            YAxisShoot = ImageIO.read(new File(System.getProperty("user.dir") + "/src/main/resources/Y-Axis shoot.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -66,5 +69,11 @@ public class ImageData {
 	
 	public BufferedImage getBoardImg() {
 		return this.boardImg;
+	}
+	public BufferedImage getXAxisImg() {
+		return this.XAxisShoot;
+	}
+	public BufferedImage getYAxisImg() {
+		return this.YAxisShoot;
 	}
 }
