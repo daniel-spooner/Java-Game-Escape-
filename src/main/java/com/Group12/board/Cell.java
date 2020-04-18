@@ -1,6 +1,5 @@
-package com.Group12.Game;
+package com.group12.board;
 
-enum cellType { OPEN, BARRIER }
 
 /**
  * A class representing a unit in the game board
@@ -8,6 +7,8 @@ enum cellType { OPEN, BARRIER }
  *
  */
 public class Cell {
+
+	public enum cellType { OPEN, BARRIER }
 	
 	// Attributes
 	

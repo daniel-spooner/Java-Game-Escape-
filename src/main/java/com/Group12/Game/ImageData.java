@@ -1,4 +1,4 @@
-package com.Group12.Game;
+package com.group12.game;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

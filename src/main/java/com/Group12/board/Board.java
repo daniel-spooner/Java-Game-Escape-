@@ -1,5 +1,6 @@
-package com.Group12.Game;
+package com.group12.board;
 
+import com.group12.board.Cell.cellType;
 
 /**
  * Represents the board where the game takes place

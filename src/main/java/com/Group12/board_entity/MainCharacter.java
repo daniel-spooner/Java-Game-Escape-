@@ -1,4 +1,4 @@
-package com.Group12.Game;
+package com.group12.board_entity;
 
 /**
  * Represents the Main Character entity in the game.
