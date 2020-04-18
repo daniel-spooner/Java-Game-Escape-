@@ -4,7 +4,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.Group12.Game</groupId>
+  <groupId>com.group12.game</groupId>
   <artifactId>Escape</artifactId>
   <version>1.0</version>
 
@@ -53,7 +53,7 @@
           <configuration>
             <archive>
               <manifest>
-                <mainClass>com.Group12.Game.GameMain</mainClass>
+                <mainClass>com.group12.game.GameMain</mainClass>
               </manifest>
             </archive>
           </configuration>

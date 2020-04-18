@@ -1,10 +1,14 @@
-package com.Group12.Game;
+package com.group12.game;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+
+import com.group12.board.*;
+import com.group12.board.Cell.cellType;
+import com.group12.board_entity.*;
 
 /**
  * Handles the game's logic.

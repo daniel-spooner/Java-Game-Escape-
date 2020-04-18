@@ -1,4 +1,4 @@
-package com.Group12.Game;
+package com.group12.board_entity;
 
 /**
  * Enemy Class for setting Enemy Initial position

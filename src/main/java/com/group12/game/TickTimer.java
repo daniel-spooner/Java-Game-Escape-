@@ -1,4 +1,4 @@
-package com.Group12.Game;
+package com.group12.game;
 
 /**
  * Runs GameMain.update() some number of times per second,

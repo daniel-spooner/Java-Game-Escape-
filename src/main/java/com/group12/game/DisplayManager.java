@@ -1,4 +1,4 @@
-package com.Group12.Game;
+package com.group12.game;
 
 import java.util.ArrayList;
 import java.awt.Color;
@@ -9,8 +9,11 @@ import java.awt.Graphics2D;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import com.Group12.Game.GameMain.GameState;
-import com.Group12.Game.GameMain.shootDirection;
+import com.group12.board.*;
+import com.group12.board.Cell.cellType;
+import com.group12.board_entity.*;
+import com.group12.game.GameMain.GameState;
+import com.group12.game.GameMain.shootDirection;
 
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;

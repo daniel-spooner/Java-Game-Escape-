@@ -1,4 +1,4 @@
-package com.Group12.Game;
+package com.group12.board_entity;
 
 /**
  * A representation of an entity on a coordinate plane.
