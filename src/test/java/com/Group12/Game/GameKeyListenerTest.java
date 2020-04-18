@@ -1,4 +1,4 @@
-package com.Group12.Game;
+package com.group12.game;
 
 import static org.junit.Assert.*;
 import org.junit.Before;

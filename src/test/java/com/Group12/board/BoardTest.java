@@ -1,10 +1,12 @@
-package com.Group12.Game;
+package com.group12.board;
 
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import com.group12.board.Cell.cellType;
 
 public class BoardTest {
 	
