@@ -1,8 +1,8 @@
 package com.Group12.Game;
+
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import com.Group12.Game.GameMain.GameState;
 
 import java.awt.event.KeyEvent;
 public class GameKeyListenerTest {
