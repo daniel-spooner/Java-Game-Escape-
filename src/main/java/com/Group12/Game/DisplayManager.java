@@ -1,6 +1,5 @@
 package com.Group12.Game;
 
-
 import java.util.ArrayList;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -15,7 +14,6 @@ import com.Group12.Game.GameMain.shootDirection;
 
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
-
 
 /**
  * Handles graphical display.
@@ -105,6 +103,7 @@ public class DisplayManager extends JPanel{
 		g2d.drawString("Score:  " + Integer.toString(score) ,sizeX + sizeX/20, sizeY/8);
 		g2d.drawString("HP:  " + Integer.toString(HP) ,sizeX + sizeX/20, sizeY/6);
 	}
+
 	private int left(int x, int y) {
 		
 		int barrierHere = 0;
@@ -120,6 +119,7 @@ public class DisplayManager extends JPanel{
 		}
 		return barrierHere;	
 	}
+
 	private int up(int x, int y) {
 		
 		int barrierHere = 0;
@@ -135,6 +135,7 @@ public class DisplayManager extends JPanel{
 		}
 		return barrierHere;	
 	}
+
 	private int right(int x, int y) {
 		int boardX = this.board.getXSize();
 		int barrierHere = boardX;
@@ -150,6 +151,7 @@ public class DisplayManager extends JPanel{
 		}
 		return barrierHere;	
 	}
+
 	private int down(int x, int y) {
 		int boardY = this.board.getYSize();
 		int barrierHere = boardY ;
@@ -165,6 +167,7 @@ public class DisplayManager extends JPanel{
 		}
 		return barrierHere;	
 	}
+
 	private void dispBoard(Graphics2D g2d) {
 		int boardX = this.board.getXSize();
 		int boardY = this.board.getYSize();
@@ -234,8 +237,6 @@ public class DisplayManager extends JPanel{
 			}
 		}
 	}
-	
-
 	
 	private void dispBonusRewards(Graphics2D g2d) {
 		BufferedImage bonusImg = imgData.getBonusImg(); 
@@ -327,7 +328,16 @@ public class DisplayManager extends JPanel{
 	
 	/**
 	 * Displays a Board onto the game window.
-	 * @param board the board to be displayed
+	 * @param board the board object
+	 * @param mainChar the main character object
+	 * @param enemies the list of enemy objects
+	 * @param objectiveRewards the list of objective reward objects
+	 * @param punishments the list of punishment objects
+	 * @param bonusRewards the list of bonus reward objects
+	 * @param goalX the x coordinate of the goal
+	 * @param goalY the y coordinate of the goal
+	 * @param timePercentage a float representing how much of the "time remaining" bar should be filled
+	 * @param score the score
 	 */
 	public void display(Board board, MainCharacter mainChar, ArrayList<Enemy> enemies, 
 						ArrayList<ObjectiveReward> objectiveRewards, ArrayList<Punishment> punishments,

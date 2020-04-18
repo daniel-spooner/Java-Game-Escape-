@@ -88,8 +88,8 @@ public class GameMain{
 	 * Gets the state of the application.
 	 * Returns the current State.
 	 * Added for JUNIT Test Cases.
+	 * @return the state of the application
 	 */
-	
 	public GameState getState() {
 		return state;
 	}
@@ -147,6 +147,7 @@ public class GameMain{
 	 * <p>
 	 * Updates the current state of the game if the 'tick' has ended,
 	 * performing player actions, moving enemies, and checking win conditions.
+	 * @param updateEnemy if the enemy should update on this tick
 	 */
 	public void update(boolean updateEnemy) {
 		int recentKey = this.keyListener.getLastKey();

@@ -11,4 +11,4 @@ From the base directory, type:
 The game can be run from the base directory by typing `java -jar target\Escape-1.0.jar` or by double clicking on the executable in the target folder.
 
 ###Documentation
-From the base directory, type `mvn javadoc:jar` to generate the Javadocs to `\target\apidocs\`.
+From the base directory, type `mvn javadoc:javadoc` to generate the Javadocs to `\target\site\apidocs\`.

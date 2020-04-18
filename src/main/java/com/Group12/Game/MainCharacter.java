@@ -51,7 +51,8 @@ public class MainCharacter extends BoardEntity {
 	}
 	
 	/**
-	 * Sets the current health of the MainCharacter.
+	 * Lowers the MainCharacter's health by one.
+	 * @return `true` if the main character has nonnegative health
 	 */
 	public boolean decHealth() {
 		this.health --;

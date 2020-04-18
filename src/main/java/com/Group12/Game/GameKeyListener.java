@@ -14,20 +14,21 @@ public class GameKeyListener implements KeyListener {
 
     /**
      * Getter method for more recent key pressed.
-     * @return interger equivalent of Virtual Key Code
+     * @return integer equivalent of Virtual Key Code
      */
     public int getLastKey() {
         return lastKey;
     }
+    
     /**
      * Resets the lastKey to 0. 0 in Virtual Key Code represents nothing. 
      */
     public void resetLastKey() {
         lastKey = 0;
     }
+    
     /**
 	 * Obtains the most recent key pressed.
-	 * @return returns an interger equivalent of the Virtual Key Code.
 	 */
 	public void keyPressed(KeyEvent e) {
         lastKey = e.getKeyCode();
