@@ -1,13 +1,8 @@
 package com.Group12.Game;
 
 import static org.junit.Assert.*;
-
-import java.awt.event.KeyEvent;
-
 import org.junit.Before;
-
 import org.junit.Test;
-
 
 public class MainCharacterTest {
 	//Before Method executes preconditions necessary for the tests.
