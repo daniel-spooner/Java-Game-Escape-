@@ -9,7 +9,6 @@ package com.Group12.Game;
 public class TickTimer implements Runnable {
 
 	private boolean tickActive;
-	private int fps;
 	private int delay;
 	private long tickCount;
 	// private long maxCount;
@@ -27,7 +26,6 @@ public class TickTimer implements Runnable {
 	 * @param fps "function-calls" per second 
 	 */
 	public TickTimer(int fps) {
-		this.fps = fps;
 		this.delay = 1000/fps;
 		this.game = GameMain.getInstance();
 	}
