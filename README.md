@@ -1,19 +1,14 @@
-Nicholas Tan
-nta37@sfu.ca
-"Hi!"
+#Escape
+A game for the Spring 2020 CMPT 276 D100 project.
 
-Daniel Spooner
-dspooner@sfu.a
-"Hello, I'm a second year comp sci student and I look forward to working with you guys this semester."
+###Installation
+From the base directory, type:
+- `mvn package` to compile, test, and package the program to `\target\Escape-1.0.jar`
+- `mvn test` to compile and test the code
+- `mvn clean` to delete the `\target\` folder
 
-Yuxi Hu
-yuxih@sfu.ca
-"Hi this is YUXI from CHina Shenzhen"
+###Usage
+The game can be run from the base directory by typing `java -jar target\Escape-1.0.jar` or by double clicking on the executable in the target folder.
 
-Wilson Wu
-wwa87@sfu.ca
-"Let's get this bread."
-
-compile with mvn install,
-
-run with java -jar target/Escape-1.0-SNAPSHOT.jar
+###Documentation
+From the base directory, type `mvn javadoc:jar` to generate the Javadocs to `\target\apidocs\`.
